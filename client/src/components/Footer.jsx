@@ -10,11 +10,10 @@ const navLinks = [
 ]
 
 const courses = [
-  'JEE/NEET Intensive',
-  'Board Exam Mastery (HSC)',
-  'CBSE & ICSE Foundation',
-  'MHT-CET Excellence',
-  'Repeater / Drop Year'
+  'School Section (5th to 10th)',
+  'College Section (11th & 12th)',
+  'Degree Section (FY, SY, TY, B.Com, BMS, BAF)',
+  'Hindi, Urdu & English Medium'
 ]
 
 const socials = [
@@ -22,7 +21,7 @@ const socials = [
   { icon: <FaYoutube />, href: '#' },
   { icon: <FaFacebookF />, href: '#' },
   { icon: <FaLinkedinIn />, href: '#' },
-  { icon: <FaWhatsapp />, href: 'https://wa.me/919876543210' }
+  { icon: <FaWhatsapp />, href: 'https://wa.me/919221105658' }
 ]
 
 export default function Footer() {
@@ -36,14 +35,14 @@ export default function Footer() {
         <div className="footer-top">
           <div className="footer-brand">
             <a href="#home" className="footer-logo">
-              <div className="footer-logo__icon">M</div>
-              <div>
-                <span className="footer-logo__name">MUNTAZAR</span>
-                <span className="footer-logo__sub">CLASSES</span>
+              <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="footer-logo__img" />
+              <div className="footer-logo-text">
+                <span className="footer-logo-name">MUNTAZAR</span>
+                <span className="footer-logo-sub">CLASSES</span>
               </div>
             </a>
             <p className="footer-tagline">
-              Mumbai's premier coaching institute for JEE, NEET, and Board exam preparation. Building top rankers since 2016.
+              Govandi's premier coaching institute offering dedicated batches for Hindi, Urdu, and English mediums. Excellence since 2008.
             </p>
           </div>
 
@@ -81,11 +80,11 @@ export default function Footer() {
             <ul className="footer-links footer-links--info">
               <li>
                 <span className="footer-info-label">Address</span>
-                <span>101/102, Premium Landmark, Opp. Mulund Station, Mumbai – 400080</span>
+                <span>1st & 2nd Floor, Rikshaw stand, Plot no 33/K/1,2, Near Baiganwadi, Above City Bakery, Govandi West, Mumbai – 400043</span>
               </li>
               <li>
                 <span className="footer-info-label">Phone</span>
-                <a href="tel:+919876543210">+91 98765 43210</a>
+                <a href="tel:+919221105658">+91 92211 05658</a>
               </li>
               <li>
                 <span className="footer-info-label">Email</span>
@@ -102,12 +101,8 @@ export default function Footer() {
             <h4 className="footer-heading">Latest Updates</h4>
             <div className="footer-notices">
               <div className="footer-notice">
-                <span className="footer-notice__tag">Urgent</span>
-                <p>Final crash course batch enrollments closing 10th July. Apply for scholarship now.</p>
-              </div>
-              <div className="footer-notice">
-                <span className="footer-notice__tag">New</span>
-                <p>Free NEET Biology booster series starting next Monday for all enrolled students.</p>
+                <span className="footer-notice__tag">Admissions Open</span>
+                <p>Special batches for Hindi medium students are now enrolling. Contact us to reserve your seat.</p>
               </div>
             </div>
           </div>
@@ -142,38 +137,37 @@ export default function Footer() {
         .footer-logo {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0;
           text-decoration: none;
           margin-bottom: 1rem;
         }
-        .footer-logo__icon {
-          width: 36px; height: 36px;
-          background: var(--blue);
-          color: var(--text-white);
-          font-family: var(--font-serif);
-          font-weight: 700;
-          font-size: 1.1rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 8px;
+        .footer-logo__img {
+          height: 56px;
+          width: auto;
+          object-fit: contain;
+          filter: brightness(0) invert(1);
         }
-        .footer-logo__name {
-          display: block;
+        .footer-logo-text { 
+          display: flex; 
+          flex-direction: column; 
+          margin-left: -0.5rem;
+        }
+        .footer-logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 1rem;
+          font-size: 1.05rem;
           color: var(--text-white);
           letter-spacing: 0.06em;
           line-height: 1;
         }
-        .footer-logo__sub {
-          display: block;
+        .footer-logo-sub {
+          font-family: var(--font-display);
           font-size: 0.5rem;
           font-weight: 600;
           color: var(--blue-light);
           letter-spacing: 0.3em;
-          margin-top: 2px;
+          line-height: 1;
+          margin-top: 3px;
         }
         .footer-tagline {
           font-size: 0.85rem;

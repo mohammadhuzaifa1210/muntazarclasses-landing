@@ -4,15 +4,15 @@ import { FaPhoneAlt, FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaClock } from 'rea
 import { FiArrowUpRight } from 'react-icons/fi'
 
 const info = [
-  { icon: <FaMapMarkerAlt />, label: 'Visit Us', value: '101/102, Premium Landmark, Opp. Mulund Station, Mulund West, Mumbai – 400080' },
-  { icon: <FaPhoneAlt />, label: 'Call', value: '+91 98765 43210', href: 'tel:+919876543210' },
-  { icon: <FaWhatsapp />, label: 'WhatsApp', value: '+91 98765 43210 · Instant Reply', href: 'https://wa.me/919876543210', color: '#25D366' },
+  { icon: <FaMapMarkerAlt />, label: 'Visit Us', value: '1st & 2nd Floor, Rikshaw stand, Plot no 33/K/1,2, Near Baiganwadi, Above City Bakery, Govandi West, Mumbai – 400043' },
+  { icon: <FaPhoneAlt />, label: 'Call', value: '+91 92211 05658', href: 'tel:+919221105658' },
+  { icon: <FaWhatsapp />, label: 'WhatsApp', value: '+91 92211 05658 · Instant Reply', href: 'https://wa.me/919221105658', color: '#25D366' },
   { icon: <FaEnvelope />, label: 'Email', value: 'admissions@muntazarclasses.com', href: 'mailto:admissions@muntazarclasses.com' },
   { icon: <FaClock />, label: 'Hours', value: 'Mon–Sat: 10 AM – 8:30 PM\nSunday: 10 AM – 2 PM' }
 ]
 
 export default function Contact({ onEnquirySubmit }) {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', course: 'JEE/NEET Intensive', message: '' })
+  const [form, setForm] = useState({ name: '', phone: '', email: '', course: 'School Section (5th to 10th)', message: '' })
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -21,7 +21,7 @@ export default function Contact({ onEnquirySubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    try { await onEnquirySubmit(form); setDone(true); setForm({ name: '', phone: '', email: '', course: 'JEE/NEET Intensive', message: '' }) }
+    try { await onEnquirySubmit(form); setDone(true); setForm({ name: '', phone: '', email: '', course: 'School Section (5th to 10th)', message: '' }) }
     catch (err) { console.error(err) }
     setLoading(false)
   }
@@ -30,16 +30,13 @@ export default function Contact({ onEnquirySubmit }) {
     <section id="contact" className="contact-sec">
       <div className="wrap">
 
-        <div className="contact-top">
-          <div>
+        <div className="contact-header">
+          <div className="contact-header__left">
             <span className="eyebrow">Get in Touch</span>
-            <h2 className="contact-top__title">
-              Let's Start a <em className="accent-serif">Conversation</em>
+            <h2 className="contact-header__title">
+              Start Your <em className="accent-serif">Journey</em>
             </h2>
           </div>
-          <p className="contact-top__desc">
-            Visit our campus, give us a call, or fill the form below — our academic counsellors respond within 24 hours.
-          </p>
         </div>
 
         <div className="contact-grid">
@@ -112,8 +109,9 @@ export default function Contact({ onEnquirySubmit }) {
                 <div className="field">
                   <label className="field__label">Program</label>
                   <select name="course" value={form.course} onChange={handleChange} className="field__select">
-                    <option>JEE/NEET Intensive</option>
-                    <option>Board Exam Mastery</option>
+                    <option>School Section (5th to 10th)</option>
+                    <option>College Section (11th & 12th)</option>
+                    <option>Degree Section (B.Com, BAF, BMS)</option>
                   </select>
                 </div>
 
@@ -136,24 +134,18 @@ export default function Contact({ onEnquirySubmit }) {
           background: var(--white);
           padding: var(--gap-5xl) 0;
         }
-        .contact-top {
+        .contact-header {
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
           gap: 2rem;
           margin-bottom: var(--gap-3xl);
         }
-        .contact-top__title {
+        .contact-header__title {
           font-size: clamp(2rem, 4vw, 2.75rem);
+          margin-bottom: 0.5rem;
         }
-        .contact-top__title em { color: var(--blue); }
-        .contact-top__desc {
-          max-width: 380px;
-          font-size: 0.95rem;
-          color: var(--text-muted);
-          line-height: 1.65;
-          text-align: right;
-        }
+        .contact-header__title em { color: var(--blue); }
         .contact-grid {
           display: grid;
           grid-template-columns: 1fr 1.35fr;
@@ -257,8 +249,7 @@ export default function Contact({ onEnquirySubmit }) {
           color: var(--text-muted);
         }
         @media (max-width: 768px) {
-          .contact-top { flex-direction: column; align-items: flex-start; }
-          .contact-top__desc { text-align: left; max-width: 100%; }
+          .contact-header { flex-direction: column; align-items: flex-start; }
           .contact-grid { grid-template-columns: 1fr; }
           .cf-row { grid-template-columns: 1fr; }
           .contact-form-wrap { padding: 1.75rem; }

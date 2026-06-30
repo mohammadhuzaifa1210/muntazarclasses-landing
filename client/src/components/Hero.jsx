@@ -3,29 +3,29 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const slides = [
   {
-    tag: 'Est. 2016 · Mumbai',
+    tag: 'Govandi\'s Premier Institute',
     title: ['Educating the', 'Next Generation', 'of Thinkers'],
-    desc: 'Mumbai\'s premier preparatory academy for IIT-JEE, NEET, and Higher Secondary Boards. Limited to 25 scholars per batch.',
+    desc: 'Govandi\'s most trusted coaching classes with dedicated batches for Hindi, Urdu, and English medium students.',
     image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80'
   },
   {
-    tag: 'Concept-First Methodology',
-    title: ['Precision', 'Training, Proven', 'Results'],
-    desc: 'Unlocking engineering and medical pathways through computational mock tests, silent archives, and personal doubt solving.',
+    tag: 'School, College & Degree',
+    title: ['Comprehensive', 'Board & College', 'Preparation'],
+    desc: 'From 5th standard to TY B.Com, we provide structured, high-quality education across all major boards and university exams.',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80'
   },
   {
-    tag: 'Academic Mentoring',
-    title: ['Elite IIT &', 'NEET Faculty', 'Panel'],
-    desc: 'Learn directly from M.Sc. & Ph.D. professors with 10+ years of proven competitive coaching experience.',
+    tag: 'Hindi Medium Excellence',
+    title: ['Dedicated Hindi', 'Medium Batches', 'in Govandi'],
+    desc: 'The only institute in Govandi offering specialized, focused batches exclusively for Hindi medium students.',
     image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1920&q=80'
   }
 ]
 
 const stats = [
-  { value: '10+', label: 'Years' },
-  { value: '5K+', label: 'Students' },
-  { value: '95%', label: 'Success' }
+  { value: '18+', label: 'Years' },
+  { value: '3', label: 'Mediums' },
+  { value: '1', label: 'Vision' }
 ]
 
 export default function Hero({ onAdmissionClick }) {
@@ -77,7 +77,7 @@ export default function Hero({ onAdmissionClick }) {
 
           <motion.div key={`a-${idx}`} className="hero__btns"
             initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}>
-            <button onClick={onAdmissionClick} className="btn btn--orange btn--lg">
+            <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
               Book Free Demo Class
             </button>
             <a href="#courses" className="btn btn--outline-light btn--lg">
@@ -141,13 +141,13 @@ export default function Hero({ onAdmissionClick }) {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.2em;
-          color: var(--orange);
+          color: var(--blue-light);
           margin-bottom: 1.75rem;
         }
         .hero__tag::before {
           content: '';
           width: 24px; height: 2px;
-          background: var(--orange);
+          background: var(--blue-light);
           border-radius: 2px;
         }
         .hero__title {

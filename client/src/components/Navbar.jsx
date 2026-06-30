@@ -28,8 +28,8 @@ export default function Navbar({ onAdmissionClick }) {
     <>
       <nav className={`nav ${scrolled ? 'nav--solid' : ''}`}>
         <div className="wrap nav__row">
-          <a href="#home" className="nav__brand">
-            <div className="nav__logo-icon">M</div>
+          <a href="/" className="nav__brand">
+            <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
             <div className="nav__logo-text">
               <span className="nav__logo-name">MUNTAZAR</span>
               <span className="nav__logo-sub">CLASSES</span>
@@ -45,10 +45,10 @@ export default function Navbar({ onAdmissionClick }) {
           </ul>
 
           <div className="nav__right show-desktop">
-            <a href="tel:+919876543210" className="nav__phone">
-              <FaPhoneAlt /> <span>+91 98765 43210</span>
+            <a href="tel:+919221105658" className="nav__phone">
+              <FaPhoneAlt /> <span>+91 92211 05658</span>
             </a>
-            <button onClick={onAdmissionClick} className="btn btn--blue btn--sm">
+            <button onClick={() => onAdmissionClick ? onAdmissionClick() : (window.location.href = '/#contact')} className="btn btn--blue btn--sm">
               Enrol Now
             </button>
           </div>
@@ -62,10 +62,10 @@ export default function Navbar({ onAdmissionClick }) {
       {open && (
         <div className="nav__mobile">
           <div className="nav__mobile-header">
-            <a href="#home" className="nav__brand" onClick={() => setOpen(false)}>
-              <div className="nav__logo-icon">M</div>
+            <a href="/" className="nav__brand" onClick={() => setOpen(false)}>
+              <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
               <div className="nav__logo-text">
-                <span className="nav__logo-name" style={{ color: 'var(--text-dark)' }}>MUNTAZAR</span>
+                <span className="nav__logo-name">MUNTAZAR</span>
                 <span className="nav__logo-sub">CLASSES</span>
               </div>
             </a>
@@ -81,10 +81,10 @@ export default function Navbar({ onAdmissionClick }) {
             ))}
           </ul>
           <div className="nav__mobile-actions">
-            <a href="tel:+919876543210" className="btn btn--outline" style={{ width: '100%' }}>
+            <a href="tel:+919221105658" className="btn btn--outline" style={{ width: '100%' }}>
               <FaPhoneAlt /> Call Us
             </a>
-            <button onClick={() => { setOpen(false); onAdmissionClick() }} className="btn btn--blue" style={{ width: '100%' }}>
+            <button onClick={() => { setOpen(false); onAdmissionClick ? onAdmissionClick() : (window.location.href = '/#contact') }} className="btn btn--blue" style={{ width: '100%' }}>
               Enrol Now
             </button>
           </div>
@@ -106,7 +106,6 @@ export default function Navbar({ onAdmissionClick }) {
           -webkit-backdrop-filter: blur(16px);
           padding: 0.65rem 0;
           border-bottom-color: var(--border);
-          box-shadow: 0 1px 12px rgba(0,0,0,0.04);
         }
         .nav__row {
           display: flex;
@@ -116,23 +115,22 @@ export default function Navbar({ onAdmissionClick }) {
         .nav__brand {
           display: flex;
           align-items: center;
-          gap: 0.65rem;
+          gap: 0;
           text-decoration: none;
           z-index: 1001;
+          transform: scale(1.35);
+          transform-origin: left center;
         }
-        .nav__logo-icon {
-          width: 38px; height: 38px;
-          background: var(--blue);
-          color: var(--text-white);
-          font-family: var(--font-serif);
-          font-weight: 700;
-          font-size: 1.2rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 10px;
+        .nav__logo-img {
+          height: 56px;
+          width: auto;
+          object-fit: contain;
         }
-        .nav__logo-text { display: flex; flex-direction: column; }
+        .nav__logo-text { 
+          display: flex; 
+          flex-direction: column; 
+          margin-left: -0.5rem;
+        }
         .nav__logo-name {
           font-family: var(--font-display);
           font-weight: 800;

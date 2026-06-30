@@ -15,9 +15,6 @@
   --blue-soft: rgba(26,86,219,0.06);
   --blue-glow: rgba(26,86,219,0.12);
 
-  /* Warm Accent (for CTAs / urgency) */
-  --orange: #f59e0b;
-  --orange-soft: rgba(245,158,11,0.08);
 
   /* Surfaces */
   --white: #ffffff;
@@ -137,25 +134,12 @@ h1, h2, h3, h4, h5, h6 {
 .btn--blue {
   background: var(--blue);
   color: var(--text-white);
-  box-shadow: 0 4px 20px rgba(26,86,219,0.25);
 }
 .btn--blue:hover {
   background: var(--blue-dark);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(26,86,219,0.35);
 }
 
-.btn--orange {
-  background: var(--orange);
-  color: var(--text-dark);
-  font-weight: 700;
-  box-shadow: 0 4px 20px rgba(245,158,11,0.3);
-}
-.btn--orange:hover {
-  background: #d97706;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(245,158,11,0.4);
-}
 
 .btn--outline {
   background: transparent;
@@ -184,7 +168,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .btn--white:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
 }
 
 .btn--sm { font-size: 0.78rem; padding: 0.65rem 1.5rem; }
@@ -245,7 +228,6 @@ h1, h2, h3, h4, h5, h6 {
 .field__select:focus,
 .field__textarea:focus {
   border-color: var(--blue);
-  box-shadow: 0 0 0 3px var(--blue-soft);
 }
 
 .field__input::placeholder,

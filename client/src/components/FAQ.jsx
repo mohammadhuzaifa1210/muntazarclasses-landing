@@ -4,11 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 const faqs = [
   {
     q: 'What are the fees, and can I pay in instalments?',
-    a: 'Fees vary by program — our counsellors will share the complete fee card during consultation. We offer flexible monthly instalment plans, and merit-based scholarships can reduce fees by up to 50%.'
-  },
-  {
-    q: 'Are scholarships available for high-scoring students?',
-    a: 'Absolutely. Students who scored 90%+ in their previous board exams qualify for our Muntazar Merit Scholarship — offering up to 50% off tuition fees. We also have special concessions for siblings.'
+    a: 'Fees vary by program — our counsellors will share the complete fee card during consultation. We offer flexible monthly instalment plans.'
   },
   {
     q: 'Can we attend a free trial class first?',

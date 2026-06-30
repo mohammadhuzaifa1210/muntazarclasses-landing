@@ -15,7 +15,7 @@ export default function CTA({ onAdmissionClick }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="eyebrow cta-eyebrow" style={{ color: 'var(--orange)' }}>Admissions Open · 2026–27</span>
+          <span className="eyebrow cta-eyebrow" style={{ color: 'var(--blue-light)' }}>Admissions Open · 2026–27</span>
           <h2 className="cta-title">
             Your Child's Academic <em className="accent-serif">Future</em> Starts Here
           </h2>
@@ -24,7 +24,7 @@ export default function CTA({ onAdmissionClick }) {
             Limited seats. Scholarships available for meritorious students.
           </p>
           <div className="cta-btns">
-            <button onClick={onAdmissionClick} className="btn btn--orange btn--lg">
+            <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
               Book a Free Demo <FiArrowUpRight />
             </button>
             <a

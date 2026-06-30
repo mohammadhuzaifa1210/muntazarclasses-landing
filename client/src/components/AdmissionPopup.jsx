@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { FaTimes, FaUserGraduate, FaPercent } from 'react-icons/fa'
 
 export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefilledCourse }) {
-  const [form, setForm] = useState({ name: '', phone: '', course: prefilledCourse || 'JEE/NEET Intensive' })
+  const [form, setForm] = useState({ name: '', phone: '', course: prefilledCourse || 'School Section (5th to 10th)' })
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -19,7 +19,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
     try {
       await onEnquirySubmit({ ...form, message: 'Submitted via Admission Popup' })
       setDone(true)
-      setTimeout(() => { onClose(); setDone(false); setForm({ name: '', phone: '', course: 'JEE/NEET Intensive' }) }, 2500)
+      setTimeout(() => { onClose(); setDone(false); setForm({ name: '', phone: '', course: 'School Section (5th to 10th)' }) }, 2500)
     } catch (err) { console.error(err) }
     setLoading(false)
   }
@@ -30,9 +30,9 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
           <motion.div
             className="modal"
-            initial={{ opacity: 0, scale: 0.92, y: 16 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.92, y: 16 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Header */}
@@ -41,7 +41,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
               <div className="modal__head-row">
                 <div className="modal__icon"><FaUserGraduate /></div>
                 <div>
-                  <h3 className="modal__title">Admissions & Scholarship</h3>
+                  <h3 className="modal__title">Admission Enquiry</h3>
                   <p className="modal__subtitle">Session 2026 – 2027</p>
                 </div>
               </div>
@@ -56,11 +56,6 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="modal__form">
-                  <div className="modal__info">
-                    <FaPercent />
-                    <span>Up to 50% scholarship for students scoring 90%+ in boards.</span>
-                  </div>
-
                   <div className="field">
                     <label className="field__label">Student Name</label>
                     <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Full name" className="field__input" />
@@ -74,8 +69,9 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
                   <div className="field">
                     <label className="field__label">Program</label>
                     <select name="course" value={form.course} onChange={handleChange} className="field__select">
-                      <option>JEE/NEET Intensive</option>
-                      <option>Board Exam Mastery</option>
+                      <option>School Section (5th to 10th)</option>
+                      <option>College Section (11th & 12th)</option>
+                      <option>Degree Section (B.Com, BAF, BMS)</option>
                     </select>
                   </div>
 
@@ -92,9 +88,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
       <style>{`
         .modal-overlay {
           position: fixed; inset: 0;
-          background: rgba(15,23,42,0.45);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          background: rgba(0, 0, 0, 0.65);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -107,7 +101,8 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           width: 100%;
           max-width: 440px;
           overflow: hidden;
-          box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+          border: none;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
         .modal__head {
           background: var(--blue-deep);
@@ -171,8 +166,20 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         }
         .modal__success h4 { font-size: 1.1rem; margin-bottom: 0.3rem; }
         .modal__success p { font-size: 0.88rem; color: var(--text-muted); }
-        @media (max-width: 480px) {
-          .modal__head, .modal__body { padding: 1.5rem; }
+        @media (max-width: 576px) {
+          .modal-overlay {
+            align-items: flex-end;
+            padding: 0;
+          }
+          .modal {
+            max-width: 100%;
+            border-radius: 1.5rem 1.5rem 0 0;
+            border: none;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+          }
+          .modal__head, .modal__body { 
+            padding: 1.75rem 1.5rem; 
+          }
         }
       `}</style>
     </AnimatePresence>

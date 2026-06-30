@@ -41,22 +41,22 @@ function AnimatedCounter({ target, suffix = '' }) {
 }
 
 const stats = [
-  { value: '10', suffix: '+', label: 'Years of Excellence', icon: <FaCalendarAlt /> },
-  { value: '5000', suffix: '+', label: 'Students Mentored', icon: <FaGraduationCap /> },
+  { value: '18', suffix: '+', label: 'Years of Excellence', icon: <FaCalendarAlt /> },
+  { value: '3', suffix: '', label: 'Language Mediums', icon: <FaGraduationCap /> },
   { value: '200', suffix: '+', label: 'Top Board Scorers', icon: <FaChalkboardTeacher /> },
   { value: '25', suffix: '', label: 'Students Per Batch', icon: <FaUsers /> }
 ]
 
 const features = [
   {
-    icon: <FaUserTie />,
-    title: 'Expert Faculty',
-    desc: 'Every subject taught by M.Sc. & Ph.D. professors with 10+ years of competitive coaching experience. No assistants, no compromise.'
+    icon: <FaUsers />,
+    title: 'Hindi & Urdu Batches',
+    desc: 'The only institute in Govandi offering dedicated, specialized batches for Hindi and Urdu medium students ensuring no language barrier.'
   },
   {
-    icon: <FaUsers />,
-    title: 'Micro-Batches of 25',
-    desc: 'We cap every batch at 25 students — so each student receives focused, individual academic attention throughout their journey.'
+    icon: <FaUserTie />,
+    title: 'Expert Faculty',
+    desc: 'Every subject taught by M.Sc. & Ph.D. professors with 18+ years of competitive coaching experience. No assistants, no compromise.'
   },
   {
     icon: <FaBookOpen />,
@@ -75,8 +75,8 @@ const features = [
   },
   {
     icon: <FaCalendarAlt />,
-    title: 'CBT Mock Testing',
-    desc: 'Computer-Based Test simulations replicating exact JEE/NEET exam conditions — with detailed performance analytics after each attempt.'
+    title: 'Regular Testing',
+    desc: 'Frequent tests simulating exact board and university exam conditions — with detailed performance analytics after each attempt.'
   }
 ]
 
@@ -218,8 +218,7 @@ export default function BentoFeatures() {
           transition: all 0.4s var(--ease);
         }
         .feat-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 16px 48px rgba(15,23,42,0.06);
+          transform: translateY(-2px);
           border-color: var(--blue);
         }
         .feat-card__icon {

@@ -6,10 +6,10 @@ export default function StickyBottom({ onAdmissionClick }) {
     <>
       {/* Desktop: Floating action buttons */}
       <div className="fab-wrap">
-        <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="fab fab--wa" aria-label="WhatsApp">
+        <a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer" className="fab fab--wa" aria-label="WhatsApp">
           <FaWhatsapp />
         </a>
-        <a href="tel:+919876543210" className="fab fab--phone" aria-label="Call">
+        <a href="tel:+919221105658" className="fab fab--phone" aria-label="Call">
           <FaPhoneAlt />
         </a>
       </div>
@@ -17,13 +17,13 @@ export default function StickyBottom({ onAdmissionClick }) {
       {/* Mobile: Bottom action bar */}
       <div className="mobile-bottom">
         <div className="mobile-bottom__row">
-          <a href="tel:+919876543210" className="btn btn--outline btn--sm" style={{ flex: 1, borderColor: 'var(--border-strong)' }}>
+          <a href="tel:+919221105658" className="btn btn--outline btn--sm" style={{ flex: 1, borderColor: 'var(--border-strong)' }}>
             <FaPhoneAlt /> Call
           </a>
           <button onClick={onAdmissionClick} className="btn btn--blue btn--sm" style={{ flex: 1.4 }}>
             <FaCalendarCheck /> Book Demo
           </button>
-          <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer" className="btn btn--sm" style={{ flex: 1, background: '#25D366', color: '#fff', border: 'none' }}>
+          <a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer" className="btn btn--sm" style={{ flex: 1, background: '#25D366', color: '#fff', border: 'none' }}>
             <FaWhatsapp /> Chat
           </a>
         </div>
@@ -49,18 +49,16 @@ export default function StickyBottom({ onAdmissionClick }) {
           transition: all 0.35s var(--ease);
           border: none;
         }
-        .fab:hover { transform: translateY(-3px) scale(1.05); }
+        .fab:hover { transform: translateY(-3px); }
         .fab--wa {
           background: #25D366;
           color: #fff;
           font-size: 1.5rem;
-          box-shadow: 0 6px 20px rgba(37,211,102,0.35);
         }
         .fab--phone {
           background: var(--blue);
           color: var(--text-white);
           font-size: 1.15rem;
-          box-shadow: 0 6px 20px rgba(26,86,219,0.3);
           border: 1px solid var(--blue-dark);
         }
         .mobile-bottom {

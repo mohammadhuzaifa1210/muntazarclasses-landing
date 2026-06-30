@@ -6,24 +6,35 @@ import { FaClock, FaBook, FaCalendarCheck } from 'react-icons/fa'
 const programs = [
   {
     num: '01',
-    title: 'JEE / NEET Intensive',
-    tag: 'Competitive Entrance',
-    desc: 'Our flagship 2-year program designed for students targeting India\'s top engineering and medical colleges. Covers every concept from fundamentals to advanced problem-solving with weekly mock tests.',
+    title: 'School Section (5th to 10th)',
+    tag: 'Regular & Private',
+    desc: 'Foundational education and comprehensive board preparation for 5th to 10th standard across all mediums.',
     details: [
-      { icon: <FaClock />, label: 'Duration', value: '2 Years (Class 11 & 12)' },
-      { icon: <FaCalendarCheck />, label: 'Schedule', value: 'Mon–Sat · 4:00 – 8:30 PM' },
-      { icon: <FaBook />, label: 'Subjects', value: 'Physics · Chemistry · Maths · Biology' }
+      { icon: <FaClock />, label: 'Batches', value: 'Hindi · Urdu · English Medium' },
+      { icon: <FaCalendarCheck />, label: 'Classes', value: '5th to 9th · 10th Board' },
+      { icon: <FaBook />, label: 'Syllabus', value: 'All Subjects Covered' }
     ]
   },
   {
     num: '02',
-    title: 'Board Exam Mastery',
-    tag: 'HSC · CBSE · ISC',
-    desc: 'Comprehensive board preparation with emphasis on answer-writing techniques, numerical practice, and strategic chapter-wise weightage analysis. Built for students who want 90%+ board scores.',
+    title: 'College Section (11th & 12th)',
+    tag: 'Commerce & Science',
+    desc: 'Specialised coaching for junior college students in Commerce and Science streams, focusing on HSC excellence.',
     details: [
-      { icon: <FaClock />, label: 'Duration', value: '1 or 2 Year Options' },
-      { icon: <FaCalendarCheck />, label: 'Schedule', value: 'Mon–Fri · 3:00 – 7:00 PM' },
-      { icon: <FaBook />, label: 'Subjects', value: 'Physics · Chemistry · Maths · English' }
+      { icon: <FaClock />, label: 'Streams', value: 'Science & Commerce' },
+      { icon: <FaCalendarCheck />, label: 'Classes', value: '11th FYJC · 12th SYJC' },
+      { icon: <FaBook />, label: 'Focus', value: 'HSC Board Exams (Regular & Private)' }
+    ]
+  },
+  {
+    num: '03',
+    title: 'Degree Section',
+    tag: 'University Exams',
+    desc: 'Advanced coaching for undergraduate students pursuing university degrees across multiple disciplines.',
+    details: [
+      { icon: <FaClock />, label: 'Years', value: 'First (FY) · Second (SY) · Third (TY)' },
+      { icon: <FaCalendarCheck />, label: 'Degrees', value: 'B.Com · BAF · BMS' },
+      { icon: <FaBook />, label: 'Guidance', value: 'Exam-Oriented Strategy' }
     ]
   }
 ]
@@ -40,9 +51,6 @@ export default function Courses({ onEnquiryClick }) {
               Choose Your <em className="accent-serif">Path</em>
             </h2>
           </div>
-          <p className="courses-header__desc">
-            Two focused programs, each meticulously designed to transform dedicated students into top rankers and high scorers.
-          </p>
         </div>
 
         <div className="courses-list">
@@ -55,16 +63,16 @@ export default function Courses({ onEnquiryClick }) {
               viewport={{ once: true }}
               transition={{ delay: i * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Left: number + info */}
-              <div className="prog-card__body">
+              <div className="prog-card__main">
                 <div className="prog-card__top">
                   <span className="prog-card__num">{prog.num}</span>
                   <span className="prog-card__tag">{prog.tag}</span>
                 </div>
-
                 <h3 className="prog-card__title">{prog.title}</h3>
                 <p className="prog-card__desc">{prog.desc}</p>
+              </div>
 
+              <div className="prog-card__footer">
                 <div className="prog-card__details">
                   {prog.details.map((d, j) => (
                     <div key={j} className="prog-card__detail">
@@ -76,16 +84,12 @@ export default function Courses({ onEnquiryClick }) {
                     </div>
                   ))}
                 </div>
-              </div>
 
-              {/* Right: CTA */}
-              <div className="prog-card__actions">
-                <button onClick={() => onEnquiryClick(prog.title)} className="btn btn--blue">
-                  Enquire Now <FiArrowUpRight />
-                </button>
-                <button onClick={() => onEnquiryClick(prog.title)} className="btn btn--outline btn--sm">
-                  Download Syllabus
-                </button>
+                <div className="prog-card__actions">
+                  <button onClick={() => onEnquiryClick(prog.title)} className="btn btn--blue" style={{ width: '100%' }}>
+                    Enquire Now <FiArrowUpRight />
+                  </button>
+                </div>
               </div>
             </motion.div>
           ))}
@@ -108,33 +112,24 @@ export default function Courses({ onEnquiryClick }) {
           font-size: clamp(2rem, 4vw, 2.75rem);
         }
         .courses-header__title em { color: var(--blue); }
-        .courses-header__desc {
-          max-width: 400px;
-          font-size: 0.95rem;
-          color: var(--text-muted);
-          line-height: 1.65;
-          text-align: right;
-        }
         .courses-list {
-          display: flex;
-          flex-direction: column;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
           gap: var(--gap-xl);
         }
         .prog-card {
           display: flex;
-          align-items: stretch;
-          gap: var(--gap-2xl);
-          background: var(--gray-50);
+          flex-direction: column;
+          background: var(--white);
           border: 1px solid var(--border);
           border-radius: var(--radius);
-          padding: 2.75rem;
+          padding: 2.25rem;
           transition: all 0.4s var(--ease);
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         }
         .prog-card:hover {
           border-color: var(--blue);
-          box-shadow: 0 12px 48px rgba(26,86,219,0.06);
         }
-        .prog-card__body { flex: 1; }
         .prog-card__top {
           display: flex;
           align-items: center;
@@ -166,17 +161,29 @@ export default function Courses({ onEnquiryClick }) {
           margin-bottom: 0.75rem;
           letter-spacing: -0.02em;
         }
+        .prog-card__main {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
         .prog-card__desc {
-          font-size: 0.92rem;
+          font-size: 0.95rem;
           color: var(--text-muted);
-          line-height: 1.7;
-          margin-bottom: 1.75rem;
-          max-width: 560px;
+          line-height: 1.6;
+          margin-bottom: 2rem;
+        }
+        .prog-card__footer {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid var(--border);
+          padding-top: 2rem;
+          gap: 2rem;
+          margin-top: auto;
         }
         .prog-card__details {
           display: flex;
-          gap: 2rem;
-          flex-wrap: wrap;
+          flex-direction: column;
+          gap: 1.25rem;
         }
         .prog-card__detail {
           display: flex;
@@ -203,19 +210,15 @@ export default function Courses({ onEnquiryClick }) {
           color: var(--text-dark);
         }
         .prog-card__actions {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          gap: 0.75rem;
-          min-width: 180px;
+          margin-top: auto;
+        }
+        @media (max-width: 1024px) {
+          .courses-list { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 768px) {
           .courses-header { flex-direction: column; align-items: flex-start; }
-          .courses-header__desc { text-align: left; max-width: 100%; }
-          .prog-card { flex-direction: column; padding: 2rem; }
-          .prog-card__actions { flex-direction: row; min-width: auto; flex-wrap: wrap; }
-          .prog-card__actions .btn { flex: 1; }
-          .prog-card__details { flex-direction: column; gap: 1rem; }
+          .courses-list { grid-template-columns: 1fr; }
+          .prog-card { padding: 2rem; }
         }
       `}</style>
     </section>
