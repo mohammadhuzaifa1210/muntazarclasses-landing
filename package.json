@@ -1,0 +1,15 @@
+{
+  "name": "muntazar-classes",
+  "version": "1.0.0",
+  "description": "Muntazar Classes - Premium Coaching Institute Website",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
+    "build": "cd client && npm run build"
+  },
+  "dependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
