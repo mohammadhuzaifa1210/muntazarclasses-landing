@@ -66,7 +66,7 @@ const features = [
   {
     icon: <FaQuestionCircle />,
     title: 'Daily Doubt Sessions',
-    desc: 'Private one-on-one slots with faculty every day — no question goes unanswered, no concept left unclear.'
+    desc: 'Private one-on-one slots with faculty every day - no question goes unanswered, no concept left unclear.'
   },
   {
     icon: <FaSnowflake />,
@@ -76,7 +76,7 @@ const features = [
   {
     icon: <FaCalendarAlt />,
     title: 'Regular Testing',
-    desc: 'Frequent tests simulating exact board and university exam conditions — with detailed performance analytics after each attempt.'
+    desc: 'Frequent tests simulating exact board and university exam conditions - with detailed performance analytics after each attempt.'
   }
 ]
 
@@ -112,7 +112,7 @@ export default function BentoFeatures() {
             Where Discipline Meets <em className="accent-serif">Excellence</em>
           </h2>
           <p className="bento-header__desc">
-            We don't just teach — we build exam-ready scholars through structured methodology, 
+            We don't just teach - we build exam-ready scholars through structured methodology, 
             world-class infrastructure, and relentless academic support.
           </p>
         </div>

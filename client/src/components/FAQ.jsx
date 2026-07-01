@@ -4,11 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 const faqs = [
   {
     q: 'What are the fees, and can I pay in instalments?',
-    a: 'Fees vary by program — our counsellors will share the complete fee card during consultation. We offer flexible monthly instalment plans.'
+    a: 'Fees vary by program - our counsellors will share the complete fee card during consultation. We offer flexible monthly instalment plans.'
   },
   {
     q: 'Can we attend a free trial class first?',
-    a: 'Yes — we offer a complimentary 2-day trial experience. Your child can sit in actual lectures, interact with faculty, and get a real feel for our teaching methodology before making any commitment.'
+    a: 'Yes - we offer a complimentary 2-day trial experience. Your child can sit in actual lectures, interact with faculty, and get a real feel for our teaching methodology before making any commitment.'
   },
   {
     q: 'What are the daily batch timings?',
@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: 'Do you provide study material, or do we need external books?',
-    a: 'Complete study material is provided — topic-wise modules, formula sheets, practice sets, and previous year papers. Our in-house content is constantly updated and sufficient for board + competitive prep.'
+    a: 'Complete study material is provided - topic-wise modules, formula sheets, practice sets, and previous year papers. Our in-house content is constantly updated and sufficient for board + competitive prep.'
   }
 ]
 

@@ -86,7 +86,7 @@ export default function Contact({ onEnquirySubmit }) {
             {done ? (
               <div className="cf-success">
                 <h4>Inquiry Received ✓</h4>
-                <p>Thank you — an academic counselor will reach out to you shortly.</p>
+                <p>Thank you - an academic counselor will reach out to you shortly.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="cf-form">

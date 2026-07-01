@@ -33,7 +33,7 @@ export default function AchievementPage() {
           <Link to="/" className="back-link" style={{ color: 'var(--blue)', marginBottom: '2rem' }}>
             <FiArrowLeft /> Back to Home
           </Link>
-          
+
           <div className="ach-page__header">
             <h1 className="ach-page__title">Our Hall of Fame</h1>
           </div>

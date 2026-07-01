@@ -28,7 +28,7 @@ export default function GalleryPage() {
   return (
     <>
       <Navbar />
-      
+
       <main className="gallery-page">
         <section className="gallery-page__content wrap">
           <Link to="/" className="back-link" style={{ color: 'var(--blue)', marginBottom: '2rem' }}>
@@ -59,9 +59,9 @@ export default function GalleryPage() {
         {selectedImg && (
           <div className="lightbox-overlay" onClick={() => setSelectedImg(null)}>
             <button className="lightbox-close" onClick={() => setSelectedImg(null)}><FiX /></button>
-            <motion.img 
-              src={selectedImg} 
-              alt="Expanded Gallery" 
+            <motion.img
+              src={selectedImg}
+              alt="Expanded Gallery"
               className="lightbox-img"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
