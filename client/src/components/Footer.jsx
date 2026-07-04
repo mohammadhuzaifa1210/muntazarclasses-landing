@@ -38,7 +38,7 @@ export default function Footer() {
               <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="footer-logo__img" />
               <div className="footer-logo-text">
                 <span className="footer-logo-name">MUNTAZAR</span>
-                <span className="footer-logo-sub">CLASSES</span>
+                <span className="footer-logo-sub">Classes</span>
               </div>
             </a>
             <p className="footer-tagline">
@@ -155,9 +155,9 @@ export default function Footer() {
         .footer-logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 1.05rem;
+          font-size: 0.9rem;
           color: var(--text-white);
-          letter-spacing: 0.06em;
+          letter-spacing: 0.05em;
           line-height: 1;
         }
         .footer-logo-sub {
@@ -165,7 +165,7 @@ export default function Footer() {
           font-size: 0.5rem;
           font-weight: 600;
           color: var(--blue-light);
-          letter-spacing: 0.3em;
+          letter-spacing: 0.22em;
           line-height: 1;
           margin-top: 3px;
         }

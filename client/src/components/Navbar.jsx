@@ -33,7 +33,7 @@ export default function Navbar({ onAdmissionClick }) {
             <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
             <div className="nav__logo-text">
               <span className="nav__logo-name">MUNTAZAR</span>
-              <span className="nav__logo-sub">CLASSES</span>
+              <span className="nav__logo-sub">Classes</span>
             </div>
           </a>
 
@@ -67,7 +67,7 @@ export default function Navbar({ onAdmissionClick }) {
               <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
               <div className="nav__logo-text">
                 <span className="nav__logo-name">MUNTAZAR</span>
-                <span className="nav__logo-sub">CLASSES</span>
+                <span className="nav__logo-sub">Classes</span>
               </div>
             </a>
             <button className="nav__hamburger" onClick={() => setOpen(false)}>
@@ -135,9 +135,9 @@ export default function Navbar({ onAdmissionClick }) {
         .nav__logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 1.05rem;
+          font-size: 0.9rem;
           color: var(--text-dark);
-          letter-spacing: 0.06em;
+          letter-spacing: 0.05em;
           line-height: 1;
         }
         .nav__logo-sub {
@@ -145,7 +145,7 @@ export default function Navbar({ onAdmissionClick }) {
           font-size: 0.5rem;
           font-weight: 600;
           color: var(--blue);
-          letter-spacing: 0.3em;
+          letter-spacing: 0.22em;
           line-height: 1;
           margin-top: 3px;
         }
