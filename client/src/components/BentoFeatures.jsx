@@ -1,271 +1,253 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
-import {
-  FaUserTie, FaUsers, FaBookOpen, FaQuestionCircle,
-  FaSnowflake, FaGraduationCap, FaCalendarAlt, FaChalkboardTeacher
-} from 'react-icons/fa'
+import { FaCheck, FaTrophy, FaLanguage, FaChalkboardTeacher } from 'react-icons/fa'
 
-const fadeIn = (delay = 0) => ({
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { delay, duration: 0.7, ease: [0.22, 1, 0.36, 1] } }
-})
-
-function AnimatedCounter({ target, suffix = '' }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef(null)
-  const started = useRef(false)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true
-          const num = parseInt(target)
-          const duration = 2000
-          const step = Math.max(1, Math.floor(num / (duration / 16)))
-          let current = 0
-          const timer = setInterval(() => {
-            current += step
-            if (current >= num) { current = num; clearInterval(timer) }
-            setCount(current)
-          }, 16)
-        }
-      },
-      { threshold: 0.5 }
-    )
-    if (ref.current) observer.observe(ref.current)
-    return () => observer.disconnect()
-  }, [target])
-
-  return <span ref={ref}>{count.toLocaleString()}{suffix}</span>
-}
-
-const stats = [
-  { value: '18', suffix: '+', label: 'Years of Excellence', icon: <FaCalendarAlt /> },
-  { value: '3', suffix: '', label: 'Language Mediums', icon: <FaGraduationCap /> },
-  { value: '200', suffix: '+', label: 'Top Board Scorers', icon: <FaChalkboardTeacher /> },
-  { value: '25', suffix: '', label: 'Students Per Batch', icon: <FaUsers /> }
+const checklist = [
+  'Dedicated Hindi & Urdu Batches',
+  'M.Sc. & Ph.D. Expert Faculty',
+  'AC Study Halls & Archives',
+  'Daily One-on-One Doubt Sessions',
+  'Smart Classrooms with Projectors',
+  'Weekly Tests & Progress Analytics'
 ]
 
-const features = [
-  {
-    icon: <FaUsers />,
-    title: 'Hindi & Urdu Batches',
-    desc: 'The only institute in Govandi offering dedicated, specialized batches for Hindi and Urdu medium students ensuring no language barrier.'
-  },
-  {
-    icon: <FaUserTie />,
-    title: 'Expert Faculty',
-    desc: 'Every subject taught by M.Sc. & Ph.D. professors with 18+ years of competitive coaching experience. No assistants, no compromise.'
-  },
-  {
-    icon: <FaBookOpen />,
-    title: 'Study Halls & Archives',
-    desc: 'Air-conditioned, silent reading rooms stocked with reference modules, past papers, and comprehensive competitive exam worksheets.'
-  },
-  {
-    icon: <FaQuestionCircle />,
-    title: 'Daily Doubt Sessions',
-    desc: 'Private one-on-one slots with faculty every day - no question goes unanswered, no concept left unclear.'
-  },
-  {
-    icon: <FaSnowflake />,
-    title: 'Smart Classrooms',
-    desc: 'Climate-controlled lecture halls with HD projectors for visualising complex formulas, molecular structures, and derivations.'
-  },
-  {
-    icon: <FaCalendarAlt />,
-    title: 'Regular Testing',
-    desc: 'Frequent tests simulating exact board and university exam conditions - with detailed performance analytics after each attempt.'
-  }
+const banner = [
+  { icon: <FaTrophy />, title: 'Board Excellence', desc: 'Proven SSC & HSC scoring record.' },
+  { icon: <FaLanguage />, title: '3-Medium Coaching', desc: 'Hindi, Urdu & English batches.' },
+  { icon: <FaChalkboardTeacher />, title: 'Expert Faculty', desc: 'Experienced professors, not assistants.' }
 ]
 
 export default function BentoFeatures() {
   return (
-    <section id="why-choose-us" className="bento-section">
+    <section id="why-choose-us" className="why-sec">
       <div className="wrap">
 
-        {/* Stats Row */}
-        <div className="stats-strip">
-          {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              className="stats-strip__item"
-              variants={fadeIn(i * 0.1)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <div className="stats-strip__icon">{s.icon}</div>
-              <div className="stats-strip__val">
-                <AnimatedCounter target={s.value} suffix={s.suffix} />
+        {/* Split: collage + content */}
+        <div className="why-split">
+          {/* Collage */}
+          <motion.div
+            className="why-media"
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <img
+              className="why-media__main"
+              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80"
+              alt="Muntazar Classes teaching session"
+              loading="lazy"
+            />
+            <img
+              className="why-media__sub"
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=700&q=80"
+              alt="Students studying together"
+              loading="lazy"
+            />
+            <div className="why-media__badge">
+              <span className="why-media__badge-val">200+</span>
+              <span className="why-media__badge-lbl">Top Board Scorers</span>
+            </div>
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            className="why-content"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="eyebrow">Why Muntazar Classes</span>
+            <h2 className="why-content__title">
+              Where Discipline Meets <em className="accent-serif">Excellence</em>
+            </h2>
+            <p className="why-content__desc">
+              We build exam-ready scholars through structure, strong infrastructure and relentless support.
+            </p>
+            <ul className="why-checklist">
+              {checklist.map((item, i) => (
+                <motion.li
+                  key={item}
+                  className="why-check"
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06, duration: 0.5 }}
+                >
+                  <span className="why-check__icon"><FaCheck /></span>
+                  {item}
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+        </div>
+
+        {/* Dark 3-column banner */}
+        <motion.div
+          className="why-banner"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          {banner.map((b, i) => (
+            <div key={i} className="why-banner__col">
+              <div className="why-banner__icon">{b.icon}</div>
+              <div>
+                <h3 className="why-banner__title">{b.title}</h3>
+                <p className="why-banner__desc">{b.desc}</p>
               </div>
-              <div className="stats-strip__label">{s.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </div>
-
-        {/* Section Header */}
-        <div className="bento-header">
-          <span className="eyebrow">Why Muntazar Classes</span>
-          <h2 className="bento-header__title">
-            Where Discipline Meets <em className="accent-serif">Excellence</em>
-          </h2>
-          <p className="bento-header__desc">
-            We don't just teach - we build exam-ready scholars through structured methodology, 
-            world-class infrastructure, and relentless academic support.
-          </p>
-        </div>
-
-        {/* Feature Grid */}
-        <div className="feat-grid">
-          {features.map((f, i) => (
-            <motion.div
-              key={i}
-              className="feat-card"
-              variants={fadeIn(i * 0.06)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              <div className="feat-card__icon">{f.icon}</div>
-              <h3 className="feat-card__title">{f.title}</h3>
-              <p className="feat-card__desc">{f.desc}</p>
-              <div className="feat-card__line" />
-            </motion.div>
-          ))}
-        </div>
+        </motion.div>
       </div>
 
       <style>{`
-        .bento-section {
-          background: var(--gray-50);
+        .why-sec {
+          background: var(--white);
           padding: var(--gap-5xl) 0 var(--gap-4xl);
         }
-
-        /* ── Stats Strip ── */
-        .stats-strip {
+        .why-split {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 0;
+          grid-template-columns: 1fr 1fr;
+          gap: var(--gap-3xl);
+          align-items: center;
+          margin-bottom: var(--gap-3xl);
+        }
+
+        /* Collage */
+        .why-media { position: relative; padding-bottom: 2rem; }
+        .why-media__main {
+          width: 100%;
+          aspect-ratio: 4 / 3.2;
+          object-fit: cover;
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-md);
+        }
+        .why-media__sub {
+          position: absolute;
+          bottom: 0; right: -12px;
+          width: 44%;
+          aspect-ratio: 1;
+          object-fit: cover;
+          border-radius: var(--radius);
+          border: 5px solid var(--white);
+          box-shadow: var(--shadow-md);
+        }
+        .why-media__badge {
+          position: absolute;
+          top: 1.25rem; left: -14px;
           background: var(--blue);
-          border-radius: 18px;
-          overflow: hidden;
-          margin-bottom: var(--gap-4xl);
-        }
-        .stats-strip__item {
-          text-align: center;
-          padding: 2.75rem 1.5rem;
-          border-right: 1px solid rgba(255,255,255,0.1);
-          transition: background 0.4s var(--ease);
-        }
-        .stats-strip__item:last-child { border-right: none; }
-        .stats-strip__item:hover { background: var(--blue-dark); }
-        .stats-strip__icon {
-          color: rgba(255,255,255,0.7);
-          font-size: 1.25rem;
-          margin-bottom: 1rem;
-        }
-        .stats-strip__val {
-          font-family: var(--font-display);
-          font-size: 2.75rem;
-          font-weight: 800;
           color: var(--text-white);
-          line-height: 1;
-          letter-spacing: -0.03em;
-          margin-bottom: 0.4rem;
+          padding: 0.85rem 1.15rem;
+          border-radius: var(--radius);
+          box-shadow: var(--shadow-md);
+          text-align: center;
         }
-        .stats-strip__label {
-          font-size: 0.72rem;
+        .why-media__badge-val {
+          display: block;
+          font-family: var(--font-display);
+          font-size: 1.5rem;
+          font-weight: 800;
+          line-height: 1;
+        }
+        .why-media__badge-lbl {
+          font-size: 0.65rem;
           font-weight: 600;
           text-transform: uppercase;
-          letter-spacing: 0.14em;
+          letter-spacing: 0.08em;
           color: var(--text-white-70);
         }
 
-        /* ── Header ── */
-        .bento-header {
-          text-align: center;
-          max-width: 600px;
-          margin: 0 auto var(--gap-3xl);
-        }
-        .bento-header .eyebrow { justify-content: center; }
-        .bento-header .eyebrow::before { display: none; }
-        .bento-header__title {
+        /* Content */
+        .why-content__title {
           font-size: clamp(2rem, 4vw, 2.75rem);
           margin-bottom: 1rem;
         }
-        .bento-header__title em { color: var(--blue); }
-        .bento-header__desc {
-          font-size: 1.05rem;
+        .why-content__title em { color: var(--blue); }
+        .why-content__desc {
+          font-size: 1.02rem;
           color: var(--text-muted);
           line-height: 1.7;
+          margin-bottom: 1.75rem;
         }
-
-        /* ── Feature Cards ── */
-        .feat-grid {
+        .why-checklist {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: var(--gap-lg);
+          grid-template-columns: 1fr 1fr;
+          gap: 0.9rem 1.5rem;
         }
-        .feat-card {
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          padding: 2.25rem;
-          position: relative;
-          overflow: hidden;
-          transition: all 0.4s var(--ease);
+        .why-check {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.65rem;
+          font-size: 0.92rem;
+          font-weight: 600;
+          color: var(--text-dark);
+          line-height: 1.4;
         }
-        .feat-card:hover {
-          transform: translateY(-2px);
-          border-color: var(--blue);
-        }
-        .feat-card__icon {
-          width: 44px; height: 44px;
-          border-radius: 12px;
+        .why-check__icon {
+          flex-shrink: 0;
+          width: 22px; height: 22px;
+          border-radius: 50%;
           background: var(--blue-soft);
           color: var(--blue);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1.1rem;
-          margin-bottom: 1.5rem;
+          font-size: 0.6rem;
+          margin-top: 1px;
         }
-        .feat-card__title {
-          font-size: 1.1rem;
+
+        /* Dark banner */
+        .why-banner {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          background: var(--blue-deep);
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          box-shadow: var(--shadow-md);
+        }
+        .why-banner__col {
+          display: flex;
+          align-items: flex-start;
+          gap: 1rem;
+          padding: 2rem 2rem;
+          border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .why-banner__col:last-child { border-right: none; }
+        .why-banner__icon {
+          flex-shrink: 0;
+          width: 44px; height: 44px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.08);
+          color: var(--blue-light);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.15rem;
+        }
+        .why-banner__title {
+          font-size: 1.02rem;
           font-weight: 700;
-          margin-bottom: 0.6rem;
-          letter-spacing: -0.01em;
-          color: var(--text-dark);
+          color: var(--text-white);
+          margin-bottom: 0.3rem;
         }
-        .feat-card__desc {
-          font-size: 0.88rem;
-          color: var(--text-muted);
-          line-height: 1.65;
+        .why-banner__desc {
+          font-size: 0.82rem;
+          color: var(--text-white-70);
+          line-height: 1.55;
         }
-        .feat-card__line {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          height: 3px;
-          background: linear-gradient(90deg, var(--blue), var(--blue-light));
-          transform: scaleX(0);
-          transform-origin: left;
-          transition: transform 0.5s var(--ease);
-        }
-        .feat-card:hover .feat-card__line { transform: scaleX(1); }
 
         @media (max-width: 991px) {
-          .stats-strip { grid-template-columns: repeat(2, 1fr); }
-          .stats-strip__item:nth-child(2) { border-right: none; }
-          .feat-grid { grid-template-columns: repeat(2, 1fr); }
+          .why-split { grid-template-columns: 1fr; gap: var(--gap-2xl); }
+          .why-media { max-width: 520px; margin: 0 auto; }
+          .why-banner { grid-template-columns: 1fr; }
+          .why-banner__col { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+          .why-banner__col:last-child { border-bottom: none; }
         }
-        @media (max-width: 640px) {
-          .stats-strip { grid-template-columns: 1fr; }
-          .stats-strip__item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2rem 1rem; }
-          .stats-strip__item:last-child { border-bottom: none; }
-          .stats-strip__val { font-size: 2.25rem; }
-          .feat-grid { grid-template-columns: 1fr; }
+        @media (max-width: 520px) {
+          .why-checklist { grid-template-columns: 1fr; }
         }
       `}</style>
     </section>

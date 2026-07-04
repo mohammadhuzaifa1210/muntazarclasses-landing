@@ -42,7 +42,7 @@ export default function AchievementSection() {
           <span className="eyebrow">Hall of Fame</span>
           <h2 className="ach-title">Our <em className="accent-serif">Top Achievers</em></h2>
           <p className="ach-desc">
-            We measure our success through the success of our students. Meet the bright minds who have made us proud in their respective board and university exams.
+            The bright minds who made us proud in their board and university exams.
           </p>
         </div>
 
@@ -110,12 +110,14 @@ export default function AchievementSection() {
         .ach-card {
           background: var(--gray-50);
           border: 1px solid var(--border);
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius-lg);
           overflow: hidden;
-          transition: border-color 0.3s ease;
+          transition: all 0.35s var(--ease);
         }
         .ach-card:hover {
           border-color: var(--blue-light);
+          box-shadow: var(--shadow-md);
+          transform: translateY(-3px);
         }
         .ach-card__img-wrap {
           position: relative;

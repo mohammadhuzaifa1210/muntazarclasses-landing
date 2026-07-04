@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FaTimes, FaUserGraduate, FaPercent } from 'react-icons/fa'
+import { FaTimes, FaUserGraduate, FaCheck, FaRegClock } from 'react-icons/fa'
+import { FiArrowUpRight } from 'react-icons/fi'
 
 export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefilledCourse }) {
   const [form, setForm] = useState({ name: '', phone: '', course: prefilledCourse || 'School Section (5th to 10th)' })
@@ -27,32 +28,42 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && onClose()}>
+        <motion.div
+          className="modal-overlay"
+          onClick={(e) => e.target === e.currentTarget && onClose()}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
           <motion.div
             className="modal"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
             {/* Header */}
             <div className="modal__head">
-              <button className="modal__close" onClick={onClose}><FaTimes /></button>
+              <div className="grid-pattern modal__grid" />
+              <button className="modal__close" onClick={onClose} aria-label="Close"><FaTimes /></button>
               <div className="modal__head-row">
                 <div className="modal__icon"><FaUserGraduate /></div>
                 <div>
-                  <h3 className="modal__title">Admission Enquiry</h3>
-                  <p className="modal__subtitle">Session 2026 – 2027</p>
+                  <span className="modal__eyebrow">Admissions 2026–27</span>
+                  <h3 className="modal__title">Book Your Free Demo</h3>
                 </div>
               </div>
+              <p className="modal__lead">Fill in your details - a counsellor will call you back to schedule a free demo class.</p>
             </div>
 
             {/* Body */}
             <div className="modal__body">
               {done ? (
                 <div className="modal__success">
-                  <h4>Registration Received ✓</h4>
-                  <p>We're scheduling your consultation now.</p>
+                  <div className="modal__success-tick"><FaCheck /></div>
+                  <h4>Registration Received</h4>
+                  <p>We're scheduling your free consultation now.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="modal__form">
@@ -70,25 +81,31 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
                     <label className="field__label">Program</label>
                     <select name="course" value={form.course} onChange={handleChange} className="field__select">
                       <option>School Section (5th to 10th)</option>
-                      <option>College Section (11th & 12th)</option>
+                      <option>College Section (11th &amp; 12th)</option>
                       <option>Degree Section (B.Com, BAF, BMS)</option>
                     </select>
                   </div>
 
                   <button type="submit" className="btn btn--blue btn--lg" disabled={loading} style={{ width: '100%' }}>
-                    {loading ? 'Processing...' : 'Request Free Consultation'}
+                    {loading ? 'Processing...' : <>Request Free Consultation <FiArrowUpRight /></>}
                   </button>
+
+                  <p className="modal__reassure">
+                    <FaRegClock /> No obligation · We reply within 24 hours
+                  </p>
                 </form>
               )}
             </div>
           </motion.div>
-        </div>
+        </motion.div>
       )}
 
       <style>{`
         .modal-overlay {
           position: fixed; inset: 0;
-          background: rgba(0, 0, 0, 0.65);
+          background: rgba(15,23,42,0.6);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -97,89 +114,120 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         }
         .modal {
           background: var(--white);
-          border-radius: var(--radius);
+          border-radius: var(--radius-lg);
           width: 100%;
-          max-width: 440px;
+          max-width: 450px;
           overflow: hidden;
-          border: none;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+          box-shadow: var(--shadow-lg);
         }
         .modal__head {
-          background: var(--blue-deep);
-          padding: 2rem 2.25rem;
           position: relative;
+          overflow: hidden;
+          background: var(--blue-deep);
+          padding: 2rem 2.25rem 1.75rem;
+        }
+        .modal__grid {
+          opacity: 0.55;
+          -webkit-mask-image: radial-gradient(ellipse 80% 90% at 90% 0%, #000 20%, transparent 70%);
+          mask-image: radial-gradient(ellipse 80% 90% at 90% 0%, #000 20%, transparent 70%);
         }
         .modal__close {
           position: absolute;
-          top: 1rem; right: 1rem;
-          background: rgba(255,255,255,0.08);
+          top: 1.1rem; right: 1.1rem;
+          background: rgba(255,255,255,0.1);
           border: none;
-          color: rgba(255,255,255,0.7);
-          width: 30px; height: 30px;
+          color: rgba(255,255,255,0.75);
+          width: 32px; height: 32px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 0.8rem;
           transition: all 0.2s ease;
+          z-index: 2;
         }
-        .modal__close:hover { background: rgba(255,255,255,0.15); color: #fff; }
+        .modal__close:hover { background: rgba(255,255,255,0.2); color: #fff; }
         .modal__head-row {
+          position: relative; z-index: 1;
           display: flex;
           align-items: center;
-          gap: 0.85rem;
+          gap: 0.9rem;
+          margin-bottom: 1rem;
         }
         .modal__icon {
-          width: 42px; height: 42px;
-          border-radius: 10px;
+          flex-shrink: 0;
+          width: 46px; height: 46px;
+          border-radius: 12px;
           background: var(--blue-glow);
           display: flex;
           align-items: center;
           justify-content: center;
           color: var(--blue-light);
-          font-size: 1.1rem;
+          font-size: 1.2rem;
         }
-        .modal__title { color: #fff; font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; }
-        .modal__subtitle { color: rgba(255,255,255,0.6); font-size: 0.75rem; margin-top: 2px; }
-        .modal__body { padding: 2rem 2.25rem; }
+        .modal__eyebrow {
+          display: block;
+          font-family: var(--font-display);
+          font-size: 0.62rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.16em;
+          color: var(--blue-light);
+          margin-bottom: 0.3rem;
+        }
+        .modal__title {
+          color: #fff;
+          font-family: var(--font-display);
+          font-size: 1.3rem;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.1;
+        }
+        .modal__lead {
+          position: relative; z-index: 1;
+          font-size: 0.85rem;
+          color: var(--text-white-70);
+          line-height: 1.6;
+        }
+        .modal__body { padding: 1.75rem 2.25rem 2rem; }
         .modal__form { display: flex; flex-direction: column; }
-        .modal__info {
+        .modal__reassure {
           display: flex;
           align-items: center;
-          gap: 0.6rem;
-          background: var(--blue-soft);
-          padding: 0.7rem 0.9rem;
-          border-radius: var(--radius-sm);
-          border: 1px solid rgba(26,86,219,0.12);
-          margin-bottom: var(--gap-lg);
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: 1rem;
           font-size: 0.78rem;
-          font-weight: 500;
-          color: var(--blue-dark);
+          color: var(--text-muted);
         }
-        .modal__info svg { color: var(--blue); flex-shrink: 0; }
+        .modal__reassure svg { color: var(--blue); font-size: 0.75rem; }
         .modal__success {
           text-align: center;
-          padding: 2.5rem 1rem;
-          background: var(--blue-soft);
-          border-radius: var(--radius-sm);
-          border: 1px solid rgba(26,86,219,0.12);
+          padding: 1.5rem 1rem 1rem;
         }
-        .modal__success h4 { font-size: 1.1rem; margin-bottom: 0.3rem; }
-        .modal__success p { font-size: 0.88rem; color: var(--text-muted); }
+        .modal__success-tick {
+          width: 56px; height: 56px;
+          border-radius: 50%;
+          background: var(--blue-soft);
+          color: var(--blue);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.35rem;
+          margin: 0 auto 1.1rem;
+        }
+        .modal__success h4 { font-size: 1.25rem; margin-bottom: 0.35rem; }
+        .modal__success p { font-size: 0.9rem; color: var(--text-muted); }
+
         @media (max-width: 576px) {
-          .modal-overlay {
-            align-items: flex-end;
-            padding: 0;
-          }
+          .modal-overlay { align-items: flex-end; padding: 0; }
           .modal {
             max-width: 100%;
             border-radius: 1.5rem 1.5rem 0 0;
-            border: none;
             box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
           }
-          .modal__head, .modal__body { 
-            padding: 1.75rem 1.5rem; 
-          }
+          .modal__head { padding: 1.75rem 1.5rem 1.5rem; }
+          .modal__body { padding: 1.5rem 1.5rem 1.75rem; }
         }
       `}</style>
     </AnimatePresence>

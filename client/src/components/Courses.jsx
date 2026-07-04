@@ -8,7 +8,7 @@ const programs = [
     num: '01',
     title: 'School Section (5th to 10th)',
     tag: 'Regular & Private',
-    desc: 'Foundational education and comprehensive board preparation for 5th to 10th standard across all mediums.',
+    desc: 'Board preparation for 5th to 10th, across all mediums.',
     details: [
       { icon: <FaClock />, label: 'Batches', value: 'Hindi · Urdu · English Medium' },
       { icon: <FaCalendarCheck />, label: 'Classes', value: '5th to 9th · 10th Board' },
@@ -19,7 +19,7 @@ const programs = [
     num: '02',
     title: 'College Section (11th & 12th)',
     tag: 'Commerce & Science',
-    desc: 'Specialised coaching for junior college students in Commerce and Science streams, focusing on HSC excellence.',
+    desc: 'HSC coaching for Science and Commerce streams.',
     details: [
       { icon: <FaClock />, label: 'Streams', value: 'Science & Commerce' },
       { icon: <FaCalendarCheck />, label: 'Classes', value: '11th FYJC · 12th SYJC' },
@@ -30,7 +30,7 @@ const programs = [
     num: '03',
     title: 'Degree Section',
     tag: 'University Exams',
-    desc: 'Advanced coaching for undergraduate students pursuing university degrees across multiple disciplines.',
+    desc: 'University exam coaching across major degree disciplines.',
     details: [
       { icon: <FaClock />, label: 'Years', value: 'First (FY) · Second (SY) · Third (TY)' },
       { icon: <FaCalendarCheck />, label: 'Degrees', value: 'B.Com · BAF · BMS' },
@@ -98,7 +98,7 @@ export default function Courses({ onEnquiryClick }) {
 
       <style>{`
         .courses-sec {
-          background: var(--white);
+          background: var(--gray-50);
           padding: var(--gap-5xl) 0;
         }
         .courses-header {
@@ -122,13 +122,15 @@ export default function Courses({ onEnquiryClick }) {
           flex-direction: column;
           background: var(--white);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
+          border-radius: var(--radius-lg);
           padding: 2.25rem;
           transition: all 0.4s var(--ease);
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+          box-shadow: var(--shadow-sm);
         }
         .prog-card:hover {
           border-color: var(--blue);
+          box-shadow: var(--shadow-md);
+          transform: translateY(-3px);
         }
         .prog-card__top {
           display: flex;

@@ -5,6 +5,7 @@ const links = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#why-choose-us' },
   { name: 'Programs', href: '#courses' },
+  { name: 'Reviews', href: '#reviews' },
   { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' }
 ]
@@ -97,7 +98,7 @@ export default function Navbar({ onAdmissionClick }) {
           z-index: 1000;
           transition: all 0.4s var(--ease);
           padding: 1rem 0;
-          background: var(--white);
+          background: transparent;
           border-bottom: 1px solid transparent;
         }
         .nav--solid {

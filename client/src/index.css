@@ -47,7 +47,27 @@
   /* Radius */
   --radius: 14px;
   --radius-sm: 8px;
+  --radius-lg: 22px;
   --radius-pill: 100px;
+
+  /* Section / hero gradients */
+  --grad-hero: linear-gradient(135deg,#eef4ff 0%,#e0ecff 55%,#dbe7ff 100%);
+  --grad-soft: linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%);
+
+  /* Pastel accent tints (blue-family) */
+  --tint-blue: #e8f0ff;   --tint-blue-ink: #1e40af;
+  --tint-sky: #e6f6ff;    --tint-sky-ink: #0369a1;
+  --tint-indigo: #eef0ff; --tint-indigo-ink: #4338ca;
+  --tint-slate: #eef2f7;  --tint-slate-ink: #334155;
+
+  /* Intentionally non-blue accents */
+  --amber: #f59e0b;       /* star ratings only */
+  --wa-green: #25d366;    /* WhatsApp only */
+
+  /* Elevation */
+  --shadow-sm: 0 4px 12px -4px rgba(23,37,84,0.10);
+  --shadow-md: 0 12px 32px -12px rgba(23,37,84,0.18);
+  --shadow-lg: 0 24px 60px -20px rgba(23,37,84,0.22);
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -87,11 +107,13 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-dark);
 }
 
+/* Emphasised word inside a heading — unified clean blue accent
+   (single treatment used site-wide for visual consistency) */
 .accent-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0;
+  color: var(--blue);
+  font-style: normal;
+  font-weight: inherit;
+  font-family: inherit;
 }
 
 /* ─── Scrollbar ─── */
@@ -170,8 +192,49 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-2px);
 }
 
+.btn--wa {
+  background: var(--wa-green);
+  color: #fff;
+}
+.btn--wa:hover {
+  filter: brightness(0.95);
+  transform: translateY(-2px);
+}
+
 .btn--sm { font-size: 0.78rem; padding: 0.65rem 1.5rem; }
 .btn--lg { font-size: 0.9rem; padding: 1.05rem 2.5rem; }
+
+/* ─── Decorative graph grid (reference-style background) ─── */
+.grid-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(26,86,219,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,86,219,0.055) 1px, transparent 1px);
+  background-size: 46px 46px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 80%);
+}
+
+/* ─── Section Header (centered) ─── */
+.section-head {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto var(--gap-3xl);
+}
+.section-head .eyebrow { justify-content: center; margin-bottom: 1.4rem; }
+.section-head .eyebrow::before { display: none; }
+.section-head__title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  margin-bottom: 1.1rem;
+}
+.section-head__title em { color: var(--blue); }
+.section-head__desc {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
 
 /* ─── Eyebrow Label ─── */
 .eyebrow {

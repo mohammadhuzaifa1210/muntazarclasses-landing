@@ -88,9 +88,10 @@ export default function GallerySection({ onViewAll }) {
         }
         .gallery-item {
           aspect-ratio: 4/5;
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius);
           overflow: hidden;
           background: var(--border);
+          box-shadow: var(--shadow-sm);
         }
         .gallery-item img {
           width: 100%; height: 100%;

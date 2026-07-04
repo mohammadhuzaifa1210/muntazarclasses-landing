@@ -30,19 +30,20 @@ export default function Contact({ onEnquirySubmit }) {
     <section id="contact" className="contact-sec">
       <div className="wrap">
 
-        <div className="contact-header">
-          <div className="contact-header__left">
-            <span className="eyebrow">Get in Touch</span>
-            <h2 className="contact-header__title">
-              Start Your <em className="accent-serif">Journey</em>
-            </h2>
-          </div>
-        </div>
-
         <div className="contact-grid">
 
           {/* Info Column */}
           <div className="contact-info">
+            <div className="contact-intro">
+              <span className="eyebrow">Get in Touch</span>
+              <h2 className="contact-intro__title">
+                Start Your <em className="accent-serif">Journey</em>
+              </h2>
+              <p className="contact-intro__desc">
+                Have a question or want to book a demo? Reach us directly, or send an enquiry and we'll call you back.
+              </p>
+            </div>
+
             {info.map((item, i) => {
               const Inner = (
                 <div className="ci-item" key={i}>
@@ -134,18 +135,6 @@ export default function Contact({ onEnquirySubmit }) {
           background: var(--white);
           padding: var(--gap-5xl) 0;
         }
-        .contact-header {
-          display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 2rem;
-          margin-bottom: var(--gap-3xl);
-        }
-        .contact-header__title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
-          margin-bottom: 0.5rem;
-        }
-        .contact-header__title em { color: var(--blue); }
         .contact-grid {
           display: grid;
           grid-template-columns: 1fr 1.35fr;
@@ -155,7 +144,19 @@ export default function Contact({ onEnquirySubmit }) {
         .contact-info {
           display: flex;
           flex-direction: column;
-          gap: 1.25rem;
+          gap: 1rem;
+        }
+        .contact-intro { margin-bottom: 0.75rem; }
+        .contact-intro__title {
+          font-size: clamp(2rem, 4vw, 2.75rem);
+          margin-bottom: 1rem;
+        }
+        .contact-intro__title em { color: var(--blue); }
+        .contact-intro__desc {
+          font-size: 0.98rem;
+          color: var(--text-muted);
+          line-height: 1.7;
+          max-width: 380px;
         }
         .ci-link { text-decoration: none; }
         .ci-item {
@@ -164,11 +165,12 @@ export default function Contact({ onEnquirySubmit }) {
           align-items: flex-start;
           padding: 1rem 1.25rem;
           background: var(--gray-50);
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius);
           border: 1px solid var(--border);
           transition: all 0.3s var(--ease);
         }
-        .ci-link:hover .ci-item { border-color: var(--blue); }
+        .ci-item:hover,
+        .ci-link:hover .ci-item { border-color: var(--blue); box-shadow: var(--shadow-sm); }
         .ci-icon {
           color: var(--blue);
           font-size: 1rem;
@@ -201,7 +203,7 @@ export default function Contact({ onEnquirySubmit }) {
           padding: 1.1rem;
           background: var(--blue-deep);
           color: var(--text-white);
-          border-radius: var(--radius-sm);
+          border-radius: var(--radius);
           font-size: 0.82rem;
           font-weight: 600;
           text-decoration: none;
@@ -213,8 +215,9 @@ export default function Contact({ onEnquirySubmit }) {
         .contact-form-wrap {
           background: var(--gray-50);
           border: 1px solid var(--border);
-          border-radius: var(--radius);
+          border-radius: var(--radius-lg);
           padding: 2.5rem;
+          box-shadow: var(--shadow-sm);
         }
         .cf-title {
           font-size: 1.4rem;
@@ -249,7 +252,6 @@ export default function Contact({ onEnquirySubmit }) {
           color: var(--text-muted);
         }
         @media (max-width: 768px) {
-          .contact-header { flex-direction: column; align-items: flex-start; }
           .contact-grid { grid-template-columns: 1fr; }
           .cf-row { grid-template-columns: 1fr; }
           .contact-form-wrap { padding: 1.75rem; }

@@ -23,7 +23,7 @@ export default function StickyBottom({ onAdmissionClick }) {
           <button onClick={onAdmissionClick} className="btn btn--blue btn--sm" style={{ flex: 1.4 }}>
             <FaCalendarCheck /> Book Demo
           </button>
-          <a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer" className="btn btn--sm" style={{ flex: 1, background: '#25D366', color: '#fff', border: 'none' }}>
+          <a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer" className="btn btn--wa btn--sm" style={{ flex: 1 }}>
             <FaWhatsapp /> Chat
           </a>
         </div>

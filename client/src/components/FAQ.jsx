@@ -25,61 +25,56 @@ const faqs = [
 ]
 
 export default function FAQ() {
-  const [active, setActive] = useState(null)
+  const [active, setActive] = useState(0)
 
   return (
     <section id="faq" className="faq-sec">
       <div className="wrap">
-        <div className="faq-layout">
+        <div className="section-head">
+          <span className="eyebrow">Questions & Answers</span>
+          <h2 className="section-head__title">
+            Frequently Asked <em className="accent-serif">Questions</em>
+          </h2>
+          <p className="section-head__desc">
+            Honest answers to the questions parents ask us most.
+          </p>
+        </div>
 
-          {/* Left: Sticky header */}
-          <div className="faq-left">
-            <span className="eyebrow">Questions & Answers</span>
-            <h2 className="faq-left__title">
-              Everything You Need <em className="accent-serif">to Know</em>
-            </h2>
-            <p className="faq-left__desc">
-              We know choosing the right coaching matters. Here are honest answers to the questions parents ask us most.
-            </p>
-            <div className="faq-left__cta">
-              <span className="faq-left__cta-text">Still have questions?</span>
-              <a href="#contact" className="btn btn--outline btn--sm">Contact Us</a>
-            </div>
-          </div>
+        <div className="faq-list">
+          {faqs.map((faq, i) => {
+            const isOpen = active === i
+            return (
+              <div key={i} className={`faq-item ${isOpen ? 'faq-item--open' : ''}`}>
+                <button className="faq-q" onClick={() => setActive(isOpen ? -1 : i)}>
+                  <span className="faq-q__text">{faq.q}</span>
+                  <span className={`faq-q__icon ${isOpen ? 'faq-q__icon--open' : ''}`}>
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                      <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" strokeWidth="1.5" className="faq-icon-v" />
+                      <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" strokeWidth="1.5" />
+                    </svg>
+                  </span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <p className="faq-a">{faq.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )
+          })}
+        </div>
 
-          {/* Right: Accordion */}
-          <div className="faq-right">
-            {faqs.map((faq, i) => {
-              const isOpen = active === i
-              return (
-                <div key={i} className={`faq-item ${isOpen ? 'faq-item--open' : ''}`}>
-                  <button className="faq-q" onClick={() => setActive(isOpen ? null : i)}>
-                    <span className="faq-q__num">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="faq-q__text">{faq.q}</span>
-                    <span className={`faq-q__icon ${isOpen ? 'faq-q__icon--open' : ''}`}>
-                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" strokeWidth="1.5" className="faq-icon-v" />
-                        <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" strokeWidth="1.5" />
-                      </svg>
-                    </span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                        style={{ overflow: 'hidden' }}
-                      >
-                        <p className="faq-a">{faq.a}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              )
-            })}
-          </div>
+        <div className="faq-foot">
+          <span>Still have questions?</span>
+          <a href="#contact" className="btn btn--blue btn--sm">Contact Us</a>
         </div>
       </div>
 
@@ -88,67 +83,45 @@ export default function FAQ() {
           background: var(--gray-50);
           padding: var(--gap-5xl) 0;
         }
-        .faq-layout {
-          display: grid;
-          grid-template-columns: 1fr 1.6fr;
-          gap: var(--gap-4xl);
-          align-items: start;
-        }
-        .faq-left { position: sticky; top: 120px; }
-        .faq-left__title {
-          font-size: clamp(1.75rem, 3.5vw, 2.25rem);
-          margin-bottom: 1rem;
-        }
-        .faq-left__title em { color: var(--blue); }
-        .faq-left__desc {
-          font-size: 0.95rem;
-          color: var(--text-muted);
-          line-height: 1.7;
-          margin-bottom: 2rem;
-        }
-        .faq-left__cta {
+        .faq-list {
+          max-width: 820px;
+          margin: 0 auto;
           display: flex;
-          align-items: center;
-          gap: 1rem;
-          padding-top: 1.5rem;
-          border-top: 1px solid var(--border);
+          flex-direction: column;
+          gap: 0.85rem;
         }
-        .faq-left__cta-text {
-          font-size: 0.85rem;
-          color: var(--text-muted);
-        }
-        .faq-right { display: flex; flex-direction: column; }
         .faq-item {
-          border-bottom: 1px solid var(--border-strong);
+          background: var(--white);
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          overflow: hidden;
+          transition: all 0.35s var(--ease);
         }
-        .faq-item--open { border-bottom-color: var(--blue); }
+        .faq-item--open {
+          background: var(--blue-deep);
+          border-color: var(--blue-deep);
+          box-shadow: var(--shadow-md);
+        }
         .faq-q {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 1rem;
-          padding: 1.4rem 0;
+          padding: 1.35rem 1.6rem;
           background: none;
           border: none;
           text-align: left;
           cursor: pointer;
           font-family: var(--font-display);
           font-weight: 600;
-          font-size: 0.95rem;
+          font-size: 0.98rem;
           color: var(--text-dark);
           line-height: 1.4;
           transition: color 0.2s ease;
         }
+        .faq-item--open .faq-q { color: var(--text-white); }
         .faq-q:hover { color: var(--blue); }
-        .faq-q__num {
-          font-size: 0.7rem;
-          font-weight: 700;
-          color: var(--blue);
-          opacity: 0.7;
-          letter-spacing: 0.05em;
-          flex-shrink: 0;
-          width: 24px;
-        }
+        .faq-item--open .faq-q:hover { color: var(--text-white); }
         .faq-q__text { flex: 1; }
         .faq-q__icon {
           color: var(--blue);
@@ -156,21 +129,27 @@ export default function FAQ() {
           transition: transform 0.35s var(--ease);
           display: flex;
         }
+        .faq-item--open .faq-q__icon { color: var(--blue-light); }
         .faq-q__icon--open { transform: rotate(45deg); }
-        .faq-icon-v {
-          transition: opacity 0.2s ease;
-        }
         .faq-a {
-          padding: 0 0 1.4rem 2.5rem;
+          padding: 0 1.6rem 1.5rem;
+          font-size: 0.92rem;
+          color: var(--text-white-70);
+          line-height: 1.75;
+        }
+        .faq-foot {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: var(--gap-2xl);
           font-size: 0.9rem;
           color: var(--text-muted);
-          line-height: 1.75;
-          max-width: 540px;
+          flex-wrap: wrap;
         }
         @media (max-width: 768px) {
-          .faq-layout { grid-template-columns: 1fr; gap: var(--gap-2xl); }
-          .faq-left { position: static; }
-          .faq-a { padding-left: 2.25rem; }
+          .faq-q { padding: 1.15rem 1.25rem; font-size: 0.92rem; }
+          .faq-a { padding: 0 1.25rem 1.25rem; }
         }
       `}</style>
     </section>

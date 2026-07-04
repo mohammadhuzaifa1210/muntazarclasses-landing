@@ -20,15 +20,14 @@ export default function CTA({ onAdmissionClick }) {
             Your Child's Academic <em className="accent-serif">Future</em> Starts Here
           </h2>
           <p className="cta-desc">
-            Join the coaching institute that Mumbai's top-scoring families trust.
-            Limited seats. Scholarships available for meritorious students.
+            Limited seats each batch. Scholarships for meritorious students.
           </p>
           <div className="cta-btns">
             <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
               Book a Free Demo <FiArrowUpRight />
             </button>
             <a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/919221105658"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn--outline-light btn--lg"

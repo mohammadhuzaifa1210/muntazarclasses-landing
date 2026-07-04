@@ -1,235 +1,281 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FiArrowUpRight } from 'react-icons/fi'
+import { FaCalendarAlt, FaGraduationCap, FaChalkboardTeacher, FaUsers } from 'react-icons/fa'
 
-const slides = [
-  {
-    tag: 'Govandi\'s Premier Institute',
-    title: ['Educating the', 'Next Generation', 'of Thinkers'],
-    desc: 'Govandi\'s most trusted coaching classes with dedicated batches for Hindi, Urdu, and English medium students.',
-    image: 'https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80'
-  },
-  {
-    tag: 'School, College & Degree',
-    title: ['Comprehensive', 'Board & College', 'Preparation'],
-    desc: 'From 5th standard to TY B.Com, we provide structured, high-quality education across all major boards and university exams.',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80'
-  },
-  {
-    tag: 'Hindi Medium Excellence',
-    title: ['Dedicated Hindi', 'Medium Batches', 'in Govandi'],
-    desc: 'The only institute in Govandi offering specialized, focused batches exclusively for Hindi medium students.',
-    image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1920&q=80'
-  }
+// Right-side photos cross-fade while the headline stays fixed
+const photos = [
+  'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
+  'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80'
 ]
 
 const stats = [
-  { value: '18+', label: 'Years' },
-  { value: '3', label: 'Mediums' },
-  { value: '1', label: 'Vision' }
+  { value: '18+', label: 'Years of Excellence', icon: <FaCalendarAlt /> },
+  { value: '3', label: 'Language Mediums', icon: <FaGraduationCap /> },
+  { value: '200+', label: 'Top Board Scorers', icon: <FaChalkboardTeacher /> },
+  { value: '25', label: 'Students / Batch', icon: <FaUsers /> }
 ]
 
 export default function Hero({ onAdmissionClick }) {
   const [idx, setIdx] = useState(0)
 
   useEffect(() => {
-    const t = setInterval(() => setIdx(p => (p + 1) % slides.length), 7000)
+    const t = setInterval(() => setIdx(p => (p + 1) % photos.length), 5000)
     return () => clearInterval(t)
   }, [])
 
-  const s = slides[idx]
-
   return (
     <section id="home" className="hero">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={idx}
-          className="hero__bg"
-          style={{ backgroundImage: `url(${s.image})` }}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-        />
-      </AnimatePresence>
-
-      <div className="hero__overlay" />
+      <div className="grid-pattern" />
+      <div className="hero__glow hero__glow--a" />
+      <div className="hero__glow hero__glow--b" />
 
       <div className="wrap hero__wrap">
-        <div className="hero__content">
-          <motion.span key={`t-${idx}`} className="hero__tag"
-            initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1, duration: 0.6 }}>
-            {s.tag}
-          </motion.span>
+        <div className="hero__grid">
+          {/* Left */}
+          <motion.div
+            className="hero__content"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h1 className="hero__title">
+              Educating the <span className="hero__accent">Next Generation</span> of Thinkers
+            </h1>
 
-          <motion.h1 key={`h-${idx}`} className="hero__title"
-            initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>
-            {s.title.map((line, i) => (
-              <span key={i} className="hero__title-line">
-                {i === 1 ? <em className="accent-serif">{line}</em> : line}
-              </span>
-            ))}
-          </motion.h1>
+            <p className="hero__desc">
+              Trusted coaching in Hindi, Urdu &amp; English - from 5th standard to degree.
+            </p>
 
-          <motion.p key={`d-${idx}`} className="hero__desc"
-            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45, duration: 0.7 }}>
-            {s.desc}
-          </motion.p>
-
-          <motion.div key={`a-${idx}`} className="hero__btns"
-            initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6, duration: 0.7 }}>
-            <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
-              Book Free Demo Class
-            </button>
-            <a href="#courses" className="btn btn--outline-light btn--lg">
-              View Programs
-            </a>
-          </motion.div>
-        </div>
-
-        <div className="hero__stats">
-          {stats.map((st, i) => (
-            <div key={i} className="hero__stat">
-              <span className="hero__stat-val">{st.value}</span>
-              <span className="hero__stat-lbl">{st.label}</span>
+            <div className="hero__btns">
+              <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
+                Book Free Demo <FiArrowUpRight />
+              </button>
+              <a href="#courses" className="btn btn--outline btn--lg">
+                View Programs
+              </a>
             </div>
-          ))}
+          </motion.div>
+
+          {/* Right */}
+          <motion.div
+            className="hero__media"
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="hero__photo">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={idx}
+                  src={photos[idx]}
+                  alt="Muntazar Classes students learning"
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 1 }}
+                  loading="eager"
+                />
+              </AnimatePresence>
+            </div>
+
+            <div className="hero__float">
+              <div className="hero__float-icon"><FaGraduationCap /></div>
+              <div>
+                <span className="hero__float-val">18+ Years</span>
+                <span className="hero__float-lbl">of Board Excellence</span>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="hero__dots">
-        {slides.map((_, i) => (
-          <button key={i} className={`hero__dot ${i === idx ? 'active' : ''}`} onClick={() => setIdx(i)} />
-        ))}
+      {/* Docked dark stat bar */}
+      <div className="wrap">
+        <motion.div
+          className="hero__stats"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+        >
+          {stats.map((s, i) => (
+            <div key={i} className="hero__stat">
+              <span className="hero__stat-icon">{s.icon}</span>
+              <div className="hero__stat-text">
+                <span className="hero__stat-val">{s.value}</span>
+                <span className="hero__stat-lbl">{s.label}</span>
+              </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
 
       <style>{`
         .hero {
           position: relative;
-          height: 100svh;
-          min-height: 650px;
-          display: flex;
-          align-items: center;
+          background: var(--grad-hero);
+          padding: calc(62px + 4.5rem) 0 0;
           overflow: hidden;
-          background: var(--blue-deep);
-          margin-top: 62px;
         }
-        .hero__bg {
-          position: absolute; inset: 0;
-          background-size: cover;
-          background-position: center;
+        .hero__glow {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(90px);
+          pointer-events: none;
+          z-index: 0;
         }
-        .hero__overlay {
-          position: absolute; inset: 0;
-          background: linear-gradient(135deg, rgba(23,37,84,0.88) 0%, rgba(30,58,138,0.7) 100%);
-          z-index: 1;
+        .hero__glow--a {
+          width: 480px; height: 480px;
+          background: rgba(59,130,246,0.18);
+          top: -140px; right: -120px;
         }
-        .hero__wrap {
-          position: relative; z-index: 3;
-          display: flex;
+        .hero__glow--b {
+          width: 420px; height: 420px;
+          background: rgba(26,86,219,0.10);
+          bottom: 40px; left: -160px;
+        }
+        .hero__wrap { position: relative; z-index: 2; }
+        .hero__grid {
+          display: grid;
+          grid-template-columns: 1.05fr 0.95fr;
+          gap: 3.5rem;
           align-items: center;
-          justify-content: space-between;
-          gap: 4rem;
-          width: 100%;
+          padding-bottom: 4.5rem;
         }
-        .hero__content { max-width: 680px; }
-        .hero__tag {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          font-family: var(--font-display);
-          font-size: 0.7rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.2em;
-          color: var(--blue-light);
-          margin-bottom: 1.75rem;
-        }
-        .hero__tag::before {
-          content: '';
-          width: 24px; height: 2px;
-          background: var(--blue-light);
-          border-radius: 2px;
-        }
+        .hero__content { max-width: 580px; }
         .hero__title {
-          font-size: clamp(2.6rem, 5.5vw, 4.25rem);
-          font-weight: 800;
-          color: var(--text-white);
-          line-height: 1.06;
-          letter-spacing: -0.04em;
-          margin-bottom: 1.75rem;
+          font-size: clamp(2.1rem, 3.8vw, 3.1rem);
+          font-weight: 700;
+          line-height: 1.14;
+          letter-spacing: -0.02em;
+          color: var(--text-dark);
+          margin-bottom: 1.35rem;
         }
-        .hero__title-line { display: block; }
-        .hero__title em { color: rgba(255,255,255,0.6); font-weight: 400; }
+        .hero__accent { color: var(--blue); }
         .hero__desc {
-          font-size: 1.08rem;
-          color: var(--text-white-70);
+          font-size: 1.05rem;
+          color: var(--text-muted);
           line-height: 1.7;
-          max-width: 480px;
-          margin-bottom: 2.5rem;
+          max-width: 440px;
+          margin-bottom: 2.25rem;
         }
         .hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-        .hero__stats {
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-          padding: 2.25rem 2rem;
-          background: rgba(255,255,255,0.08);
-          border: 1px solid rgba(255,255,255,0.1);
-          border-radius: var(--radius);
-          backdrop-filter: blur(10px);
+
+        /* Media */
+        .hero__media { position: relative; }
+        .hero__photo {
+          position: relative;
+          aspect-ratio: 4 / 3.4;
+          border-radius: var(--radius-lg);
+          overflow: hidden;
+          box-shadow: var(--shadow-lg);
+          background: var(--gray-100);
         }
-        .hero__stat { text-align: center; }
-        .hero__stat-val {
+        .hero__photo img {
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          object-fit: cover;
+        }
+        .hero__float {
+          position: absolute;
+          bottom: -22px; left: -22px;
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: var(--white);
+          padding: 0.9rem 1.15rem;
+          border-radius: var(--radius);
+          box-shadow: var(--shadow-md);
+          border: 1px solid var(--border);
+        }
+        .hero__float-icon {
+          width: 40px; height: 40px;
+          border-radius: 10px;
+          background: var(--blue-soft);
+          color: var(--blue);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+        }
+        .hero__float-val {
           display: block;
           font-family: var(--font-display);
-          font-size: 2.25rem;
+          font-weight: 800;
+          font-size: 1.05rem;
+          color: var(--text-dark);
+          line-height: 1.1;
+        }
+        .hero__float-lbl { font-size: 0.72rem; color: var(--text-muted); }
+
+        /* Docked stat bar */
+        .hero__stats {
+          position: relative;
+          z-index: 3;
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          background: var(--blue-deep);
+          border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+          box-shadow: var(--shadow-lg);
+          overflow: hidden;
+        }
+        .hero__stat {
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          padding: 1.85rem 1.75rem;
+          border-right: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero__stat:last-child { border-right: none; }
+        .hero__stat-icon {
+          color: var(--blue-light);
+          font-size: 1.35rem;
+          flex-shrink: 0;
+        }
+        .hero__stat-text { display: flex; flex-direction: column; line-height: 1.15; }
+        .hero__stat-val {
+          font-family: var(--font-display);
+          font-size: 1.65rem;
           font-weight: 800;
           color: var(--text-white);
-          line-height: 1;
+          letter-spacing: -0.02em;
         }
         .hero__stat-lbl {
-          display: block;
-          font-size: 0.68rem;
+          font-size: 0.72rem;
           font-weight: 600;
           text-transform: uppercase;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.08em;
           color: var(--text-white-50);
-          margin-top: 0.3rem;
         }
-        .hero__dots {
-          position: absolute;
-          bottom: 2.5rem; left: 50%;
-          transform: translateX(-50%);
-          z-index: 10;
-          display: flex;
-          gap: 0.6rem;
-        }
-        .hero__dot {
-          width: 8px; height: 8px;
-          border-radius: 50%;
-          border: 1.5px solid var(--text-white-50);
-          background: transparent;
-          padding: 0; cursor: pointer;
-          transition: all 0.4s var(--ease);
-        }
-        .hero__dot.active {
-          background: var(--text-white);
-          border-color: var(--text-white);
-          transform: scale(1.3);
+
+        @media (max-width: 991px) {
+          .hero__grid {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            text-align: center;
+            padding-bottom: 3.5rem;
+          }
+          .hero__content { max-width: 640px; margin: 0 auto; }
+          .hero__desc { margin-left: auto; margin-right: auto; }
+          .hero__btns { justify-content: center; }
+          .hero__media { max-width: 520px; margin: 0 auto; width: 100%; }
+          .hero__stats { grid-template-columns: repeat(2, 1fr); }
+          .hero__stat:nth-child(2) { border-right: none; }
+          .hero__stat:nth-child(1), .hero__stat:nth-child(2) {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+          }
         }
         @media (max-width: 768px) {
-          .hero { margin-top: 56px; }
-          .hero__wrap { flex-direction: column; justify-content: center; text-align: center; }
-          .hero__content { max-width: 100%; }
-          .hero__desc { margin-left: auto; margin-right: auto; }
-          .hero__btns { justify-content: center; flex-direction: column; }
+          .hero { padding-top: calc(56px + 3.25rem); }
+          .hero__btns { flex-direction: column; }
           .hero__btns .btn { width: 100%; }
-          .hero__stats {
-            flex-direction: row; gap: 1.5rem; padding: 1.25rem; width: 100%;
-            justify-content: space-around;
-          }
-          .hero__stat-val { font-size: 1.6rem; }
-          .hero__tag { justify-content: center; }
+        }
+        @media (max-width: 520px) {
+          .hero__stats { grid-template-columns: 1fr; }
+          .hero__stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+          .hero__stat:last-child { border-bottom: none; }
+          .hero__float { left: 50%; transform: translateX(-50%); bottom: -20px; }
         }
       `}</style>
     </section>

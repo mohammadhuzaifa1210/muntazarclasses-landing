@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import ProgramChips from './components/ProgramChips'
+import EasySteps from './components/EasySteps'
 import BentoFeatures from './components/BentoFeatures'
 import Courses from './components/Courses'
 import AchievementSection from './components/AchievementSection'
 import GallerySection from './components/GallerySection'
 import GalleryPage from './components/GalleryPage'
 import AchievementPage from './components/AchievementPage'
+import ProgramsPage from './components/ProgramsPage'
+import AdmissionsBanner from './components/AdmissionsBanner'
 import FAQ from './components/FAQ'
-import CTA from './components/CTA'
+import Reviews from './components/Reviews'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import StickyBottom from './components/StickyBottom'
@@ -22,12 +26,15 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
     <>
       <Navbar onAdmissionClick={handleAdmissionClick} />
       <Hero onAdmissionClick={handleAdmissionClick} />
+      <ProgramChips />
+      <EasySteps onAdmissionClick={handleAdmissionClick} />
       <BentoFeatures />
       <Courses onEnquiryClick={handleEnquiryClick} />
       <AchievementSection />
       <GallerySection onViewAll={() => navigate('/gallery')} />
+      <AdmissionsBanner onAdmissionClick={handleAdmissionClick} />
       <FAQ />
-      <CTA onAdmissionClick={handleAdmissionClick} />
+      <Reviews />
       <Contact onEnquirySubmit={handleEnquirySubmit} />
       <Footer />
       <StickyBottom onAdmissionClick={handleAdmissionClick} />
@@ -86,6 +93,7 @@ export default function App() {
         />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/achievements" element={<AchievementPage />} />
+        <Route path="/programs" element={<ProgramsPage />} />
       </Routes>
       <AdmissionPopup 
         isOpen={isPopupOpen} 
