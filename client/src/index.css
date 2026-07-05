@@ -64,6 +64,17 @@
   --amber: #f59e0b;       /* star ratings only */
   --wa-green: #25d366;    /* WhatsApp only */
 
+  /* Gold/Trophy accents — Results sections */
+  --gold: #f59e0b;
+  --gold-dark: #d97706;
+  --gold-light: #fbbf24;
+  --gold-soft: rgba(245, 158, 11, 0.08);
+  --gold-glow: rgba(245, 158, 11, 0.15);
+
+  /* Dark surfaces for results hero */
+  --surface-dark: #0f172a;
+  --surface-dark-2: #1e293b;
+
   /* Elevation */
   --shadow-sm: 0 4px 12px -4px rgba(23,37,84,0.10);
   --shadow-md: 0 12px 32px -12px rgba(23,37,84,0.18);
