@@ -61,30 +61,31 @@ export default function EasySteps({ onAdmissionClick }) {
       <style>{`
         .steps-sec {
           background: var(--grad-soft);
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .steps-grid {
           display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
-          gap: var(--gap-3xl);
+          grid-template-columns: 1fr;
+          gap: var(--gap-2xl);
           align-items: center;
         }
         .steps-intro__title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-size: var(--fs-h2);
           margin-bottom: 1.25rem;
         }
         .steps-intro__title em { color: var(--blue); }
         .steps-intro__desc {
-          font-size: 1.02rem;
+          font-size: var(--fs-body);
           color: var(--text-muted);
           line-height: 1.7;
           margin-bottom: 2rem;
           max-width: 420px;
         }
-        .steps-intro__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .steps-intro__btns { display: flex; flex-direction: column; gap: 1rem; }
+        .steps-intro__btns .btn { width: 100%; }
         .steps-cards {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: 1fr;
           gap: 1.25rem;
         }
         .step-card {
@@ -124,18 +125,21 @@ export default function EasySteps({ onAdmissionClick }) {
           color: var(--text-body);
           line-height: 1.6;
         }
-        .steps-cards .step-card:nth-child(2) { margin-top: 2rem; }
-        .steps-cards .step-card:nth-child(4) { margin-top: 2rem; }
-
-        @media (max-width: 991px) {
-          .steps-grid { grid-template-columns: 1fr; gap: var(--gap-2xl); }
+        /* ── ≥480: roomier intro buttons ── */
+        @media (min-width: 480px) {
+          .steps-intro__btns { flex-direction: row; flex-wrap: wrap; }
+          .steps-intro__btns .btn { width: auto; }
         }
-        @media (max-width: 560px) {
-          .steps-cards { grid-template-columns: 1fr; }
+        /* ── ≥768: two-column staggered cards ── */
+        @media (min-width: 768px) {
+          .steps-cards { grid-template-columns: repeat(2, 1fr); }
           .steps-cards .step-card:nth-child(2),
-          .steps-cards .step-card:nth-child(4) { margin-top: 0; }
-          .steps-intro__btns { flex-direction: column; }
-          .steps-intro__btns .btn { width: 100%; }
+          .steps-cards .step-card:nth-child(4) { margin-top: 2rem; }
+        }
+        /* ── ≥992: side-by-side intro + cards ── */
+        @media (min-width: 992px) {
+          .steps-sec { padding: var(--gap-5xl) 0; }
+          .steps-grid { grid-template-columns: 0.85fr 1.15fr; gap: var(--gap-3xl); }
         }
       `}</style>
     </section>

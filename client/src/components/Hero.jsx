@@ -80,13 +80,6 @@ export default function Hero({ onAdmissionClick }) {
               </AnimatePresence>
             </div>
 
-            <div className="hero__float">
-              <div className="hero__float-icon"><FaGraduationCap /></div>
-              <div>
-                <span className="hero__float-val">18+ Years</span>
-                <span className="hero__float-lbl">of Board Excellence</span>
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>
@@ -112,61 +105,74 @@ export default function Hero({ onAdmissionClick }) {
       </div>
 
       <style>{`
+        /* ===== Base: mobile (≤479px), single-column stack ===== */
         .hero {
           position: relative;
           background: var(--grad-hero);
-          padding: calc(62px + 4.5rem) 0 0;
+          padding: calc(56px + 2.25rem) 0 0;
           overflow: hidden;
         }
         .hero__glow {
           position: absolute;
           border-radius: 50%;
-          filter: blur(90px);
+          filter: blur(80px);
           pointer-events: none;
           z-index: 0;
         }
         .hero__glow--a {
-          width: 480px; height: 480px;
+          width: 300px; height: 300px;
           background: rgba(59,130,246,0.18);
-          top: -140px; right: -120px;
+          top: -110px; right: -90px;
         }
         .hero__glow--b {
-          width: 420px; height: 420px;
+          width: 280px; height: 280px;
           background: rgba(26,86,219,0.10);
-          bottom: 40px; left: -160px;
+          bottom: 40px; left: -120px;
         }
         .hero__wrap { position: relative; z-index: 2; }
         .hero__grid {
           display: grid;
-          grid-template-columns: 1.05fr 0.95fr;
-          gap: 3.5rem;
+          grid-template-columns: 1fr;
+          gap: var(--gap-2xl);
           align-items: center;
-          padding-bottom: 4.5rem;
+          text-align: center;
+          padding-bottom: var(--gap-2xl);
         }
-        .hero__content { max-width: 580px; }
+        .hero__content { max-width: 640px; margin: 0 auto; }
         .hero__title {
-          font-size: clamp(2.1rem, 3.8vw, 3.1rem);
+          font-size: var(--fs-h1);
           font-weight: 700;
           line-height: 1.14;
           letter-spacing: -0.02em;
           color: var(--text-dark);
-          margin-bottom: 1.35rem;
+          margin-bottom: var(--gap-lg);
         }
         .hero__accent { color: var(--blue); }
         .hero__desc {
-          font-size: 1.05rem;
+          font-size: var(--fs-lead);
           color: var(--text-muted);
           line-height: 1.7;
           max-width: 440px;
-          margin-bottom: 2.25rem;
+          margin: 0 auto var(--gap-xl);
         }
-        .hero__btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .hero__btns {
+          display: flex;
+          flex-direction: column;
+          gap: var(--gap-md);
+          width: 100%;
+        }
+        .hero__btns .btn { width: 100%; }
 
         /* Media */
-        .hero__media { position: relative; }
+        .hero__media {
+          position: relative;
+          max-width: 520px;
+          margin: 0 auto;
+          width: 100%;
+        }
         .hero__photo {
           position: relative;
-          aspect-ratio: 4 / 3.4;
+          aspect-ratio: 4 / 3.2;
           border-radius: var(--radius-lg);
           overflow: hidden;
           box-shadow: var(--shadow-lg);
@@ -177,44 +183,13 @@ export default function Hero({ onAdmissionClick }) {
           width: 100%; height: 100%;
           object-fit: cover;
         }
-        .hero__float {
-          position: absolute;
-          bottom: -22px; left: -22px;
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          background: var(--white);
-          padding: 0.9rem 1.15rem;
-          border-radius: var(--radius);
-          box-shadow: var(--shadow-md);
-          border: 1px solid var(--border);
-        }
-        .hero__float-icon {
-          width: 40px; height: 40px;
-          border-radius: 10px;
-          background: var(--blue-soft);
-          color: var(--blue);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.1rem;
-        }
-        .hero__float-val {
-          display: block;
-          font-family: var(--font-display);
-          font-weight: 800;
-          font-size: 1.05rem;
-          color: var(--text-dark);
-          line-height: 1.1;
-        }
-        .hero__float-lbl { font-size: 0.72rem; color: var(--text-muted); }
-
-        /* Docked stat bar */
+        /* Docked stat bar - 2x2 grid on phone */
         .hero__stats {
           position: relative;
           z-index: 3;
+          margin-top: var(--gap-lg);
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(2, 1fr);
           background: var(--blue-deep);
           border-radius: var(--radius-lg) var(--radius-lg) 0 0;
           box-shadow: var(--shadow-lg);
@@ -223,11 +198,13 @@ export default function Hero({ onAdmissionClick }) {
         .hero__stat {
           display: flex;
           align-items: center;
-          gap: 0.85rem;
-          padding: 1.85rem 1.75rem;
+          gap: 0.75rem;
+          padding: 1.25rem 1.1rem;
           border-right: 1px solid rgba(255,255,255,0.1);
+          border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .hero__stat:last-child { border-right: none; }
+        .hero__stat:nth-child(2n) { border-right: none; }
+        .hero__stat:nth-child(n+3) { border-bottom: none; }
         .hero__stat-icon {
           color: var(--blue-light);
           font-size: 1.35rem;
@@ -236,46 +213,71 @@ export default function Hero({ onAdmissionClick }) {
         .hero__stat-text { display: flex; flex-direction: column; line-height: 1.15; }
         .hero__stat-val {
           font-family: var(--font-display);
-          font-size: 1.65rem;
+          font-size: 1.5rem;
           font-weight: 800;
           color: var(--text-white);
           letter-spacing: -0.02em;
         }
         .hero__stat-lbl {
-          font-size: 0.72rem;
+          font-size: 0.7rem;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 0.08em;
           color: var(--text-white-50);
         }
 
-        @media (max-width: 991px) {
-          .hero__grid {
-            grid-template-columns: 1fr;
-            gap: 3rem;
-            text-align: center;
-            padding-bottom: 3.5rem;
-          }
-          .hero__content { max-width: 640px; margin: 0 auto; }
-          .hero__desc { margin-left: auto; margin-right: auto; }
-          .hero__btns { justify-content: center; }
-          .hero__media { max-width: 520px; margin: 0 auto; width: 100%; }
-          .hero__stats { grid-template-columns: repeat(2, 1fr); }
-          .hero__stat:nth-child(2) { border-right: none; }
-          .hero__stat:nth-child(1), .hero__stat:nth-child(2) {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-          }
+        /* ===== ≥480px ===== */
+        @media (min-width: 480px) {
+          .hero__stat { padding: 1.5rem 1.35rem; }
+          .hero__stat-val { font-size: 1.6rem; }
         }
-        @media (max-width: 768px) {
+
+        /* ===== ≥768px: inline CTAs, roomier ===== */
+        @media (min-width: 768px) {
           .hero { padding-top: calc(56px + 3.25rem); }
-          .hero__btns { flex-direction: column; }
-          .hero__btns .btn { width: 100%; }
+          .hero__glow--a { width: 420px; height: 420px; top: -130px; right: -110px; }
+          .hero__glow--b { width: 380px; height: 380px; }
+          .hero__grid { gap: 3rem; padding-bottom: 3.5rem; }
+          .hero__btns {
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: auto;
+          }
+          .hero__btns .btn { width: auto; }
         }
-        @media (max-width: 520px) {
-          .hero__stats { grid-template-columns: 1fr; }
-          .hero__stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-          .hero__stat:last-child { border-bottom: none; }
-          .hero__float { left: 50%; transform: translateX(-50%); bottom: -20px; }
+
+        /* ===== ≥992px: two-column layout returns ===== */
+        @media (min-width: 992px) {
+          .hero { padding-top: calc(62px + 4.5rem); }
+          .hero__glow--a { width: 480px; height: 480px; top: -140px; right: -120px; }
+          .hero__glow--b { width: 420px; height: 420px; bottom: 40px; left: -160px; }
+          .hero__grid {
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 3.5rem;
+            text-align: left;
+            padding-bottom: var(--gap-3xl);
+          }
+          .hero__content { max-width: 580px; margin: 0; }
+          .hero__desc { margin: 0 0 2.25rem; }
+          .hero__btns { justify-content: flex-start; }
+          .hero__media { max-width: none; margin: 0; }
+          .hero__photo { aspect-ratio: 4 / 3.4; }
+
+          .hero__stats { margin-top: 0; grid-template-columns: repeat(4, 1fr); }
+          .hero__stat {
+            padding: 1.85rem 1.75rem;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            border-bottom: none;
+          }
+          .hero__stat:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.1); }
+          .hero__stat:last-child { border-right: none; }
+          .hero__stat-val { font-size: 1.65rem; }
+        }
+
+        /* ===== ≥1240px: extra breathing room ===== */
+        @media (min-width: 1240px) {
+          .hero__grid { gap: 4rem; }
         }
       `}</style>
     </section>

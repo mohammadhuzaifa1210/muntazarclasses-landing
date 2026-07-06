@@ -115,15 +115,20 @@ function YearSection({ section, defaultOpen, onStudentClick }) {
                 {med.students.length > 0 ? (
                   <div className="ap-students-grid">
                     {med.students.map((s, si) => (
-                      <motion.div key={si} className="ap-student" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (si % 4) * 0.08, duration: 0.5 }} whileHover={{ y: -4 }} onClick={() => onStudentClick(s)}>
-                        <div className="ap-student__img-wrap">
-                          <img src={s.image} alt={s.name} className="ap-student__img" loading="lazy" />
-                          <div className="ap-student__overlay" />
-                          <div className="ap-student__score"><FiAward /> {s.score}</div>
-                        </div>
-                        <div className="ap-student__info">
-                          <h4 className="ap-student__name">{s.name}</h4>
-                          {s.subject && <span className="ap-student__subject">{s.subject}</span>}
+                      <motion.div key={si} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (si % 4) * 0.08, duration: 0.5 }}>
+                        <div className="ap-student" onClick={() => onStudentClick(s)}>
+                          <div className="ap-student__avatar-wrap">
+                            <img src={s.image} alt={s.name} className="ap-student__avatar" loading="lazy" />
+                          </div>
+                          
+                          <div className="ap-student__info-center">
+                            <h4 className="ap-student__name">{s.name}</h4>
+                            <div className="ap-student__score">
+                              <FiAward className="ap-student__score-icon" />
+                              {s.score}
+                            </div>
+                            {s.subject && <div className="ap-student__subject">{s.subject}</div>}
+                          </div>
                         </div>
                       </motion.div>
                     ))}
@@ -213,8 +218,10 @@ export default function AchievementPage() {
           padding: 0.35rem; max-width: 500px; margin: 0 auto;
         }
         .ap-filter-btn {
+          display: inline-flex; align-items: center; justify-content: center;
+          flex: 1 1 auto; min-height: 44px; white-space: nowrap;
           font-family: var(--font-display); font-size: 0.82rem; font-weight: 500;
-          padding: 0.6rem 1.5rem; border-radius: var(--radius-pill); border: none;
+          padding: 0.6rem 1.25rem; border-radius: var(--radius-pill); border: none;
           background: transparent; color: var(--text-muted); cursor: pointer;
           transition: all 0.3s var(--ease);
         }
@@ -224,7 +231,7 @@ export default function AchievementPage() {
         }
 
         /* ── Results Container ── */
-        .ap-results { padding: 2.5rem 2rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .ap-results { padding: 1.5rem 1rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
 
         /* ── Year Accordion ── */
         .ap-year {
@@ -263,42 +270,62 @@ export default function AchievementPage() {
           color: var(--text-dark); letter-spacing: 0.01em;
         }
 
-        /* ── Student Cards Grid ── */
+        /* ── Student Cards Grid — 1-col phone, scales up ── */
         .ap-students-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;
+          display: grid; grid-template-columns: 1fr; gap: 1.25rem; max-width: 320px; margin: 0 auto;
         }
         .ap-student {
-          background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-sm);
-          overflow: hidden; cursor: pointer; transition: all 0.3s var(--ease);
+          background: var(--white);
+          border-radius: var(--radius-xl);
+          padding: 2rem 1rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          border: 1px solid var(--border);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+          cursor: pointer;
+          transition: all 0.3s var(--ease);
         }
         .ap-student:hover {
-          border-color: var(--border-strong); transform: translateY(-2px);
+          transform: translateY(-5px);
+          border-color: rgba(26,86,219,0.3);
+          box-shadow: 0 15px 35px rgba(26,86,219,0.08);
         }
-        .ap-student__img-wrap {
-          position: relative; aspect-ratio: 3/4; overflow: hidden; background: var(--gray-200);
+        
+        .ap-student__avatar-wrap {
+          position: relative;
+          width: 120px;
+          height: 120px;
+          flex-shrink: 0;
+          margin-bottom: 1.25rem;
         }
-        .ap-student__img {
-          width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.6s var(--ease);
+        
+        .ap-student__avatar {
+          width: 100%; height: 100%; object-fit: cover; object-position: top;
+          border-radius: 50%; border: 3px solid var(--white);
+          box-shadow: 0 0 0 2px rgba(26,86,219,0.2), 0 10px 20px rgba(0,0,0,0.08);
+          transition: transform 0.5s;
         }
-        .ap-student:hover .ap-student__img { transform: scale(1.05); }
-        .ap-student__overlay {
-          position: absolute; inset: 0; pointer-events: none;
-          background: linear-gradient(180deg, transparent 55%, rgba(15,23,42,0.7) 100%);
+        .ap-student:hover .ap-student__avatar { transform: scale(1.05); box-shadow: 0 0 0 2px var(--blue), 0 15px 25px rgba(26,86,219,0.2); }
+
+        .ap-student__info-center {
+          display: flex; flex-direction: column; align-items: center; width: 100%;
         }
+        .ap-student__name {
+          font-size: 1.1rem; font-weight: 700; color: var(--text-dark); line-height: 1.2; margin-bottom: 0.5rem;
+        }
+        
         .ap-student__score {
-          position: absolute; bottom: 0.6rem; right: 0.6rem;
-          display: flex; align-items: center; gap: 0.3rem;
-          background: rgba(15,23,42,0.7); backdrop-filter: blur(8px);
-          border: 1px solid rgba(245,158,11,0.4); color: var(--gold-light);
-          font-family: var(--font-display); font-size: 0.82rem; font-weight: 800;
-          padding: 0.3rem 0.6rem; border-radius: 6px;
+          display: flex; align-items: center; justify-content: center; gap: 0.3rem;
+          font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--gold-dark);
+          line-height: 1; margin-bottom: 0.75rem;
         }
-        .ap-student__score svg { font-size: 0.65rem; color: var(--gold); }
-        .ap-student__info { padding: 1rem; text-align: center; border-top: 2px solid var(--gold); }
-        .ap-student__name { font-size: 0.95rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.2rem; }
+        .ap-student__score-icon { font-size: 1.25rem; color: var(--gold); }
+
         .ap-student__subject {
-          display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--blue-dark);
-          background: var(--blue-soft); padding: 0.2rem 0.5rem; border-radius: 4px;
+          font-size: 0.75rem; color: var(--text-muted); background: var(--gray-100);
+          padding: 0.25rem 0.6rem; border-radius: var(--radius-pill); font-weight: 600;
         }
 
         /* ── Empty State ── */
@@ -352,20 +379,21 @@ export default function AchievementPage() {
         }
         .ap-lightbox__info p { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
 
-        /* ── Responsive ── */
-        @media (max-width: 991px) {
+        /* ── Responsive — mobile-first ── */
+        @media (min-width: 480px) {
+          .ap-students-grid { grid-template-columns: repeat(2, 1fr); max-width: none; margin: 0; }
+          .ap-filter-btn { padding: 0.6rem 1.25rem; font-size: 0.82rem; }
+          .ap-results { padding: 2rem 1.25rem 5rem; }
+        }
+        @media (min-width: 768px) {
           .ap-students-grid { grid-template-columns: repeat(3, 1fr); }
+          .ap-year__header { padding: 1.25rem 1.75rem; }
+          .ap-year__body { padding: 0 1.75rem 1.75rem; }
+          .ap-year__title { font-size: 1.15rem; }
+          .ap-results { padding: 2.5rem 2rem 5rem; }
         }
-        @media (max-width: 768px) {
-          .ap-students-grid { grid-template-columns: repeat(2, 1fr); }
-          .ap-year__header { padding: 1rem 1.25rem; }
-          .ap-year__body { padding: 0 1.25rem 1.25rem; }
-          .ap-year__title { font-size: 1rem; }
-        }
-        @media (max-width: 576px) {
-          .ap-students-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
-          .ap-hero { padding: 100px 0 50px; }
-          .ap-filter-btn { padding: 0.5rem 1rem; font-size: 0.75rem; }
+        @media (min-width: 992px) {
+          .ap-students-grid { grid-template-columns: repeat(4, 1fr); }
         }
       `}</style>
     </>

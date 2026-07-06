@@ -3,7 +3,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --font-display: 'Outfit', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
 
@@ -48,6 +48,7 @@
   --radius: 14px;
   --radius-sm: 8px;
   --radius-lg: 22px;
+  --radius-xl: 28px;
   --radius-pill: 100px;
 
   /* Section / hero gradients */
@@ -83,7 +84,29 @@
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --speed: 0.5s;
+
+  /* Fluid type scale — mobile-first, scales with viewport via clamp() */
+  --fs-h1: clamp(1.9rem, 6vw, 3.4rem);
+  --fs-h2: clamp(1.6rem, 4.5vw, 2.75rem);
+  --fs-h3: clamp(1.15rem, 3vw, 1.5rem);
+  --fs-lead: clamp(1rem, 2.6vw, 1.15rem);
+  --fs-body: clamp(0.95rem, 2.4vw, 1.05rem);
 }
+
+/* ═══════════════════════════════════════════════════════════
+   BREAKPOINT SYSTEM (reference — CSS @media can't read var())
+   Author MOBILE-FIRST: base rules target phones, then layer up.
+     base   0–479px   phones            (primary design)
+     sm     ≥480px    large phones
+     md     ≥768px    tablets portrait
+     lg     ≥992px    tablets landscape / laptops (desktop nav)
+     xl     ≥1240px   desktops (container caps)
+   Standard queries used across the app:
+     @media (min-width: 480px)  { … }
+     @media (min-width: 768px)  { … }
+     @media (min-width: 992px)  { … }
+     @media (min-width: 1240px) { … }
+   ═══════════════════════════════════════════════════════════ */
 
 /* ─── Reset ─── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -307,6 +330,13 @@ h1, h2, h3, h4, h5, h6 {
 .field__input::placeholder,
 .field__textarea::placeholder { color: var(--text-faint); }
 .field__textarea { resize: vertical; min-height: 90px; }
+
+/* Prevent iOS zoom-on-focus: inputs must be ≥16px on phones */
+@media (max-width: 767px) {
+  .field__input,
+  .field__select,
+  .field__textarea { font-size: 16px; }
+}
 
 /* ─── Responsive Visibility ─── */
 @media (min-width: 992px) {

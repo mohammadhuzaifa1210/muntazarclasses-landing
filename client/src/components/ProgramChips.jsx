@@ -74,25 +74,36 @@ export default function ProgramChips() {
           mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 30%, transparent 75%);
         }
         .chips-sec .wrap { position: relative; z-index: 1; }
+
+        /* Base = phone (<=479): horizontal scroll-snap row, no overflow */
         .chips-grid {
           display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 0.85rem;
+          flex-wrap: nowrap;
+          gap: 0.6rem;
           max-width: 880px;
           margin: 0 auto;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-padding: 0 var(--gap-md);
+          -webkit-overflow-scrolling: touch;
+          padding-bottom: 0.25rem;
+          scrollbar-width: none;
         }
+        .chips-grid::-webkit-scrollbar { display: none; }
         .chip {
           display: inline-flex;
           align-items: center;
           gap: 0.6rem;
+          flex: 0 0 auto;
+          scroll-snap-align: start;
+          min-height: 44px;
           font-family: var(--font-display);
-          font-size: 0.88rem;
+          font-size: 0.82rem;
           font-weight: 600;
           color: var(--text-body);
           background: var(--white);
           border: 1.5px solid var(--border-strong);
-          padding: 0.75rem 1.35rem;
+          padding: 0.65rem 1.2rem;
           border-radius: var(--radius-pill);
           transition: all 0.35s var(--ease);
         }
@@ -113,8 +124,20 @@ export default function ProgramChips() {
           border-color: var(--blue-dark);
           color: var(--text-white);
         }
-        @media (max-width: 768px) {
-          .chip { font-size: 0.82rem; padding: 0.65rem 1.15rem; }
+
+        /* >=480: wrap into a clean centered cloud */
+        @media (min-width: 480px) {
+          .chips-grid {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.85rem;
+            overflow: visible;
+            scroll-snap-type: none;
+            padding-bottom: 0;
+          }
+        }
+        @media (min-width: 768px) {
+          .chip { font-size: 0.88rem; padding: 0.75rem 1.35rem; }
         }
       `}</style>
     </section>

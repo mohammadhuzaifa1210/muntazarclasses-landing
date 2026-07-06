@@ -133,12 +133,12 @@ export default function Contact({ onEnquirySubmit }) {
       <style>{`
         .contact-sec {
           background: var(--white);
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .contact-grid {
           display: grid;
-          grid-template-columns: 1fr 1.35fr;
-          gap: var(--gap-3xl);
+          grid-template-columns: 1fr;
+          gap: var(--gap-2xl);
           align-items: start;
         }
         .contact-info {
@@ -148,12 +148,12 @@ export default function Contact({ onEnquirySubmit }) {
         }
         .contact-intro { margin-bottom: 0.75rem; }
         .contact-intro__title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-size: var(--fs-h2);
           margin-bottom: 1rem;
         }
         .contact-intro__title em { color: var(--blue); }
         .contact-intro__desc {
-          font-size: 0.98rem;
+          font-size: var(--fs-body);
           color: var(--text-muted);
           line-height: 1.7;
           max-width: 380px;
@@ -200,6 +200,7 @@ export default function Contact({ onEnquirySubmit }) {
           align-items: center;
           justify-content: center;
           gap: 0.6rem;
+          min-height: 48px;
           padding: 1.1rem;
           background: var(--blue-deep);
           color: var(--text-white);
@@ -216,7 +217,7 @@ export default function Contact({ onEnquirySubmit }) {
           background: var(--gray-50);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 2.5rem;
+          padding: 1.5rem;
           box-shadow: var(--shadow-sm);
         }
         .cf-title {
@@ -232,9 +233,13 @@ export default function Contact({ onEnquirySubmit }) {
         .cf-form { display: flex; flex-direction: column; }
         .cf-row {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: var(--gap-lg);
         }
+        /* Prevent iOS zoom-on-focus: inputs must be >=16px */
+        .contact-form-wrap .field__input,
+        .contact-form-wrap .field__select,
+        .contact-form-wrap .field__textarea { font-size: 16px; }
         .cf-success {
           text-align: center;
           padding: 3rem 1.5rem;
@@ -251,10 +256,19 @@ export default function Contact({ onEnquirySubmit }) {
           font-size: 0.9rem;
           color: var(--text-muted);
         }
-        @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr; }
-          .cf-row { grid-template-columns: 1fr; }
+        /* ── ≥480: name + phone side by side ── */
+        @media (min-width: 480px) {
+          .cf-row { grid-template-columns: 1fr 1fr; }
+        }
+        /* ── ≥768: roomier form ── */
+        @media (min-width: 768px) {
           .contact-form-wrap { padding: 1.75rem; }
+        }
+        /* ── ≥992: two-column info + form, full section rhythm ── */
+        @media (min-width: 992px) {
+          .contact-sec { padding: var(--gap-5xl) 0; }
+          .contact-grid { grid-template-columns: 1.05fr 1fr; gap: var(--gap-3xl); }
+          .contact-form-wrap { padding: 2.25rem; }
         }
       `}</style>
     </section>

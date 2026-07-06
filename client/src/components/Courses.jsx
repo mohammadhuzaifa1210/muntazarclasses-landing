@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowUpRight, FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { FaClock, FaBook, FaCalendarCheck } from 'react-icons/fa'
 
 const programs = [
@@ -40,6 +40,35 @@ const programs = [
 ]
 
 export default function Courses({ onEnquiryClick }) {
+  const trackRef = useRef(null)
+  const [active, setActive] = useState(0)
+
+  // Track the centered card in the mobile scroll-snap carousel.
+  const handleScroll = useCallback(() => {
+    const track = trackRef.current
+    if (!track) return
+    const cards = track.children
+    const center = track.scrollLeft + track.clientWidth / 2
+    let best = 0, bestDist = Infinity
+    for (let i = 0; i < cards.length; i++) {
+      const cCenter = cards[i].offsetLeft + cards[i].offsetWidth / 2
+      const d = Math.abs(cCenter - center)
+      if (d < bestDist) { bestDist = d; best = i }
+    }
+    setActive(best)
+  }, [])
+
+  const scrollToCard = useCallback((i) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.children[i]
+    if (!card) return
+    track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' })
+  }, [])
+
+  const prev = () => scrollToCard(Math.max(0, active - 1))
+  const next = () => scrollToCard(Math.min(programs.length - 1, active + 1))
+
   return (
     <section id="courses" className="courses-sec">
       <div className="wrap">
@@ -51,9 +80,19 @@ export default function Courses({ onEnquiryClick }) {
               Choose Your <em className="accent-serif">Path</em>
             </h2>
           </div>
+
+          {/* Mobile carousel arrows (hidden on desktop grid) */}
+          <div className="courses-nav">
+            <button className="courses-arrow" onClick={prev} disabled={active === 0} aria-label="Previous program">
+              <FiArrowLeft />
+            </button>
+            <button className="courses-arrow courses-arrow--primary" onClick={next} disabled={active === programs.length - 1} aria-label="Next program">
+              <FiArrowRight />
+            </button>
+          </div>
         </div>
 
-        <div className="courses-list">
+        <div className="courses-list" ref={trackRef} onScroll={handleScroll}>
           {programs.map((prog, i) => (
             <motion.div
               key={i}
@@ -94,36 +133,110 @@ export default function Courses({ onEnquiryClick }) {
             </motion.div>
           ))}
         </div>
+
+        {/* Mobile carousel dots (hidden on desktop grid) */}
+        <div className="courses-dots">
+          {programs.map((_, i) => (
+            <button
+              key={i}
+              className={`courses-dot ${i === active ? 'active' : ''}`}
+              onClick={() => scrollToCard(i)}
+              aria-label={`Go to program ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       <style>{`
         .courses-sec {
           background: var(--gray-50);
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .courses-header {
           display: flex;
-          align-items: flex-end;
+          flex-direction: row;
+          align-items: center;
           justify-content: space-between;
-          gap: 2rem;
-          margin-bottom: var(--gap-3xl);
+          gap: var(--gap-md);
+          margin-bottom: var(--gap-2xl);
         }
+        .courses-header__left { min-width: 0; }
+        .courses-nav { flex-shrink: 0; }
         .courses-header__title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-size: var(--fs-h2);
         }
         .courses-header__title em { color: var(--blue); }
-        .courses-list {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: var(--gap-xl);
+
+        /* Mobile carousel arrows */
+        .courses-nav { display: flex; gap: var(--gap-sm); }
+        .courses-arrow {
+          width: 44px; height: 44px;
+          border-radius: 50%;
+          border: 1.5px solid var(--border-strong);
+          background: var(--white);
+          color: var(--text-dark);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.05rem;
+          cursor: pointer;
+          transition: all 0.3s var(--ease);
         }
+        .courses-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+        .courses-arrow--primary {
+          background: var(--blue);
+          border-color: var(--blue);
+          color: var(--text-white);
+        }
+
+        /* Base = phone carousel: horizontal scroll-snap track */
+        .courses-list {
+          display: flex;
+          gap: var(--gap-md);
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          padding: 0.5rem 7vw;
+          margin: 0 -1.25rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .courses-list::-webkit-scrollbar { display: none; }
+
+        .courses-dots {
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: var(--gap-lg);
+        }
+        .courses-dot {
+          width: 44px; height: 44px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .courses-dot::before {
+          content: '';
+          width: 8px; height: 8px;
+          border-radius: 50%;
+          background: var(--border-strong);
+          transition: all 0.3s var(--ease);
+        }
+        .courses-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+
         .prog-card {
           display: flex;
           flex-direction: column;
+          flex: 0 0 86vw;
+          scroll-snap-align: center;
           background: var(--white);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 2.25rem;
+          padding: 1.75rem;
           transition: all 0.4s var(--ease);
           box-shadow: var(--shadow-sm);
         }
@@ -214,13 +327,42 @@ export default function Courses({ onEnquiryClick }) {
         .prog-card__actions {
           margin-top: auto;
         }
-        @media (max-width: 1024px) {
-          .courses-list { grid-template-columns: repeat(2, 1fr); }
+        .prog-card__actions .btn {
+          min-height: 44px;
         }
-        @media (max-width: 768px) {
-          .courses-header { flex-direction: column; align-items: flex-start; }
-          .courses-list { grid-template-columns: 1fr; }
-          .prog-card { padding: 2rem; }
+
+        @media (min-width: 768px) {
+          /* Restore desktop grid; hide carousel affordances */
+          .courses-nav, .courses-dots { display: none; }
+          .courses-header {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: var(--gap-xl);
+          }
+          .courses-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--gap-xl);
+            overflow: visible;
+            scroll-snap-type: none;
+            padding: 0;
+            margin: 0;
+          }
+          .prog-card { flex: none; scroll-snap-align: none; padding: 2rem; }
+          .prog-card:hover {
+            border-color: var(--blue);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+          }
+        }
+        @media (min-width: 992px) {
+          .courses-list { grid-template-columns: repeat(3, 1fr); }
+          .prog-card { padding: 2.25rem; }
+        }
+        @media (min-width: 1240px) {
+          .courses-sec { padding: var(--gap-5xl) 0; }
+          .courses-header { margin-bottom: var(--gap-3xl); }
         }
       `}</style>
     </section>

@@ -67,11 +67,24 @@ export default function StickyBottom({ onAdmissionClick }) {
           background: var(--white);
           border-top: 1px solid var(--border-strong);
           z-index: 999;
-          padding: 0.6rem 0.75rem;
+          padding: 0.6rem 0.6rem calc(0.6rem + env(safe-area-inset-bottom));
         }
         .mobile-bottom__row {
           display: flex;
-          gap: 0.5rem;
+          gap: 0.4rem;
+        }
+        .mobile-bottom__row .btn {
+          min-height: 44px;
+          padding: 0.65rem 0.5rem;
+          min-width: 0;
+          gap: 0.35rem;
+        }
+
+        /* ─── sm large phones ─── */
+        @media (min-width: 480px) {
+          .mobile-bottom { padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom)); }
+          .mobile-bottom__row { gap: 0.5rem; }
+          .mobile-bottom__row .btn { padding: 0.65rem 0.9rem; }
         }
       `}</style>
     </>

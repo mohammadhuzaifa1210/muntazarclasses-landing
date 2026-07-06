@@ -88,7 +88,8 @@ const formPrograms = programs.map(p => p.title)
 
 async function submitEnquiry(data) {
   try {
-    const res = await fetch('/api/enquiry', {
+    const API = import.meta.env.VITE_API_URL || ''
+    const res = await fetch(`${API}/api/enquiry`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -308,13 +309,13 @@ export default function ProgramsPage() {
           max-width: 560px;
         }
 
-        /* Program cards */
+        /* Program cards — 1-col phone */
         .pp-list {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: var(--gap-xl);
-          padding-top: var(--gap-4xl);
-          padding-bottom: var(--gap-4xl);
+          padding-top: var(--gap-3xl);
+          padding-bottom: var(--gap-3xl);
         }
         .pp-card {
           display: flex;
@@ -353,9 +354,10 @@ export default function ProgramsPage() {
         }
         .pp-card__title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
         .pp-card__desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+        /* meta: 1-col phone */
         .pp-card__meta {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: 1rem;
           padding: 1.25rem 0;
           border-top: 1px solid var(--border);
@@ -391,9 +393,10 @@ export default function ProgramsPage() {
 
         /* Enquiry */
         .pp-enquiry { background: var(--grad-soft); padding: var(--gap-4xl) 0 var(--gap-5xl); }
+        /* Form: 1-col phone */
         .pp-form-card {
           display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
+          grid-template-columns: 1fr;
           border-radius: var(--radius-lg);
           overflow: hidden;
           box-shadow: var(--shadow-lg);
@@ -428,9 +431,10 @@ export default function ProgramsPage() {
         .pp-form-aside__list a:hover { color: var(--text-white); }
         .pp-form-aside__list svg { color: var(--blue-light); font-size: 0.9rem; flex-shrink: 0; }
 
-        .pp-form-main { padding: 2.75rem; }
+        .pp-form-main { padding: 1.75rem; }
         .pp-form__title { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.75rem; }
-        .pp-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--gap-lg); }
+        /* form row: 1-col on phone */
+        .pp-form__row { display: grid; grid-template-columns: 1fr; gap: var(--gap-lg); }
         .pp-form-success { text-align: center; padding: 2.5rem 1rem; }
         .pp-form-success__tick {
           width: 56px; height: 56px;
@@ -446,15 +450,17 @@ export default function ProgramsPage() {
         .pp-form-success h3 { font-size: 1.3rem; margin-bottom: 0.4rem; }
         .pp-form-success p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.5rem; }
 
-        @media (max-width: 900px) {
-          .pp-list { grid-template-columns: 1fr; }
-          .pp-form-card { grid-template-columns: 1fr; }
-          .pp-form-aside__inner { padding: 2.25rem; }
+        /* ── Responsive — mobile-first ── */
+        @media (min-width: 480px) {
+          .pp-card__meta { grid-template-columns: 1fr 1fr; }
+          .pp-form-main { padding: 2rem; }
+          .pp-form__row { grid-template-columns: 1fr 1fr; }
         }
-        @media (max-width: 560px) {
-          .pp-card__meta { grid-template-columns: 1fr; }
-          .pp-form-main { padding: 1.75rem; }
-          .pp-form__row { grid-template-columns: 1fr; }
+        @media (min-width: 768px) {
+          .pp-list { grid-template-columns: 1fr 1fr; padding-top: var(--gap-4xl); padding-bottom: var(--gap-4xl); }
+          .pp-form-card { grid-template-columns: 0.85fr 1.15fr; }
+          .pp-form-aside__inner { padding: 2.75rem; }
+          .pp-form-main { padding: 2.75rem; }
         }
       `}</style>
     </>

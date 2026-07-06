@@ -1,21 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import React, { useState, useRef, useCallback } from 'react'
 import { FiArrowLeft, FiArrowRight } from 'react-icons/fi'
 import { FaStar, FaQuoteRight } from 'react-icons/fa'
-
-function usePerPage() {
-  const [perPage, setPerPage] = useState(3)
-  useEffect(() => {
-    const compute = () => {
-      const w = window.innerWidth
-      setPerPage(w <= 640 ? 1 : w <= 991 ? 2 : 3)
-    }
-    compute()
-    window.addEventListener('resize', compute)
-    return () => window.removeEventListener('resize', compute)
-  }, [])
-  return perPage
-}
 
 const reviews = [
   {
@@ -56,17 +41,37 @@ const reviews = [
 ]
 
 export default function Reviews() {
-  const [page, setPage] = useState(0)
-  const perPage = usePerPage()
-  const maxPage = Math.max(0, Math.ceil(reviews.length / perPage) - 1)
-  const safePage = Math.min(page, maxPage)
-  const start = safePage * perPage
-  const visible = reviews.slice(start, start + perPage)
+  const trackRef = useRef(null)
+  const [active, setActive] = useState(0)
 
-  useEffect(() => { if (page > maxPage) setPage(maxPage) }, [maxPage, page])
+  // Track which card is centered in the scroll-snap viewport (phone/tablet carousel).
+  const handleScroll = useCallback(() => {
+    const track = trackRef.current
+    if (!track) return
+    const cards = track.children
+    const center = track.scrollLeft + track.clientWidth / 2
+    let best = 0
+    let bestDist = Infinity
+    for (let i = 0; i < cards.length; i++) {
+      const c = cards[i]
+      const cCenter = c.offsetLeft + c.offsetWidth / 2
+      const d = Math.abs(cCenter - center)
+      if (d < bestDist) { bestDist = d; best = i }
+    }
+    setActive(best)
+  }, [])
 
-  const prev = () => setPage(p => Math.max(0, p - 1))
-  const next = () => setPage(p => Math.min(maxPage, p + 1))
+  const scrollToCard = useCallback((i) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.children[i]
+    if (!card) return
+    const left = card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2
+    track.scrollTo({ left, behavior: 'smooth' })
+  }, [])
+
+  const prev = () => scrollToCard(Math.max(0, active - 1))
+  const next = () => scrollToCard(Math.min(reviews.length - 1, active + 1))
 
   return (
     <section id="reviews" className="rev-sec">
@@ -75,79 +80,71 @@ export default function Reviews() {
           <div>
             <span className="eyebrow">Testimonials</span>
             <h2 className="rev-title">
-              What Parents & Students <em className="accent-serif">Say</em>
+              What Parents &amp; Students <em className="accent-serif">Say</em>
             </h2>
           </div>
           <div className="rev-nav">
-            <button className="rev-arrow" onClick={prev} disabled={safePage === 0} aria-label="Previous reviews">
+            <button className="rev-arrow" onClick={prev} disabled={active === 0} aria-label="Previous reviews">
               <FiArrowLeft />
             </button>
-            <button className="rev-arrow rev-arrow--primary" onClick={next} disabled={safePage === maxPage} aria-label="Next reviews">
+            <button className="rev-arrow rev-arrow--primary" onClick={next} disabled={active === reviews.length - 1} aria-label="Next reviews">
               <FiArrowRight />
             </button>
           </div>
         </div>
 
-        <div className="rev-track">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={safePage}
-              className="rev-grid"
-              style={{ '--per-page': perPage }}
-              initial={{ opacity: 0, x: 24 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -24 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {visible.map((r, i) => (
-                <div key={start + i} className="rev-card">
-                  <FaQuoteRight className="rev-card__quote-mark" />
-                  <div className="rev-card__stars">
-                    {Array.from({ length: r.rating }).map((_, s) => <FaStar key={s} />)}
-                  </div>
-                  <p className="rev-card__text">{r.quote}</p>
-                  <div className="rev-card__author">
-                    <img src={r.avatar} alt={r.name} className="rev-card__avatar" loading="lazy" />
-                    <div>
-                      <span className="rev-card__name">{r.name}</span>
-                      <span className="rev-card__role">{r.role}</span>
-                    </div>
-                  </div>
+        <div className="rev-track" ref={trackRef} onScroll={handleScroll}>
+          {reviews.map((r, i) => (
+            <div key={i} className="rev-card">
+              <FaQuoteRight className="rev-card__quote-mark" />
+              <div className="rev-card__stars">
+                {Array.from({ length: r.rating }).map((_, s) => <FaStar key={s} />)}
+              </div>
+              <p className="rev-card__text">{r.quote}</p>
+              <div className="rev-card__author">
+                <img src={r.avatar} alt={r.name} className="rev-card__avatar" loading="lazy" />
+                <div>
+                  <span className="rev-card__name">{r.name}</span>
+                  <span className="rev-card__role">{r.role}</span>
                 </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+              </div>
+            </div>
+          ))}
         </div>
 
         <div className="rev-dots">
-          {Array.from({ length: maxPage + 1 }).map((_, i) => (
+          {reviews.map((_, i) => (
             <button
               key={i}
-              className={`rev-dot ${i === safePage ? 'active' : ''}`}
-              onClick={() => setPage(i)}
-              aria-label={`Go to review page ${i + 1}`}
+              className={`rev-dot ${i === active ? 'active' : ''}`}
+              onClick={() => scrollToCard(i)}
+              aria-label={`Go to review ${i + 1}`}
             />
           ))}
         </div>
       </div>
 
       <style>{`
+        /* ─── Mobile-first: base = phone (≤479px) ─── */
         .rev-sec {
           background: var(--white);
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .rev-head {
           display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          gap: 2rem;
-          margin-bottom: var(--gap-2xl);
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--gap-lg);
+          margin-bottom: var(--gap-xl);
         }
         .rev-title {
-          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-size: var(--fs-h2);
+          line-height: 1.15;
         }
         .rev-title em { color: var(--blue); }
-        .rev-nav { display: flex; gap: 0.6rem; }
+
+        /* Nav arrows are hidden on phone — swipe is the primary affordance. */
+        .rev-nav { display: none; gap: var(--gap-sm); }
         .rev-arrow {
           width: 46px; height: 46px;
           border-radius: 50%;
@@ -172,24 +169,32 @@ export default function Reviews() {
           border-color: var(--blue-dark);
           color: var(--text-white);
         }
-        .rev-grid {
-          display: grid;
-          grid-template-columns: repeat(var(--per-page, 3), 1fr);
-          gap: 1.5rem;
+
+        /* ─── Carousel track: native touch swipe via scroll-snap ─── */
+        .rev-track {
+          display: flex;
+          gap: var(--gap-md);
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          /* Peek padding so a centred card shows a sliver of its neighbours. */
+          padding: 0.5rem 7vw;
+          margin: 0 -1.25rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
         }
+        .rev-track::-webkit-scrollbar { display: none; }
+
         .rev-card {
           position: relative;
+          flex: 0 0 86vw;
+          scroll-snap-align: center;
           background: var(--gray-50);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 2rem;
+          padding: var(--gap-lg);
           overflow: hidden;
-          transition: all 0.35s var(--ease);
-        }
-        .rev-card:hover {
-          border-color: var(--blue-light);
-          box-shadow: var(--shadow-md);
-          transform: translateY(-3px);
+          transition: border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
         }
         .rev-card__quote-mark {
           position: absolute;
@@ -203,25 +208,27 @@ export default function Reviews() {
           gap: 0.2rem;
           color: var(--amber);
           font-size: 0.85rem;
-          margin-bottom: 1rem;
+          margin-bottom: var(--gap-md);
         }
         .rev-card__text {
-          font-size: 0.95rem;
+          font-size: var(--fs-body);
           color: var(--text-body);
           line-height: 1.7;
-          margin-bottom: 1.75rem;
+          margin-bottom: var(--gap-lg);
+          overflow-wrap: break-word;
         }
         .rev-card__author {
           display: flex;
           align-items: center;
           gap: 0.85rem;
-          padding-top: 1.25rem;
+          padding-top: var(--gap-md);
           border-top: 1px solid var(--border);
         }
         .rev-card__avatar {
           width: 46px; height: 46px;
           border-radius: 50%;
           object-fit: cover;
+          flex-shrink: 0;
         }
         .rev-card__name {
           display: block;
@@ -235,21 +242,80 @@ export default function Reviews() {
           font-size: 0.78rem;
           color: var(--text-muted);
         }
+
         .rev-dots {
           display: flex;
           justify-content: center;
           gap: 0.5rem;
-          margin-top: var(--gap-xl);
+          margin-top: var(--gap-lg);
         }
         .rev-dot {
+          /* ≥44px tap target via transparent padding, small visible pill. */
+          width: 44px; height: 44px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          padding: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .rev-dot::before {
+          content: '';
           width: 8px; height: 8px;
           border-radius: 50%;
-          border: none;
           background: var(--border-strong);
-          cursor: pointer;
           transition: all 0.3s var(--ease);
         }
-        .rev-dot.active { background: var(--blue); width: 24px; border-radius: 99px; }
+        .rev-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+
+        /* ─── ≥480px: roomier cards ─── */
+        @media (min-width: 480px) {
+          .rev-track { padding: 0.5rem 8vw; }
+          .rev-card { flex: 0 0 78vw; padding: 1.75rem; }
+        }
+
+        /* ─── ≥768px: two cards in view ─── */
+        @media (min-width: 768px) {
+          .rev-sec { padding: var(--gap-4xl) 0; }
+          .rev-head {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: var(--gap-2xl);
+          }
+          .rev-nav { display: flex; }
+          .rev-track {
+            padding: 0.5rem 0;
+            margin: 0;
+          }
+          .rev-card {
+            flex: 0 0 calc((100% - var(--gap-md)) / 2);
+            padding: 2rem;
+          }
+        }
+
+        /* ─── ≥992px: original multi-column grid (all cards, no scroll) ─── */
+        @media (min-width: 992px) {
+          .rev-track {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gap-lg);
+            overflow: visible;
+            scroll-snap-type: none;
+          }
+          .rev-card {
+            flex: none;
+            scroll-snap-align: none;
+          }
+          .rev-card:hover {
+            border-color: var(--blue-light);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+          }
+          .rev-dots { display: none; }
+        }
       `}</style>
     </section>
   )

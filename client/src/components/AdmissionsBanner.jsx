@@ -46,7 +46,7 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
       <style>{`
         .ab-sec {
           background: var(--white);
-          padding: var(--gap-2xl) 0 var(--gap-4xl);
+          padding: var(--gap-2xl) 0 var(--gap-3xl);
         }
         .ab-card {
           position: relative;
@@ -54,7 +54,7 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
           background: #eef2ff;
           border: 1px solid rgba(26,86,219,0.12);
           border-radius: var(--radius-lg);
-          padding: 3.5rem 3rem;
+          padding: 2.25rem 1.25rem;
           box-shadow: var(--shadow-sm);
           text-align: center;
         }
@@ -92,27 +92,41 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
           margin-bottom: 1.25rem;
         }
         .ab-title {
-          font-size: clamp(1.6rem, 3.2vw, 2.25rem);
+          font-size: var(--fs-h2);
           color: var(--text-dark);
           margin-bottom: 1rem;
           letter-spacing: -0.02em;
         }
         .ab-desc {
-          font-size: 1rem;
+          font-size: var(--fs-body);
           color: var(--text-body);
           line-height: 1.7;
           margin-bottom: 2rem;
         }
         .ab-btns {
           display: flex;
-          gap: 1rem;
+          flex-direction: column;
+          gap: var(--gap-sm);
           justify-content: center;
-          flex-wrap: wrap;
+          align-items: stretch;
         }
-        @media (max-width: 640px) {
-          .ab-card { padding: 2.5rem 1.5rem; }
-          .ab-btns { flex-direction: column; }
-          .ab-btns .btn { width: 100%; }
+        .ab-btns .btn {
+          width: 100%;
+          min-height: 48px;
+        }
+        @media (min-width: 480px) {
+          .ab-card { padding: 2.75rem 2rem; }
+        }
+        @media (min-width: 768px) {
+          .ab-sec { padding: var(--gap-2xl) 0 var(--gap-4xl); }
+          .ab-card { padding: 3.5rem 3rem; }
+          .ab-btns {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+          }
+          .ab-btns .btn { width: auto; }
         }
       `}</style>
     </section>

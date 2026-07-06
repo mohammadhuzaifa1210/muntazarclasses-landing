@@ -43,7 +43,7 @@ export default function CTA({ onAdmissionClick }) {
           background: var(--blue-deep);
           position: relative;
           overflow: hidden;
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .cta-bg-pattern {
           position: absolute;
@@ -64,26 +64,37 @@ export default function CTA({ onAdmissionClick }) {
         }
         .cta-eyebrow::before { display: none; }
         .cta-title {
-          font-size: clamp(2rem, 4.5vw, 3.25rem);
+          font-size: var(--fs-h1);
           color: var(--text-white);
           margin-bottom: 1.25rem;
         }
         .cta-title em { color: rgba(255,255,255,0.7); }
         .cta-desc {
-          font-size: 1.05rem;
+          font-size: var(--fs-lead);
           color: var(--text-white-70);
           line-height: 1.75;
           margin-bottom: 2.5rem;
         }
         .cta-btns {
           display: flex;
-          gap: 1rem;
+          flex-direction: column;
+          gap: var(--gap-sm);
           justify-content: center;
-          flex-wrap: wrap;
+          align-items: stretch;
         }
-        @media (max-width: 640px) {
-          .cta-btns { flex-direction: column; }
-          .cta-btns .btn { width: 100%; }
+        .cta-btns .btn {
+          width: 100%;
+          min-height: 48px;
+        }
+        @media (min-width: 768px) {
+          .cta-sec { padding: var(--gap-5xl) 0; }
+          .cta-btns {
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+          }
+          .cta-btns .btn { width: auto; }
         }
       `}</style>
     </section>

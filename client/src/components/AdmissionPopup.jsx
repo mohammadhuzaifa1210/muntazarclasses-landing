@@ -117,9 +117,13 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           border-radius: var(--radius-lg);
           width: 100%;
           max-width: 450px;
-          overflow: hidden;
+          max-height: calc(100dvh - 3rem);
+          overflow-y: auto;
           box-shadow: var(--shadow-lg);
         }
+        .modal .field__input,
+        .modal .field__select,
+        .modal .field__textarea { font-size: 16px; }
         .modal__head {
           position: relative;
           overflow: hidden;
@@ -219,15 +223,26 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         .modal__success h4 { font-size: 1.25rem; margin-bottom: 0.35rem; }
         .modal__success p { font-size: 0.9rem; color: var(--text-muted); }
 
-        @media (max-width: 576px) {
-          .modal-overlay { align-items: flex-end; padding: 0; }
+        /* Phone-first: bottom sheet style */
+        .modal-overlay { align-items: flex-end; padding: 0; }
+        .modal {
+          max-width: 100%;
+          border-radius: 1.5rem 1.5rem 0 0;
+          box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+        }
+        .modal__head { padding: 1.75rem 1.5rem 1.5rem; }
+        .modal__body { padding: 1.5rem 1.5rem 1.75rem; }
+
+        /* ≥480px: centered floating modal */
+        @media (min-width: 480px) {
+          .modal-overlay { align-items: center; padding: 1.5rem; }
           .modal {
-            max-width: 100%;
-            border-radius: 1.5rem 1.5rem 0 0;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            max-width: 450px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
           }
-          .modal__head { padding: 1.75rem 1.5rem 1.5rem; }
-          .modal__body { padding: 1.5rem 1.5rem 1.75rem; }
+          .modal__head { padding: 2rem 2.25rem 1.75rem; }
+          .modal__body { padding: 1.75rem 2.25rem 2rem; }
         }
       `}</style>
     </AnimatePresence>

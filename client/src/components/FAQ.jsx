@@ -79,11 +79,13 @@ export default function FAQ() {
       </div>
 
       <style>{`
+        /* ── Base: phone (≤479px) ── */
         .faq-sec {
           background: var(--gray-50);
-          padding: var(--gap-5xl) 0;
+          padding: var(--gap-3xl) 0;
         }
         .faq-list {
+          width: 100%;
           max-width: 820px;
           margin: 0 auto;
           display: flex;
@@ -95,7 +97,7 @@ export default function FAQ() {
           border: 1px solid var(--border);
           border-radius: var(--radius);
           overflow: hidden;
-          transition: all 0.35s var(--ease);
+          transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
         }
         .faq-item--open {
           background: var(--blue-deep);
@@ -104,20 +106,22 @@ export default function FAQ() {
         }
         .faq-q {
           width: 100%;
+          min-height: 56px;
           display: flex;
           align-items: center;
-          gap: 1rem;
-          padding: 1.35rem 1.6rem;
+          gap: 0.85rem;
+          padding: 1.1rem 1.25rem;
           background: none;
           border: none;
           text-align: left;
           cursor: pointer;
           font-family: var(--font-display);
           font-weight: 600;
-          font-size: 0.98rem;
+          font-size: var(--fs-body);
           color: var(--text-dark);
           line-height: 1.4;
           transition: color 0.2s ease;
+          -webkit-tap-highlight-color: transparent;
         }
         .faq-item--open .faq-q { color: var(--text-white); }
         .faq-q:hover { color: var(--blue); }
@@ -132,24 +136,37 @@ export default function FAQ() {
         .faq-item--open .faq-q__icon { color: var(--blue-light); }
         .faq-q__icon--open { transform: rotate(45deg); }
         .faq-a {
-          padding: 0 1.6rem 1.5rem;
-          font-size: 0.92rem;
+          padding: 0 1.25rem 1.25rem;
+          font-size: var(--fs-body);
           color: var(--text-white-70);
           line-height: 1.75;
         }
         .faq-foot {
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 1rem;
+          gap: var(--gap-md);
           margin-top: var(--gap-2xl);
           font-size: 0.9rem;
           color: var(--text-muted);
-          flex-wrap: wrap;
+          text-align: center;
         }
-        @media (max-width: 768px) {
-          .faq-q { padding: 1.15rem 1.25rem; font-size: 0.92rem; }
-          .faq-a { padding: 0 1.25rem 1.25rem; }
+
+        /* ── ≥480px: footer goes inline ── */
+        @media (min-width: 480px) {
+          .faq-foot { flex-direction: row; flex-wrap: wrap; }
+        }
+
+        /* ── ≥768px: roomier padding ── */
+        @media (min-width: 768px) {
+          .faq-q { gap: 1rem; padding: 1.35rem 1.6rem; }
+          .faq-a { padding: 0 1.6rem 1.5rem; }
+        }
+
+        /* ── ≥992px: full section rhythm ── */
+        @media (min-width: 992px) {
+          .faq-sec { padding: var(--gap-5xl) 0; }
         }
       `}</style>
     </section>

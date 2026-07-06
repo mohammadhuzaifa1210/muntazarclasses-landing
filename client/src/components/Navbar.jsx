@@ -119,11 +119,11 @@ export default function Navbar({ onAdmissionClick }) {
           gap: 0;
           text-decoration: none;
           z-index: 1001;
-          transform: scale(1.35);
+          transform: scale(1.1);
           transform-origin: left center;
         }
         .nav__logo-img {
-          height: 56px;
+          height: 40px;
           width: auto;
           object-fit: contain;
         }
@@ -162,6 +162,9 @@ export default function Navbar({ onAdmissionClick }) {
           letter-spacing: 0.02em;
           transition: color 0.3s ease;
           position: relative;
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
         }
         .nav__link:hover { color: var(--blue); }
         .nav__link::after {
@@ -186,6 +189,7 @@ export default function Navbar({ onAdmissionClick }) {
           color: var(--text-body);
           font-size: 0.8rem;
           font-weight: 500;
+          min-height: 44px;
           transition: color 0.3s ease;
         }
         .nav__phone svg { color: var(--blue); font-size: 0.7rem; }
@@ -196,6 +200,11 @@ export default function Navbar({ onAdmissionClick }) {
           color: var(--text-dark);
           font-size: 1.4rem;
           z-index: 1001;
+          width: 44px;
+          height: 44px;
+          padding: 0;
+          cursor: pointer;
+          display: flex;
           align-items: center;
           justify-content: center;
         }
@@ -221,10 +230,12 @@ export default function Navbar({ onAdmissionClick }) {
           margin-bottom: 1.5rem;
         }
         .nav__mobile-links {
-          flex: 1;
+          flex: 1 1 auto;
           display: flex;
           flex-direction: column;
           gap: 0.25rem;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
         }
         .nav__mobile-link {
           font-family: var(--font-display);
@@ -232,7 +243,9 @@ export default function Navbar({ onAdmissionClick }) {
           font-weight: 600;
           color: var(--text-dark);
           padding: 0.65rem 0;
-          display: block;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
           border-bottom: 1px solid var(--border);
           transition: color 0.2s ease;
         }
@@ -242,6 +255,19 @@ export default function Navbar({ onAdmissionClick }) {
           flex-direction: column;
           gap: 0.75rem;
           padding-top: 1.5rem;
+          flex-shrink: 0;
+        }
+        .nav__mobile-actions .btn { min-height: 48px; }
+
+        /* ─── sm large phones ─── */
+        @media (min-width: 480px) {
+          .nav__brand { transform: scale(1.2); }
+          .nav__logo-img { height: 48px; }
+        }
+        /* ─── md tablets ─── */
+        @media (min-width: 768px) {
+          .nav__brand { transform: scale(1.35); }
+          .nav__logo-img { height: 56px; }
         }
       `}</style>
     </>

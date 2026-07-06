@@ -66,7 +66,8 @@ export default function App() {
 
   const handleEnquirySubmit = async (data) => {
     try {
-      const response = await fetch('/api/enquiry', {
+      const API = import.meta.env.VITE_API_URL || ''
+      const response = await fetch(`${API}/api/enquiry`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

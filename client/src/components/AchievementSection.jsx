@@ -81,29 +81,31 @@ function TopperCard({ topper, index }) {
       transition={{ delay: index * 0.12, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -6 }}
     >
-      <div className="rs-topper__img-wrap">
-        <img src={topper.image} alt={topper.name} className="rs-topper__img" loading="lazy" />
-        <div className="rs-topper__overlay" />
-
+      <div className="rs-topper__avatar-wrap">
+        <img src={topper.image} alt={topper.name} className="rs-topper__avatar" loading="lazy" />
+        
         {rank && (
-          <div className="rs-topper__rank" style={{ background: rank.bg }}>
-            <PiMedalBold /> {rank.label}
+          <div className="rs-topper__medallion" style={{ background: rank.bg }}>
+            <PiMedalBold />
+            <span>{rank.label}</span>
           </div>
         )}
-
-        <div className="rs-topper__score-badge">
-          <FiAward className="rs-topper__score-icon" />
-          <span>{topper.score}</span>
-        </div>
       </div>
 
-      <div className="rs-topper__info">
+      <div className="rs-topper__info-center">
         <h3 className="rs-topper__name">{topper.name}</h3>
-        <div className="rs-topper__meta">
-          <span className="rs-topper__board">{topper.board} Board</span>
-          <span className="rs-topper__dot">•</span>
-          <span className="rs-topper__year">{topper.year}</span>
+        
+        <div className="rs-topper__score">
+          <FiAward className="rs-topper__score-icon" />
+          {topper.score}
         </div>
+        
+        <div className="rs-topper__meta">
+          <span>{topper.board}</span>
+          <span className="rs-topper__dot">•</span>
+          <span>{topper.year}</span>
+        </div>
+        
         <div className="rs-topper__medium">{topper.medium}</div>
       </div>
     </motion.div>
@@ -116,27 +118,8 @@ export default function AchievementSection() {
 
   return (
     <section id="achievements" className="rs-sec" ref={sectionRef}>
-      {/* Floating particles */}
-      <div className="rs-particles">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="rs-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`,
-              width: `${2 + Math.random() * 3}px`,
-              height: `${2 + Math.random() * 3}px`
-            }}
-          />
-        ))}
-      </div>
-
-      {/* Decorative glow blobs */}
+      {/* Soft decorative glow */}
       <div className="rs-glow rs-glow--1" />
-      <div className="rs-glow rs-glow--2" />
 
       <div className="wrap">
         {/* ── Header Row ── */}
@@ -210,67 +193,42 @@ export default function AchievementSection() {
 
       <style>{`
         /* ═══════════════════════════════════════
-           RESULTS SECTION — Dark Premium Theme
+           RESULTS SECTION — Light Blue Theme
            ═══════════════════════════════════════ */
 
         .rs-sec {
           position: relative;
-          background: linear-gradient(165deg, #0f172a 0%, #1e293b 40%, #172554 100%);
+          background: var(--gray-50);
           padding: var(--gap-5xl) 0;
           overflow: hidden;
         }
 
-        /* ── Particles ── */
-        .rs-particles {
-          position: absolute;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-        }
-        .rs-particle {
-          position: absolute;
-          background: var(--gold);
-          border-radius: 50%;
-          opacity: 0;
-          animation: rs-float linear infinite;
-        }
-        @keyframes rs-float {
-          0%   { opacity: 0; transform: translateY(0) scale(0.5); }
-          20%  { opacity: 0.6; }
-          80%  { opacity: 0.3; }
-          100% { opacity: 0; transform: translateY(-80px) scale(1); }
-        }
-
-        /* ── Glow Blobs ── */
+        /* ── Soft glow ── */
         .rs-glow {
           position: absolute;
           border-radius: 50%;
-          filter: blur(100px);
+          filter: blur(110px);
           pointer-events: none;
           z-index: 0;
         }
         .rs-glow--1 {
-          width: 400px; height: 400px;
-          background: rgba(26, 86, 219, 0.15);
-          top: -100px; right: -100px;
-        }
-        .rs-glow--2 {
-          width: 300px; height: 300px;
-          background: rgba(245, 158, 11, 0.08);
-          bottom: -50px; left: -50px;
+          width: 420px; height: 420px;
+          background: var(--blue-glow);
+          top: -120px; right: -120px;
         }
 
         .rs-sec .wrap { position: relative; z-index: 1; }
 
-        /* ── Header Row ── */
+        /* ── Header Row — mobile-first: stacked on phone ── */
         .rs-header-row {
           display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 3rem;
-          margin-bottom: var(--gap-3xl);
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: var(--gap-xl);
+          margin-bottom: var(--gap-2xl);
         }
-        .rs-header-text { max-width: 520px; }
+        .rs-header-text { max-width: 100%; }
 
         .rs-eyebrow {
           display: inline-flex;
@@ -288,64 +246,68 @@ export default function AchievementSection() {
 
         .rs-title {
           font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-          color: #fff;
+          color: var(--text-dark);
           margin-bottom: 1.25rem;
           line-height: 1.12;
+          white-space: normal;
         }
         .rs-title em {
-          color: var(--gold);
+          color: var(--gold-dark);
           font-style: normal;
           font-weight: inherit;
         }
         .rs-desc {
-          color: rgba(255,255,255,0.6);
+          color: var(--text-muted);
           font-size: 1rem;
           line-height: 1.7;
           max-width: 440px;
+          margin: 0 auto;
         }
 
-        /* ── Stat Counters ── */
+        /* ── Stat Counters — mobile: all three in one row ── */
         .rs-stats {
           display: flex;
-          gap: 1.5rem;
+          gap: 0.5rem;
+          width: 100%;
+          justify-content: center;
           flex-shrink: 0;
-          padding-top: 1rem;
+          padding-top: 0;
         }
         .rs-stat {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
+          flex: 1 1 0;
+          min-width: 0;
+          background: var(--white);
+          border: 1px solid var(--border);
           border-radius: var(--radius);
-          padding: 1.5rem 1.75rem;
+          padding: 0.9rem 0.5rem;
           text-align: center;
-          min-width: 130px;
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
+          box-shadow: var(--shadow-sm);
           transition: all 0.4s var(--ease);
         }
         .rs-stat:hover {
-          background: rgba(255,255,255,0.07);
-          border-color: rgba(245, 158, 11, 0.3);
-          transform: translateY(-3px);
+          border-color: var(--border-strong);
+          box-shadow: var(--shadow-md);
+          transform: translateY(-4px);
         }
         .rs-stat__icon {
-          font-size: 1.5rem;
+          font-size: 1.2rem;
           color: var(--gold);
-          margin-bottom: 0.75rem;
+          margin-bottom: 0.4rem;
         }
         .rs-stat__value {
           font-family: var(--font-display);
-          font-size: 2rem;
+          font-size: 1.35rem;
           font-weight: 800;
-          color: #fff;
+          color: var(--text-dark);
           line-height: 1;
           margin-bottom: 0.35rem;
         }
         .rs-stat__label {
-          font-size: 0.72rem;
+          font-size: 0.55rem;
           font-weight: 600;
-          color: rgba(255,255,255,0.45);
+          color: var(--text-muted);
           text-transform: uppercase;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.04em;
         }
 
         /* ── Toppers Section ── */
@@ -361,133 +323,143 @@ export default function AchievementSection() {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.15em;
-          color: rgba(255,255,255,0.5);
+          color: var(--text-muted);
           margin-bottom: 1.5rem;
           padding-left: 0.25rem;
         }
         .rs-toppers-label__icon { color: var(--gold); font-size: 0.9rem; }
 
+        /* Toppers: horizontal swipeable on phone by default */
         .rs-toppers-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-          gap: 1.5rem;
+          display: flex;
+          flex-wrap: nowrap;
+          justify-content: flex-start;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          gap: 1rem;
+          margin: 0 -1.25rem;
+          padding: 0.25rem 1.25rem 0.5rem;
+          scrollbar-width: none;
         }
+        .rs-toppers-grid::-webkit-scrollbar { display: none; }
 
-        /* ── Topper Card ── */
+        /* ── Topper Card — phone: snap-scrollable card ── */
         .rs-topper {
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.08);
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          transition: all 0.45s var(--ease);
+          flex: 0 0 72vw;
+          max-width: 260px;
+          scroll-snap-align: center;
+          background: var(--white);
+          border-radius: var(--radius-xl);
+          padding: 2.5rem 1.5rem;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          border: 1px solid var(--border);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+          transition: all 0.4s var(--ease);
           cursor: default;
         }
         .rs-topper:hover {
-          background: rgba(255,255,255,0.06);
-          border-color: rgba(255, 255, 255, 0.15);
+          transform: translateY(-6px);
+          border-color: rgba(26,86,219,0.3); /* Brand blue border on hover */
+          box-shadow: 0 15px 40px rgba(26,86,219,0.08);
         }
 
-        .rs-topper__img-wrap {
+        .rs-topper__avatar-wrap {
           position: relative;
-          aspect-ratio: 3/4;
-          overflow: hidden;
-          background: rgba(255,255,255,0.03);
+          width: 150px;
+          height: 150px;
+          flex-shrink: 0;
+          margin-bottom: 1.5rem;
         }
-        .rs-topper__img {
+        .rs-topper__avatar {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top;
-          transition: transform 0.7s var(--ease);
+          border-radius: 50%;
+          border: 4px solid var(--white);
+          box-shadow: 0 0 0 2px var(--gold), 0 15px 30px rgba(0,0,0,0.1);
+          transition: transform 0.5s var(--ease);
         }
-        .rs-topper:hover .rs-topper__img {
-          transform: scale(1.06);
-        }
-        .rs-topper__overlay {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, transparent 50%, rgba(15,23,42,0.85) 100%);
-          pointer-events: none;
+        .rs-topper:hover .rs-topper__avatar {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 2px var(--blue), 0 15px 30px rgba(26,86,219,0.15);
         }
 
-        /* Rank badge */
-        .rs-topper__rank {
+        /* ── Rank Medallion (Circular badge on edge of photo) ── */
+        .rs-topper__medallion {
           position: absolute;
-          top: 0.75rem;
-          left: 0.75rem;
+          bottom: 5px;
+          right: 0;
+          width: 46px;
+          height: 46px;
+          border-radius: 50%;
           display: flex;
+          flex-direction: column;
           align-items: center;
-          gap: 0.3rem;
-          padding: 0.35rem 0.65rem;
-          border-radius: 6px;
-          font-family: var(--font-display);
-          font-size: 0.75rem;
-          font-weight: 700;
+          justify-content: center;
           color: #fff;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-        .rs-topper__rank svg { font-size: 0.7rem; }
-
-        /* Score badge */
-        .rs-topper__score-badge {
-          position: absolute;
-          bottom: 0.75rem;
-          right: 0.75rem;
-          display: flex;
-          align-items: center;
-          gap: 0.35rem;
-          background: rgba(15,23,42,0.75);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
-          border: 1px solid rgba(245, 158, 11, 0.4);
-          color: var(--gold-light);
           font-family: var(--font-display);
-          font-size: 1rem;
+          font-size: 0.65rem;
           font-weight: 800;
-          padding: 0.45rem 0.85rem;
-          border-radius: 8px;
+          line-height: 1.1;
+          border: 3px solid var(--white);
+          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          z-index: 2;
         }
-        .rs-topper__score-icon {
-          font-size: 0.8rem;
-          color: var(--gold);
+        .rs-topper__medallion svg { font-size: 0.8rem; margin-bottom: -2px; }
+
+        .rs-topper__info-center {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
         }
 
-        /* Info area */
-        .rs-topper__info {
-          padding: 1.25rem 1.25rem 1.5rem;
-        }
         .rs-topper__name {
-          font-size: 1.1rem;
+          font-size: 1.3rem;
           font-weight: 700;
-          color: #fff;
-          margin-bottom: 0.4rem;
+          color: var(--text-dark);
+          margin-bottom: 0.5rem;
         }
+
+        .rs-topper__score {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.4rem;
+          font-family: var(--font-display);
+          font-size: 2.2rem;
+          font-weight: 800;
+          color: var(--gold-dark);
+          margin-bottom: 1.2rem;
+          line-height: 1;
+        }
+        .rs-topper__score-icon { font-size: 1.6rem; color: var(--gold); }
+
         .rs-topper__meta {
           display: flex;
           align-items: center;
-          gap: 0.4rem;
-          font-size: 0.78rem;
-          color: rgba(255,255,255,0.45);
-          margin-bottom: 0.6rem;
+          justify-content: center;
+          gap: 0.5rem;
+          font-size: 0.82rem;
+          color: var(--text-muted);
+          margin-bottom: 1rem;
         }
-        .rs-topper__dot { font-size: 0.5rem; }
-        .rs-topper__board, .rs-topper__year {
-          font-weight: 600;
-        }
+        .rs-topper__dot { font-size: 0.4rem; }
+
         .rs-topper__medium {
-          display: inline-block;
-          font-size: 0.68rem;
+          padding: 0.4rem 0.85rem;
+          background: var(--blue-soft);
+          color: var(--blue-dark);
+          border-radius: var(--radius-pill);
+          font-size: 0.72rem;
           font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: var(--gold);
-          background: rgba(245, 158, 11, 0.1);
-          border: 1px solid rgba(245, 158, 11, 0.2);
-          padding: 0.25rem 0.55rem;
-          border-radius: 4px;
+          letter-spacing: 0.05em;
         }
 
         /* ── CTA ── */
@@ -524,26 +496,69 @@ export default function AchievementSection() {
           transform: translateX(4px);
         }
 
-        /* ── Responsive ── */
-        @media (max-width: 991px) {
-          .rs-header-row {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-          }
-          .rs-header-text { max-width: 100%; }
-          .rs-desc { margin: 0 auto; }
-          .rs-stats { justify-content: center; flex-wrap: wrap; }
-          .rs-toppers-label { justify-content: center; width: 100%; }
-          .rs-toppers-grid { grid-template-columns: repeat(2, 1fr); }
+        /* ── Responsive — mobile-first, scale up ── */
+        .rs-toppers-label { justify-content: center; width: 100%; }
+
+        @media (min-width: 480px) {
+          .rs-sec { padding: var(--gap-4xl) 0; }
+          .rs-stat { padding: 1.1rem 0.75rem; }
+          .rs-stat__icon { font-size: 1.35rem; margin-bottom: 0.6rem; }
+          .rs-stat__value { font-size: 1.6rem; }
+          .rs-stat__label { font-size: 0.62rem; letter-spacing: 0.06em; }
+          .rs-topper { flex: 0 0 62vw; }
         }
 
-        @media (max-width: 576px) {
-          .rs-sec { padding: var(--gap-4xl) 0; }
-          .rs-stats { gap: 0.75rem; }
-          .rs-stat { padding: 1.1rem 1rem; min-width: 95px; }
-          .rs-stat__value { font-size: 1.5rem; }
-          .rs-toppers-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
+        @media (min-width: 768px) {
+          .rs-sec { padding: var(--gap-5xl) 0; }
+          /* Stats: spaced, no longer cramped */
+          .rs-stats { gap: 1rem; width: auto; }
+          .rs-stat { flex: none; min-width: 110px; padding: 1.25rem 1.25rem; }
+          .rs-stat__icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+          .rs-stat__value { font-size: 2rem; }
+          .rs-stat__label { font-size: 0.72rem; letter-spacing: 0.08em; }
+          /* Toppers: multi-card wrap on tablet */
+          .rs-toppers-grid {
+            flex-wrap: wrap;
+            overflow-x: visible;
+            scroll-snap-type: none;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+          }
+          .rs-topper {
+            flex: none;
+            width: 240px;
+            scroll-snap-align: none;
+          }
+        }
+
+        @media (min-width: 992px) {
+          /* Header row back to side-by-side */
+          .rs-header-row {
+            flex-direction: row;
+            align-items: flex-start;
+            text-align: left;
+            gap: 3rem;
+            margin-bottom: var(--gap-3xl);
+          }
+          .rs-header-text { max-width: 640px; }
+          .rs-desc { margin: 0; }
+          .rs-stats { flex-shrink: 0; padding-top: 1rem; }
+          .rs-stat { min-width: 130px; padding: 1.5rem 1.75rem; }
+          /* Topper card back to fixed width */
+          .rs-topper { width: 270px; }
+          .rs-title { white-space: nowrap; }
+          .rs-toppers-label { justify-content: flex-start; width: auto; }
+          .rs-topper:hover {
+            border-color: rgba(26,86,219,0.3);
+            box-shadow: 0 15px 40px rgba(26,86,219,0.08);
+          }
+          .rs-stat:hover {
+            border-color: var(--border-strong);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+          }
         }
       `}</style>
     </section>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaFacebookF, FaInstagram, FaYoutube, FaLinkedinIn, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaYoutube } from 'react-icons/fa'
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -17,11 +17,8 @@ const courses = [
 ]
 
 const socials = [
-  { icon: <FaInstagram />, href: '#' },
-  { icon: <FaYoutube />, href: '#' },
-  { icon: <FaFacebookF />, href: '#' },
-  { icon: <FaLinkedinIn />, href: '#' },
-  { icon: <FaWhatsapp />, href: 'https://wa.me/919221105658' }
+  { icon: <FaInstagram />, href: 'https://www.instagram.com/muntazarclasses' },
+  { icon: <FaYoutube />, href: 'https://youtube.com/@muntazar_classes?si=FWLZAPsRrBwyerNE' }
 ]
 
 export default function Footer() {
@@ -123,17 +120,18 @@ export default function Footer() {
         .footer {
           background: var(--blue-deep);
           color: rgba(255,255,255,0.6);
-          padding: var(--gap-4xl) 0 var(--gap-xl);
+          padding: var(--gap-3xl) 0 var(--gap-xl);
         }
 
-        /* Top */
+        /* Top — base = stacked (phone) */
         .footer-top {
           display: flex;
+          flex-direction: column;
           align-items: flex-start;
-          justify-content: space-between;
           gap: 2rem;
           margin-bottom: var(--gap-2xl);
         }
+        .footer-social-wrap { text-align: left; }
         .footer-logo {
           display: flex;
           align-items: center;
@@ -174,7 +172,6 @@ export default function Footer() {
           line-height: 1.6;
           max-width: 360px;
         }
-        .footer-social-wrap { text-align: right; }
         .footer-social-label {
           display: block;
           font-size: 0.65rem;
@@ -184,7 +181,7 @@ export default function Footer() {
           color: rgba(255,255,255,0.4);
           margin-bottom: 0.75rem;
         }
-        .footer-socials { display: flex; gap: 0.5rem; justify-content: flex-end; }
+        .footer-socials { display: flex; gap: 0.5rem; justify-content: flex-start; }
         .footer-social {
           width: 36px; height: 36px;
           border-radius: 8px;
@@ -211,12 +208,12 @@ export default function Footer() {
           margin-bottom: var(--gap-2xl);
         }
 
-        /* Grid */
+        /* Grid — base = single column (phone) */
         .footer-grid {
           display: grid;
-          grid-template-columns: 0.9fr 0.9fr 1.1fr 1.1fr;
-          gap: var(--gap-2xl);
-          margin-bottom: var(--gap-3xl);
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          margin-bottom: var(--gap-2xl);
         }
         .footer-heading {
           font-family: var(--font-display);
@@ -277,33 +274,38 @@ export default function Footer() {
           color: rgba(255,255,255,0.4);
         }
 
-        /* Bottom */
+        /* Bottom — base = stacked (phone) */
         .footer-bottom {
           border-top: 1px solid rgba(255,255,255,0.08);
           padding-top: var(--gap-xl);
           display: flex;
-          justify-content: space-between;
-          align-items: center;
-          flex-wrap: wrap;
+          flex-direction: column;
+          align-items: flex-start;
           gap: 1rem;
           font-size: 0.78rem;
         }
-        .footer-legal { display: flex; gap: 1.5rem; }
+        .footer-legal { display: flex; flex-wrap: wrap; gap: 1.5rem; }
         .footer-legal a {
           color: rgba(255,255,255,0.4);
           transition: color 0.2s ease;
         }
         .footer-legal a:hover { color: var(--text-white); }
 
-        @media (max-width: 991px) {
-          .footer-grid { grid-template-columns: 1fr 1fr; }
-          .footer-top { flex-direction: column; }
-          .footer-social-wrap { text-align: left; }
-          .footer-socials { justify-content: flex-start; }
+        /* ── ≥480px: two-column links + inline bottom bar ── */
+        @media (min-width: 480px) {
+          .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--gap-2xl); }
+          .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; }
         }
-        @media (max-width: 576px) {
-          .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
-          .footer-bottom { flex-direction: column; align-items: flex-start; }
+        /* ── ≥768: social block returns to the right of the logo ── */
+        @media (min-width: 768px) {
+          .footer-top { flex-direction: row; justify-content: space-between; }
+          .footer-social-wrap { text-align: right; }
+          .footer-socials { justify-content: flex-end; }
+        }
+        /* ── ≥992: full four-column grid + section rhythm ── */
+        @media (min-width: 992px) {
+          .footer { padding: var(--gap-4xl) 0 var(--gap-xl); }
+          .footer-grid { grid-template-columns: 0.9fr 0.9fr 1.1fr 1.1fr; margin-bottom: var(--gap-3xl); }
         }
       `}</style>
     </footer>

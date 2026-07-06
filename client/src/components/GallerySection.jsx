@@ -68,26 +68,28 @@ export default function GallerySection({ onViewAll }) {
       </AnimatePresence>
 
       <style>{`
+        /* ── Base: phone (≤479px) ── */
         .gallery-sec {
           background: var(--gray-50);
-          padding: var(--gap-4xl) 0;
+          padding: var(--gap-3xl) 0;
           border-top: 1px solid var(--border);
         }
         .gallery-head {
           display: flex;
-          align-items: flex-end;
-          justify-content: space-between;
-          margin-bottom: var(--gap-2xl);
+          flex-direction: column;
+          align-items: flex-start;
+          gap: var(--gap-sm);
+          margin-bottom: var(--gap-xl);
         }
-        .gallery-title { font-size: clamp(2rem, 4vw, 2.75rem); }
+        .gallery-title { font-size: var(--fs-h2); }
         .gallery-title em { color: var(--blue); }
         .gallery-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 1rem;
+          grid-template-columns: repeat(2, 1fr);
+          gap: var(--gap-sm);
         }
         .gallery-item {
-          aspect-ratio: 4/5;
+          aspect-ratio: 1;
           border-radius: var(--radius);
           overflow: hidden;
           background: var(--border);
@@ -101,11 +103,30 @@ export default function GallerySection({ onViewAll }) {
         .gallery-item:hover img {
           transform: scale(1.05);
         }
-        @media (max-width: 991px) {
-          .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-          .gallery-item { aspect-ratio: 1; }
+
+        /* ── ≥480px: large phones — 2 columns, roomier gap ── */
+        @media (min-width: 480px) {
+          .gallery-grid { gap: var(--gap-md); }
         }
 
+        /* ── ≥768px: tablet — head goes horizontal ── */
+        @media (min-width: 768px) {
+          .gallery-sec { padding: var(--gap-4xl) 0; }
+          .gallery-head {
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: var(--gap-2xl);
+          }
+        }
+
+        /* ── ≥992px: full grid — 4 columns ── */
+        @media (min-width: 992px) {
+          .gallery-grid { grid-template-columns: repeat(4, 1fr); }
+          .gallery-item { aspect-ratio: 4/5; }
+        }
+
+        /* ── Full-screen lightbox ── */
         .lightbox-overlay {
           position: fixed; inset: 0;
           background: rgba(0, 0, 0, 0.9);
@@ -113,27 +134,36 @@ export default function GallerySection({ onViewAll }) {
           align-items: center;
           justify-content: center;
           z-index: 3000;
-          padding: 2rem;
+          padding: 1rem;
         }
         .lightbox-close {
-          position: absolute; top: 1.5rem; right: 1.5rem;
-          background: rgba(255, 255, 255, 0.1);
+          position: absolute; top: 1rem; right: 1rem;
+          background: rgba(255, 255, 255, 0.14);
           border: none;
           color: white;
-          width: 44px; height: 44px;
+          width: 48px; height: 48px;
           border-radius: 50%;
           display: flex; align-items: center; justify-content: center;
-          font-size: 1.5rem;
+          font-size: 1.6rem;
           cursor: pointer;
           transition: background 0.2s ease;
           z-index: 3001;
+          -webkit-tap-highlight-color: transparent;
         }
-        .lightbox-close:hover { background: rgba(255, 255, 255, 0.25); }
+        .lightbox-close:hover,
+        .lightbox-close:active { background: rgba(255, 255, 255, 0.28); }
         .lightbox-img {
-          max-width: 100%; max-height: 90vh;
+          max-width: 100%;
+          max-height: calc(100vh - 5rem);
           object-fit: contain;
           border-radius: var(--radius-sm);
           box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        @media (min-width: 768px) {
+          .lightbox-overlay { padding: 2rem; }
+          .lightbox-close { top: 1.5rem; right: 1.5rem; width: 44px; height: 44px; font-size: 1.5rem; }
+          .lightbox-img { max-height: 90vh; }
         }
       `}</style>
     </section>

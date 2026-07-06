@@ -91,9 +91,10 @@ export default function GalleryPage() {
           transition: color 0.2s ease;
         }
         .back-link:hover { color: var(--blue-dark); }
+        /* Masonry: 1-col on smallest phones */
         .masonry-grid {
-          columns: 3 300px;
-          column-gap: 1.5rem;
+          columns: 1;
+          column-gap: 1rem;
         }
         .masonry-item {
           break-inside: avoid;
@@ -112,10 +113,14 @@ export default function GalleryPage() {
           transform: scale(1.03);
         }
 
-        @media (max-width: 768px) {
+        /* ── Responsive — mobile-first ── */
+        @media (min-width: 480px) {
           .masonry-grid { columns: 2 150px; column-gap: 1rem; }
           .masonry-item { margin-bottom: 1rem; }
-          .gallery-page__hero { padding: var(--gap-3xl) 0; }
+        }
+        @media (min-width: 768px) {
+          .masonry-grid { columns: 3 300px; column-gap: 1.5rem; }
+          .masonry-item { margin-bottom: 1.5rem; }
         }
 
         .lightbox-overlay {
