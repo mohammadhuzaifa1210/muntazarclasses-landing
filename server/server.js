@@ -15,7 +15,7 @@ const enquiries = []
 app.use(cors({
   origin: [
     'http://localhost:5173',                      // local Vite dev server
-    'https://muntazar-client.onrender.com',       // Render static site
+    'https://muntazar-classes.onrender.com',      // Render static site (Actual URL)
     'https://muntazarclasses.com',                // custom domain (if added later)
     'https://www.muntazarclasses.com'
   ],
