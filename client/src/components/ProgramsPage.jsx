@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { FiArrowLeft, FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowLeft, FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 import {
   FaBook, FaFlask, FaChartLine, FaUniversity, FaCheck,
   FaPhoneAlt, FaWhatsapp, FaEnvelope, FaClock, FaLayerGroup, FaLanguage
@@ -103,11 +103,12 @@ async function submitEnquiry(data) {
 
 export default function ProgramsPage() {
   const formRef = useRef(null)
+  const trackRef = useRef(null)
+  const [active, setActive] = useState(0)
   const [form, setForm] = useState({ name: '', phone: '', email: '', program: formPrograms[0], message: '' })
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [])
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -125,72 +126,109 @@ export default function ProgramsPage() {
     setForm({ name: '', phone: '', email: '', program: formPrograms[0], message: '' })
   }
 
+  // Mobile Carousel Logic
+  const handleScroll = useCallback(() => {
+    const track = trackRef.current
+    if (!track) return
+    const cards = track.children
+    const center = track.scrollLeft + track.clientWidth / 2
+    let best = 0, bestDist = Infinity
+    for (let i = 0; i < cards.length; i++) {
+      const cCenter = cards[i].offsetLeft + cards[i].offsetWidth / 2
+      const d = Math.abs(cCenter - center)
+      if (d < bestDist) { bestDist = d; best = i }
+    }
+    setActive(best)
+  }, [])
+
+  const scrollToCard = useCallback((i) => {
+    const track = trackRef.current
+    if (!track) return
+    const card = track.children[i]
+    if (!card) return
+    track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.offsetWidth) / 2, behavior: 'smooth' })
+  }, [])
+
+  const prev = () => scrollToCard(Math.max(0, active - 1))
+  const next = () => scrollToCard(Math.min(programs.length - 1, active + 1))
+
   return (
     <>
       <Navbar />
 
       <main className="pp">
-        {/* Hero header */}
-        <section className="pp-hero">
-          <div className="grid-pattern" />
-          <div className="wrap pp-hero__inner">
-            <Link to="/" className="back-link"><FiArrowLeft /> Back to Home</Link>
-            <span className="eyebrow" style={{ justifyContent: 'flex-start' }}>Our Programs</span>
-            <h1 className="pp-hero__title">
-              Every Board, Every Medium - <span className="pp-accent">One Institute</span>
-            </h1>
-            <p className="pp-hero__desc">
-              From your child's foundation years right through to a university degree - explore
-              what we teach, how each program is structured, and enquire in a click.
-            </p>
+        <div className="wrap pp-top">
+          <Link to="/#courses" className="back-link"><FiArrowLeft /> Back to Home</Link>
+          
+          <div className="pp-nav">
+            <button className="pp-arrow" onClick={prev} disabled={active === 0} aria-label="Previous program">
+              <FiArrowLeft />
+            </button>
+            <button className="pp-arrow pp-arrow--primary" onClick={next} disabled={active === programs.length - 1} aria-label="Next program">
+              <FiArrowRight />
+            </button>
           </div>
-        </section>
+        </div>
 
         {/* Program detail cards */}
-        <section className="wrap pp-list">
-          {programs.map((p, i) => (
-            <motion.article
-              key={p.id}
-              className="pp-card"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: (i % 2) * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="pp-card__head">
-                <div className="pp-card__icon">{p.icon}</div>
-                <div>
-                  <span className="pp-card__tag">{p.tag}</span>
-                  <h2 className="pp-card__title">{p.title}</h2>
-                </div>
-              </div>
-
-              <p className="pp-card__desc">{p.desc}</p>
-
-              <div className="pp-card__meta">
-                {p.meta.map((m, j) => (
-                  <div key={j} className="pp-meta">
-                    <span className="pp-meta__icon">{m.icon}</span>
-                    <div>
-                      <span className="pp-meta__label">{m.label}</span>
-                      <span className="pp-meta__value">{m.value}</span>
-                    </div>
+        <div className="wrap">
+          <section className="pp-list" ref={trackRef} onScroll={handleScroll}>
+            {programs.map((p, i) => (
+              <motion.article
+                key={p.id}
+                className="pp-card"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: (i % 2) * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="pp-card__head">
+                  <div className="pp-card__icon">{p.icon}</div>
+                  <div>
+                    <span className="pp-card__tag">{p.tag}</span>
+                    <h2 className="pp-card__title">{p.title}</h2>
                   </div>
-                ))}
-              </div>
+                </div>
 
-              <ul className="pp-card__list">
-                {p.highlights.map((h, j) => (
-                  <li key={j}><span className="pp-check"><FaCheck /></span>{h}</li>
-                ))}
-              </ul>
+                <p className="pp-card__desc">{p.desc}</p>
 
-              <button className="btn btn--blue" onClick={() => enquireAbout(p.title)}>
-                Enquire about this <FiArrowUpRight />
-              </button>
-            </motion.article>
+                <div className="pp-card__meta">
+                  {p.meta.map((m, j) => (
+                    <div key={j} className="pp-meta">
+                      <span className="pp-meta__icon">{m.icon}</span>
+                      <div>
+                        <span className="pp-meta__label">{m.label}</span>
+                        <span className="pp-meta__value">{m.value}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <ul className="pp-card__list">
+                  {p.highlights.map((h, j) => (
+                    <li key={j}><span className="pp-check"><FaCheck /></span>{h}</li>
+                  ))}
+                </ul>
+
+                <button className="btn btn--blue" onClick={() => enquireAbout(p.title)}>
+                  Enquire about this <FiArrowUpRight />
+                </button>
+              </motion.article>
+            ))}
+          </section>
+        </div>
+
+        {/* Mobile carousel dots */}
+        <div className="pp-dots">
+          {programs.map((_, i) => (
+            <button
+              key={i}
+              className={`pp-dot ${i === active ? 'active' : ''}`}
+              onClick={() => scrollToCard(i)}
+              aria-label={`Go to program ${i + 1}`}
+            />
           ))}
-        </section>
+        </div>
 
         {/* Redesigned enquiry form */}
         <section className="pp-enquiry" ref={formRef}>
@@ -202,24 +240,6 @@ export default function ProgramsPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              {/* Left info panel */}
-              <div className="pp-form-aside">
-                <div className="grid-pattern pp-form-aside__grid" />
-                <div className="pp-form-aside__inner">
-                  <span className="pp-form-aside__eyebrow">Admissions 2026–27</span>
-                  <h2 className="pp-form-aside__title">Talk to an Academic Counsellor</h2>
-                  <p className="pp-form-aside__desc">
-                    Share your details and we'll call you back within 24 hours with the fee card,
-                    batch timings and a free demo slot.
-                  </p>
-                  <ul className="pp-form-aside__list">
-                    <li><a href="tel:+919221105658"><FaPhoneAlt /> +91 92211 05658</a></li>
-                    <li><a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer"><FaWhatsapp /> WhatsApp us</a></li>
-                    <li><a href="mailto:admissions@muntazarclasses.com"><FaEnvelope /> admissions@muntazarclasses.com</a></li>
-                  </ul>
-                </div>
-              </div>
-
               {/* Form */}
               <div className="pp-form-main">
                 {done ? (
@@ -272,16 +292,15 @@ export default function ProgramsPage() {
       <Footer />
 
       <style>{`
-        .pp { padding-top: 62px; background: var(--white); }
-
-        /* Hero */
-        .pp-hero {
-          position: relative;
-          overflow: hidden;
-          background: var(--grad-hero);
-          padding: var(--gap-3xl) 0 var(--gap-4xl);
+        .pp { padding-top: 80px; background: var(--white); overflow-x: hidden; }
+        
+        .pp-top {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-top: var(--gap-xl);
+          padding-bottom: var(--gap-md);
         }
-        .pp-hero__inner { position: relative; z-index: 1; max-width: 720px; }
         .back-link {
           display: inline-flex;
           align-items: center;
@@ -289,41 +308,54 @@ export default function ProgramsPage() {
           color: var(--blue);
           font-weight: 600;
           font-size: 0.85rem;
-          margin-bottom: 1.75rem;
           transition: color 0.2s ease;
         }
         .back-link:hover { color: var(--blue-dark); }
-        .pp-hero__title {
-          font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 700;
-          letter-spacing: -0.02em;
-          line-height: 1.12;
+
+        .pp-nav { display: flex; gap: var(--gap-sm); }
+        .pp-arrow {
+          width: 44px; height: 44px;
+          border-radius: 50%;
+          border: 1.5px solid var(--border-strong);
+          background: var(--white);
           color: var(--text-dark);
-          margin-bottom: 1rem;
-        }
-        .pp-accent { color: var(--blue); }
-        .pp-hero__desc {
+          display: flex;
+          align-items: center;
+          justify-content: center;
           font-size: 1.05rem;
-          color: var(--text-muted);
-          line-height: 1.7;
-          max-width: 560px;
+          cursor: pointer;
+          transition: all 0.3s var(--ease);
+        }
+        .pp-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+        .pp-arrow--primary {
+          background: var(--blue);
+          border-color: var(--blue);
+          color: var(--text-white);
         }
 
-        /* Program cards — 1-col phone */
+        /* Program cards — carousel on mobile */
         .pp-list {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--gap-xl);
-          padding-top: var(--gap-3xl);
-          padding-bottom: var(--gap-3xl);
+          display: flex;
+          gap: var(--gap-md);
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          scroll-behavior: smooth;
+          padding: var(--gap-md) 7vw var(--gap-xl);
+          margin: 0 -1.25rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
         }
+        .pp-list::-webkit-scrollbar { display: none; }
+
         .pp-card {
+          flex: 0 0 86vw;
+          scroll-snap-align: center;
           display: flex;
           flex-direction: column;
           background: var(--white);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 2.25rem;
+          padding: 1.75rem;
           box-shadow: var(--shadow-sm);
           transition: all 0.4s var(--ease);
         }
@@ -352,9 +384,10 @@ export default function ProgramsPage() {
           border-radius: var(--radius-pill);
           margin-bottom: 0.5rem;
         }
-        .pp-card__title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+        .pp-card__title { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
         .pp-card__desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
-        /* meta: 1-col phone */
+        
+        /* meta: 1-col mobile */
         .pp-card__meta {
           display: grid;
           grid-template-columns: 1fr;
@@ -374,8 +407,8 @@ export default function ProgramsPage() {
           letter-spacing: 0.08em;
           color: var(--text-faint);
         }
-        .pp-meta__value { display: block; font-size: 0.82rem; font-weight: 600; color: var(--text-dark); }
-        .pp-card__list { display: flex; flex-direction: column; gap: 0.7rem; margin-bottom: 1.75rem; }
+        .pp-meta__value { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        .pp-card__list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.75rem; }
         .pp-card__list li { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.9rem; color: var(--text-body); }
         .pp-check {
           flex-shrink: 0;
@@ -391,49 +424,45 @@ export default function ProgramsPage() {
         }
         .pp-card .btn { margin-top: auto; align-self: flex-start; }
 
-        /* Enquiry */
-        .pp-enquiry { background: var(--grad-soft); padding: var(--gap-4xl) 0 var(--gap-5xl); }
-        /* Form: 1-col phone */
-        .pp-form-card {
-          display: grid;
-          grid-template-columns: 1fr;
-          border-radius: var(--radius-lg);
-          overflow: hidden;
-          box-shadow: var(--shadow-lg);
-          background: var(--white);
+        .pp-dots {
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-top: var(--gap-md);
+          margin-bottom: var(--gap-2xl);
         }
-        .pp-form-aside { position: relative; overflow: hidden; background: var(--blue-deep); }
-        .pp-form-aside__grid {
-          -webkit-mask-image: radial-gradient(ellipse 90% 70% at 20% 0%, #000 30%, transparent 75%);
-          mask-image: radial-gradient(ellipse 90% 70% at 20% 0%, #000 30%, transparent 75%);
-          opacity: 0.5;
-        }
-        .pp-form-aside__inner { position: relative; z-index: 1; padding: 2.75rem; height: 100%; display: flex; flex-direction: column; }
-        .pp-form-aside__eyebrow {
-          font-size: 0.68rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
-          color: var(--blue-light);
-          margin-bottom: 1rem;
-        }
-        .pp-form-aside__title { font-size: 1.5rem; font-weight: 700; color: var(--text-white); line-height: 1.2; margin-bottom: 0.85rem; }
-        .pp-form-aside__desc { font-size: 0.92rem; color: var(--text-white-70); line-height: 1.7; margin-bottom: 2rem; }
-        .pp-form-aside__list { display: flex; flex-direction: column; gap: 0.9rem; margin-top: auto; }
-        .pp-form-aside__list a {
+        .pp-dot {
+          width: 44px; height: 44px;
+          border: none;
+          background: transparent;
+          cursor: pointer;
+          padding: 0;
           display: flex;
           align-items: center;
-          gap: 0.7rem;
-          font-size: 0.88rem;
-          color: var(--text-white-70);
-          transition: color 0.2s ease;
+          justify-content: center;
         }
-        .pp-form-aside__list a:hover { color: var(--text-white); }
-        .pp-form-aside__list svg { color: var(--blue-light); font-size: 0.9rem; flex-shrink: 0; }
+        .pp-dot::before {
+          content: '';
+          width: 8px; height: 8px;
+          border-radius: 50%;
+          background: var(--border-strong);
+          transition: all 0.3s var(--ease);
+        }
+        .pp-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+
+        /* Enquiry */
+        .pp-enquiry { background: var(--grad-soft); padding: var(--gap-4xl) 0 var(--gap-5xl); }
+        .pp-form-card {
+          max-width: 640px;
+          margin: 0 auto;
+          background: var(--white);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-lg);
+          border: 1px solid var(--border);
+        }
 
         .pp-form-main { padding: 1.75rem; }
         .pp-form__title { font-size: 1.35rem; font-weight: 700; margin-bottom: 1.75rem; }
-        /* form row: 1-col on phone */
         .pp-form__row { display: grid; grid-template-columns: 1fr; gap: var(--gap-lg); }
         .pp-form-success { text-align: center; padding: 2.5rem 1rem; }
         .pp-form-success__tick {
@@ -457,9 +486,21 @@ export default function ProgramsPage() {
           .pp-form__row { grid-template-columns: 1fr 1fr; }
         }
         @media (min-width: 768px) {
-          .pp-list { grid-template-columns: 1fr 1fr; padding-top: var(--gap-4xl); padding-bottom: var(--gap-4xl); }
-          .pp-form-card { grid-template-columns: 0.85fr 1.15fr; }
-          .pp-form-aside__inner { padding: 2.75rem; }
+          .pp-nav, .pp-dots { display: none; }
+          .pp-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--gap-xl);
+            overflow: visible;
+            scroll-snap-type: none;
+            padding: var(--gap-lg) 0 var(--gap-3xl);
+            margin: 0;
+          }
+          .pp-card {
+            flex: none;
+            scroll-snap-align: none;
+            padding: 2.25rem;
+          }
           .pp-form-main { padding: 2.75rem; }
         }
       `}</style>

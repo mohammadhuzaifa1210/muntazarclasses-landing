@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { FaBars, FaTimes, FaPhoneAlt } from 'react-icons/fa'
 
 const links = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#why-choose-us' },
-  { name: 'Programs', href: '#courses' },
-  { name: 'Reviews', href: '#reviews' },
-  { name: 'FAQ', href: '#faq' },
-  { name: 'Contact', href: '#contact' }
+  { name: 'Home', href: '/#home' },
+  { name: 'About', href: '/#why-choose-us' },
+  { name: 'Programs', href: '/#courses' },
+  { name: 'Reviews', href: '/#reviews' },
+  { name: 'FAQ', href: '/#faq' },
+  { name: 'Contact', href: '/#contact' }
 ]
 
 export default function Navbar({ onAdmissionClick }) {

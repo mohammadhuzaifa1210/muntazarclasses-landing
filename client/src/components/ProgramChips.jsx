@@ -49,15 +49,18 @@ export default function ProgramChips() {
             </motion.a>
           ))}
 
+        </div>
+
+        <div className="chips-cta-wrap">
           <MotionLink
             to="/programs"
             className="chip chip--cta"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: chips.length * 0.04, duration: 0.5 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
           >
-            See All Programs <FiArrowRight />
+            Know More <FiArrowRight />
           </MotionLink>
         </div>
       </div>
@@ -74,6 +77,12 @@ export default function ProgramChips() {
           mask-image: radial-gradient(ellipse 90% 80% at 50% 30%, #000 30%, transparent 75%);
         }
         .chips-sec .wrap { position: relative; z-index: 1; }
+        
+        .chips-cta-wrap {
+          display: flex;
+          justify-content: center;
+          margin-top: 1.5rem;
+        }
 
         /* Base = phone (<=479): horizontal scroll-snap row, no overflow */
         .chips-grid {

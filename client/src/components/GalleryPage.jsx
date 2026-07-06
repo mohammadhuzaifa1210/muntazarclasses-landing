@@ -21,9 +21,7 @@ const allImages = [
 export default function GalleryPage() {
   const [selectedImg, setSelectedImg] = useState(null)
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+
 
   return (
     <>
@@ -31,7 +29,7 @@ export default function GalleryPage() {
 
       <main className="gallery-page">
         <section className="gallery-page__content wrap">
-          <Link to="/" className="back-link" style={{ color: 'var(--blue)', marginBottom: '2rem' }}>
+          <Link to="/#gallery" className="back-link" style={{ color: 'var(--blue)', marginBottom: '2rem' }}>
             <FiArrowLeft /> Back to Home
           </Link>
           <div className="masonry-grid">

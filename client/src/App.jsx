@@ -18,6 +18,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import StickyBottom from './components/StickyBottom'
 import AdmissionPopup from './components/AdmissionPopup'
+import ScrollToTopOrHash from './components/ScrollToTopOrHash'
 
 function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySubmit }) {
   const navigate = useNavigate()
@@ -86,6 +87,7 @@ export default function App() {
 
   return (
     <Router>
+      <ScrollToTopOrHash />
       <Routes>
         <Route path="/" element={<LandingPage 
           handleAdmissionClick={handleAdmissionClick} 

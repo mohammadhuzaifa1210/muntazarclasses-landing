@@ -28,9 +28,6 @@ export default function Contact({ onEnquirySubmit }) {
         >
           <span className="ch-label">GET IN TOUCH</span>
           <h2 className="ch-title">Ready to Start Your Journey?</h2>
-          <p className="ch-sub">
-            Fill out the inquiry form below and our academic counselors will guide you through the admission process.
-          </p>
         </motion.div>
 
         <div className="contact-grid">
@@ -123,7 +120,8 @@ export default function Contact({ onEnquirySubmit }) {
         }
         .ch-title {
           font-family: var(--font-display);
-          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-size: clamp(1.2rem, 6vw, 2.75rem);
+          white-space: nowrap;
           font-weight: 800;
           color: var(--text-dark);
           line-height: 1.1;

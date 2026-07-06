@@ -48,7 +48,7 @@ function useCounter(end, duration = 2000, startCounting) {
   return count
 }
 
-function StatCounter({ icon, value, suffix = '', label, delay, isInView }) {
+function StatCounter({ value, suffix = '', label, delay, isInView }) {
   const count = useCounter(value, 2000, isInView)
   return (
     <motion.div
@@ -57,7 +57,6 @@ function StatCounter({ icon, value, suffix = '', label, delay, isInView }) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.6 }}
     >
-      <div className="rs-stat__icon">{icon}</div>
       <div className="rs-stat__value">{count}{suffix}</div>
       <div className="rs-stat__label">{label}</div>
     </motion.div>
@@ -141,21 +140,14 @@ export default function AchievementSection() {
             >
               Our Students, <em>Our Pride.</em>
             </motion.h2>
-            <motion.p
-              className="rs-desc"
-              initial={{ opacity: 0, y: 15 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              Year after year, our students set new benchmarks in SSC, HSC and University examinations across all mediums.
-            </motion.p>
+
           </div>
 
           {/* ── Stat counters ── */}
           <div className="rs-stats">
-            <StatCounter icon={<LuGraduationCap />} value={500} suffix="+" label="Students Taught" delay={0.2} isInView={isInView} />
-            <StatCounter icon={<FiStar />} value={95} suffix="%" label="Pass Rate" delay={0.35} isInView={isInView} />
-            <StatCounter icon={<PiMedalBold />} value={50} suffix="+" label="Board Toppers" delay={0.5} isInView={isInView} />
+            <StatCounter value={500} suffix="+" label="Students Taught" delay={0.2} isInView={isInView} />
+            <StatCounter value={95} suffix="%" label="Pass Rate" delay={0.35} isInView={isInView} />
+            <StatCounter value={50} suffix="+" label="Board Toppers" delay={0.5} isInView={isInView} />
           </div>
         </div>
 
@@ -245,11 +237,11 @@ export default function AchievementSection() {
         .rs-eyebrow svg { font-size: 0.85rem; }
 
         .rs-title {
-          font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+          font-size: clamp(1.2rem, 6vw, 3.2rem);
           color: var(--text-dark);
           margin-bottom: 1.25rem;
           line-height: 1.12;
-          white-space: normal;
+          white-space: nowrap;
         }
         .rs-title em {
           color: var(--gold-dark);
@@ -273,41 +265,32 @@ export default function AchievementSection() {
           flex-shrink: 0;
           padding-top: 0;
         }
-        .rs-stat {
+         .rs-stat {
           flex: 1 1 0;
           min-width: 0;
-          background: var(--white);
-          border: 1px solid var(--border);
-          border-radius: var(--radius);
-          padding: 0.9rem 0.5rem;
+          background: transparent;
+          border: none;
+          padding: 0.5rem 0.25rem;
           text-align: center;
-          box-shadow: var(--shadow-sm);
           transition: all 0.4s var(--ease);
         }
         .rs-stat:hover {
-          border-color: var(--border-strong);
-          box-shadow: var(--shadow-md);
-          transform: translateY(-4px);
-        }
-        .rs-stat__icon {
-          font-size: 1.2rem;
-          color: var(--gold);
-          margin-bottom: 0.4rem;
+          transform: translateY(-2px);
         }
         .rs-stat__value {
           font-family: var(--font-display);
-          font-size: 1.35rem;
+          font-size: 1.6rem;
           font-weight: 800;
           color: var(--text-dark);
           line-height: 1;
-          margin-bottom: 0.35rem;
+          margin-bottom: 0.5rem;
         }
         .rs-stat__label {
-          font-size: 0.55rem;
-          font-weight: 600;
+          font-size: 0.6rem;
+          font-weight: 700;
           color: var(--text-muted);
           text-transform: uppercase;
-          letter-spacing: 0.04em;
+          letter-spacing: 0.06em;
         }
 
         /* ── Toppers Section ── */
@@ -499,23 +482,32 @@ export default function AchievementSection() {
         /* ── Responsive — mobile-first, scale up ── */
         .rs-toppers-label { justify-content: center; width: 100%; }
 
-        @media (min-width: 480px) {
+         @media (min-width: 480px) {
           .rs-sec { padding: var(--gap-4xl) 0; }
-          .rs-stat { padding: 1.1rem 0.75rem; }
-          .rs-stat__icon { font-size: 1.35rem; margin-bottom: 0.6rem; }
-          .rs-stat__value { font-size: 1.6rem; }
-          .rs-stat__label { font-size: 0.62rem; letter-spacing: 0.06em; }
+          .rs-stat { padding: 0.75rem 0.5rem; }
+          .rs-stat__value { font-size: 2rem; }
+          .rs-stat__label { font-size: 0.65rem; }
           .rs-topper { flex: 0 0 62vw; }
         }
 
         @media (min-width: 768px) {
           .rs-sec { padding: var(--gap-5xl) 0; }
-          /* Stats: spaced, no longer cramped */
-          .rs-stats { gap: 1rem; width: auto; }
-          .rs-stat { flex: none; min-width: 110px; padding: 1.25rem 1.25rem; }
-          .rs-stat__icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
-          .rs-stat__value { font-size: 2rem; }
-          .rs-stat__label { font-size: 0.72rem; letter-spacing: 0.08em; }
+          /* Stats: grid layout with 3 equal fractional columns */
+          .rs-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+          }
+          .rs-stat {
+            flex: none;
+            width: 100%;
+            padding: 1rem 0.5rem;
+          }
+          .rs-stat__value { font-size: 2.5rem; }
+          .rs-stat__label { font-size: 0.72rem; }
           /* Toppers: multi-card wrap on tablet */
           .rs-toppers-grid {
             flex-wrap: wrap;
@@ -544,8 +536,17 @@ export default function AchievementSection() {
           }
           .rs-header-text { max-width: 640px; }
           .rs-desc { margin: 0; }
-          .rs-stats { flex-shrink: 0; padding-top: 1rem; }
-          .rs-stat { min-width: 130px; padding: 1.5rem 1.75rem; }
+          .rs-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 520px;
+            flex-shrink: 0;
+            padding-top: 1rem;
+            margin: 0;
+          }
+          .rs-stat { width: 100%; padding: 1.25rem 0.5rem; }
           /* Topper card back to fixed width */
           .rs-topper { width: 270px; }
           .rs-title { white-space: nowrap; }
@@ -553,11 +554,6 @@ export default function AchievementSection() {
           .rs-topper:hover {
             border-color: rgba(26,86,219,0.3);
             box-shadow: 0 15px 40px rgba(26,86,219,0.08);
-          }
-          .rs-stat:hover {
-            border-color: var(--border-strong);
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
           }
         }
       `}</style>

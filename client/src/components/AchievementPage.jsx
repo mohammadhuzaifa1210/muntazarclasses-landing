@@ -153,7 +153,6 @@ export default function AchievementPage() {
   const [lightboxStudent, setLightboxStudent] = useState(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
-  useEffect(() => { window.scrollTo(0, 0) }, [])
   useEffect(() => {
     const onScroll = () => setShowScrollTop(window.scrollY > 400)
     window.addEventListener('scroll', onScroll)
@@ -168,7 +167,7 @@ export default function AchievementPage() {
       <main className="ap-page">
         {/* ── Header & Filters ── */}
         <section className="ap-header wrap">
-          <Link to="/" className="ap-back"><FiArrowLeft /> Back to Home</Link>
+          <Link to="/#achievements" className="ap-back"><FiArrowLeft /> Back to Home</Link>
           
           <div className="ap-filter-row">
             {filters.map(f => (

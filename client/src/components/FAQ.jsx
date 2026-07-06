@@ -35,9 +35,6 @@ export default function FAQ() {
           <h2 className="section-head__title">
             Frequently Asked <em className="accent-serif">Questions</em>
           </h2>
-          <p className="section-head__desc">
-            Honest answers to the questions parents ask us most.
-          </p>
         </div>
 
         <div className="faq-list">
