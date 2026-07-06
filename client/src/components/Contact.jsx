@@ -1,15 +1,5 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaPhoneAlt, FaWhatsapp, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa'
-import { FiArrowUpRight } from 'react-icons/fi'
-
-const info = [
-  { icon: <FaMapMarkerAlt />, label: 'Visit Us', value: '1st & 2nd Floor, Rikshaw stand, Plot no 33/K/1,2, Near Baiganwadi, Above City Bakery, Govandi West, Mumbai – 400043' },
-  { icon: <FaPhoneAlt />, label: 'Call', value: '+91 92211 05658', href: 'tel:+919221105658' },
-  { icon: <FaWhatsapp />, label: 'WhatsApp', value: '+91 92211 05658 · Instant Reply', href: 'https://wa.me/919221105658', color: '#25D366' },
-  { icon: <FaEnvelope />, label: 'Email', value: 'admissions@muntazarclasses.com', href: 'mailto:admissions@muntazarclasses.com' },
-  { icon: <FaClock />, label: 'Hours', value: 'Mon–Sat: 10 AM – 8:30 PM\nSunday: 10 AM – 2 PM' }
-]
 
 export default function Contact({ onEnquirySubmit }) {
   const [form, setForm] = useState({ name: '', phone: '', email: '', course: 'School Section (5th to 10th)', message: '' })
@@ -29,49 +19,21 @@ export default function Contact({ onEnquirySubmit }) {
   return (
     <section id="contact" className="contact-sec">
       <div className="wrap">
+        <motion.div 
+          className="contact-header"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="ch-label">GET IN TOUCH</span>
+          <h2 className="ch-title">Ready to Start Your Journey?</h2>
+          <p className="ch-sub">
+            Fill out the inquiry form below and our academic counselors will guide you through the admission process.
+          </p>
+        </motion.div>
 
         <div className="contact-grid">
-
-          {/* Info Column */}
-          <div className="contact-info">
-            <div className="contact-intro">
-              <span className="eyebrow">Get in Touch</span>
-              <h2 className="contact-intro__title">
-                Start Your <em className="accent-serif">Journey</em>
-              </h2>
-              <p className="contact-intro__desc">
-                Have a question or want to book a demo? Reach us directly, or send an enquiry and we'll call you back.
-              </p>
-            </div>
-
-            {info.map((item, i) => {
-              const Inner = (
-                <div className="ci-item" key={i}>
-                  <span className="ci-icon" style={item.color ? { color: item.color } : {}}>{item.icon}</span>
-                  <div>
-                    <span className="ci-label">{item.label}</span>
-                    <span className="ci-value">{item.value}</span>
-                  </div>
-                </div>
-              )
-              return item.href ? (
-                <a key={i} href={item.href} target={item.href.startsWith('http') ? '_blank' : '_self'} rel="noopener noreferrer" className="ci-link">
-                  {Inner}
-                </a>
-              ) : Inner
-            })}
-
-            <a
-              href="https://maps.google.com/?q=Mulund+West+Station+Mumbai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="contact-map-btn"
-            >
-              <FaMapMarkerAlt />
-              <span>View on Google Maps</span>
-              <FiArrowUpRight />
-            </a>
-          </div>
 
           {/* Form */}
           <motion.div
@@ -133,91 +95,52 @@ export default function Contact({ onEnquirySubmit }) {
       <style>{`
         .contact-sec {
           background: var(--white);
-          padding: var(--gap-3xl) 0;
+          padding: var(--gap-4xl) 0;
         }
         .contact-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: var(--gap-2xl);
-          align-items: start;
-        }
-        .contact-info {
           display: flex;
-          flex-direction: column;
-          gap: 1rem;
+          justify-content: center;
+          align-items: center;
+          padding: 0 1rem;
         }
-        .contact-intro { margin-bottom: 0.75rem; }
-        .contact-intro__title {
-          font-size: var(--fs-h2);
+        .contact-header {
+          text-align: center;
+          margin-bottom: 3.5rem;
+          max-width: 640px;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 0 1rem;
+        }
+        .ch-label {
+          display: inline-block;
+          font-family: var(--font-sans);
+          font-size: 0.75rem;
+          font-weight: 700;
+          color: var(--blue);
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
           margin-bottom: 1rem;
         }
-        .contact-intro__title em { color: var(--blue); }
-        .contact-intro__desc {
-          font-size: var(--fs-body);
-          color: var(--text-muted);
-          line-height: 1.7;
-          max-width: 380px;
-        }
-        .ci-link { text-decoration: none; }
-        .ci-item {
-          display: flex;
-          gap: 0.85rem;
-          align-items: flex-start;
-          padding: 1rem 1.25rem;
-          background: var(--gray-50);
-          border-radius: var(--radius);
-          border: 1px solid var(--border);
-          transition: all 0.3s var(--ease);
-        }
-        .ci-item:hover,
-        .ci-link:hover .ci-item { border-color: var(--blue); box-shadow: var(--shadow-sm); }
-        .ci-icon {
-          color: var(--blue);
-          font-size: 1rem;
-          margin-top: 2px;
-          flex-shrink: 0;
-        }
-        .ci-label {
-          display: block;
+        .ch-title {
           font-family: var(--font-display);
-          font-size: 0.65rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          color: var(--text-faint);
-          margin-bottom: 2px;
-        }
-        .ci-value {
-          display: block;
-          font-size: 0.88rem;
-          font-weight: 500;
+          font-size: clamp(2rem, 4vw, 2.75rem);
+          font-weight: 800;
           color: var(--text-dark);
-          white-space: pre-line;
-          line-height: 1.5;
+          line-height: 1.1;
+          margin-bottom: 1rem;
         }
-        .contact-map-btn {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 0.6rem;
-          min-height: 48px;
-          padding: 1.1rem;
-          background: var(--blue-deep);
-          color: var(--text-white);
-          border-radius: var(--radius);
-          font-size: 0.82rem;
-          font-weight: 600;
-          text-decoration: none;
-          transition: all 0.3s var(--ease);
-          margin-top: 0.5rem;
+        .ch-sub {
+          font-size: 1.05rem;
+          color: var(--text-body);
+          line-height: 1.6;
         }
-        .contact-map-btn svg:first-child { color: rgba(255,255,255,0.7); }
-        .contact-map-btn:hover { background: var(--blue-dark); }
         .contact-form-wrap {
+          width: 100%;
+          max-width: 640px;
           background: var(--gray-50);
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
-          padding: 1.5rem;
+          padding: 2rem;
           box-shadow: var(--shadow-sm);
         }
         .cf-title {
@@ -264,11 +187,10 @@ export default function Contact({ onEnquirySubmit }) {
         @media (min-width: 768px) {
           .contact-form-wrap { padding: 1.75rem; }
         }
-        /* ── ≥992: two-column info + form, full section rhythm ── */
+        /* ── ≥992: full section rhythm ── */
         @media (min-width: 992px) {
           .contact-sec { padding: var(--gap-5xl) 0; }
-          .contact-grid { grid-template-columns: 1.05fr 1fr; gap: var(--gap-3xl); }
-          .contact-form-wrap { padding: 2.25rem; }
+          .contact-form-wrap { padding: 2.75rem; }
         }
       `}</style>
     </section>

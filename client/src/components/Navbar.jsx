@@ -81,14 +81,7 @@ export default function Navbar({ onAdmissionClick }) {
               </li>
             ))}
           </ul>
-          <div className="nav__mobile-actions">
-            <a href="tel:+919221105658" className="btn btn--outline" style={{ width: '100%' }}>
-              <FaPhoneAlt /> Call Us
-            </a>
-            <button onClick={() => { setOpen(false); onAdmissionClick ? onAdmissionClick() : (window.location.href = '/#contact') }} className="btn btn--blue" style={{ width: '100%' }}>
-              Enrol Now
-            </button>
-          </div>
+
         </div>
       )}
 
@@ -116,33 +109,35 @@ export default function Navbar({ onAdmissionClick }) {
         .nav__brand {
           display: flex;
           align-items: center;
-          gap: 0;
+          gap: 0.2rem;
           text-decoration: none;
           z-index: 1001;
           transform: scale(1.1);
           transform-origin: left center;
         }
         .nav__logo-img {
-          height: 40px;
+          height: 38px;
           width: auto;
           object-fit: contain;
+          transform: scale(1.7);
+          margin-left: 0.2rem;
+          margin-right: 0.2rem;
         }
         .nav__logo-text { 
           display: flex; 
           flex-direction: column; 
-          margin-left: -0.5rem;
         }
         .nav__logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.9rem;
+          font-size: 0.78rem;
           color: var(--text-dark);
           letter-spacing: 0.05em;
           line-height: 1;
         }
         .nav__logo-sub {
           font-family: var(--font-display);
-          font-size: 0.5rem;
+          font-size: 0.42rem;
           font-weight: 600;
           color: var(--blue);
           letter-spacing: 0.22em;
@@ -261,13 +256,13 @@ export default function Navbar({ onAdmissionClick }) {
 
         /* ─── sm large phones ─── */
         @media (min-width: 480px) {
-          .nav__brand { transform: scale(1.2); }
-          .nav__logo-img { height: 48px; }
+          .nav__brand { transform: scale(1.15); }
+          .nav__logo-img { height: 42px; }
         }
-        /* ─── md tablets ─── */
+        /* ─── md tablets (desktop) ─── */
         @media (min-width: 768px) {
-          .nav__brand { transform: scale(1.35); }
-          .nav__logo-img { height: 56px; }
+          .nav__brand { transform: scale(1.15); }
+          .nav__logo-img { height: 44px; }
         }
       `}</style>
     </>

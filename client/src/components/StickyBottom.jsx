@@ -64,20 +64,41 @@ export default function StickyBottom({ onAdmissionClick }) {
         .mobile-bottom {
           position: fixed;
           bottom: 0; left: 0; right: 0;
-          background: var(--white);
-          border-top: 1px solid var(--border-strong);
+          background: transparent;
           z-index: 999;
           padding: 0.6rem 0.6rem calc(0.6rem + env(safe-area-inset-bottom));
+          pointer-events: none;
         }
         .mobile-bottom__row {
           display: flex;
           gap: 0.4rem;
+          pointer-events: auto;
         }
         .mobile-bottom__row .btn {
-          min-height: 44px;
+          min-height: 48px;
           padding: 0.65rem 0.5rem;
           min-width: 0;
           gap: 0.35rem;
+          border-radius: 100px;
+          
+          /* Exact Liquid Glass 3D Effect */
+          background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.05) 100%) !important;
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(255,255,255,0.4) !important;
+          box-shadow: 
+            0 8px 32px 0 rgba(0, 0, 0, 0.12),
+            inset 0 2px 4px 0 rgba(255, 255, 255, 0.7),
+            inset 0 -2px 4px 0 rgba(255, 255, 255, 0.1) !important;
+        }
+        .mobile-bottom__row .btn--outline {
+          color: var(--text-dark) !important;
+        }
+        .mobile-bottom__row .btn--blue {
+          color: var(--blue) !important;
+        }
+        .mobile-bottom__row .btn--wa {
+          color: #25D366 !important;
         }
 
         /* ─── sm large phones ─── */

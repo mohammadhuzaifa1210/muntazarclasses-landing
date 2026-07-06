@@ -296,25 +296,21 @@ export default function Reviews() {
           }
         }
 
-        /* ─── ≥992px: original multi-column grid (all cards, no scroll) ─── */
+        /* ─── ≥992px: 3-card carousel ─── */
         @media (min-width: 992px) {
           .rev-track {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
             gap: var(--gap-lg);
-            overflow: visible;
-            scroll-snap-type: none;
+            overflow-x: auto;
           }
           .rev-card {
-            flex: none;
-            scroll-snap-align: none;
+            flex: 0 0 calc((100% - (2 * var(--gap-lg))) / 3);
+            scroll-snap-align: start;
           }
           .rev-card:hover {
             border-color: var(--blue-light);
             box-shadow: var(--shadow-md);
             transform: translateY(-3px);
           }
-          .rev-dots { display: none; }
         }
       `}</style>
     </section>
