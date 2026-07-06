@@ -40,20 +40,37 @@ function buildEmailHtml({ name, phone, email, course, message, source, date }) {
   return `
   <!DOCTYPE html>
   <html lang="en">
-  <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>New Enquiry</title></head>
-  <body style="margin:0;padding:0;background:#f1f5f9;font-family:'Segoe UI',Arial,sans-serif;">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>New Enquiry</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body style="margin:0;padding:0;background:#f1f5f9;font-family:'Plus Jakarta Sans', Arial, sans-serif;">
     <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px;">
       <tr><td align="center">
         <table width="100%" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.08);">
 
           <!-- Header -->
-          <tr><td style="background:linear-gradient(135deg,#172554,#1e3a8a);padding:32px 36px;">
-            <p style="margin:0;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#93c5fd;">New Enquiry Received</p>
-            <h1 style="margin:8px 0 0;font-size:24px;font-weight:800;color:#ffffff;letter-spacing:-0.02em;">Muntazar Classes</h1>
+          <tr><td style="background:#ffffff;padding:24px 36px;border-bottom:1px solid #e2e8f0;text-align:left;">
+            <table cellpadding="0" cellspacing="0" style="border:none;">
+              <tr>
+                <td style="padding-right:0px;">
+                  <img src="https://muntazar-classes.onrender.com/logo.png" alt="Muntazar Classes Logo" style="height:44px;display:block;border:0;">
+                </td>
+                <td style="vertical-align:middle;padding-left:4px;">
+                  <div style="font-family:'Plus Jakarta Sans', Arial, sans-serif;font-weight:800;font-size:16px;color:#0f172a;letter-spacing:0.05em;line-height:1;margin-bottom:4px;">MUNTAZAR</div>
+                  <div style="font-family:'Plus Jakarta Sans', Arial, sans-serif;font-weight:600;font-size:9px;color:#1a56db;letter-spacing:0.22em;line-height:1;text-transform:uppercase;">Classes</div>
+                </td>
+              </tr>
+            </table>
           </td></tr>
 
           <!-- Alert Banner -->
           <tr><td style="background:#eff6ff;border-bottom:1px solid #bfdbfe;padding:14px 36px;">
+            <p style="margin:0 0 6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em;color:#3b82f6;">New Enquiry</p>
             <p style="margin:0;font-size:13px;color:#1e40af;">📬 <strong>${name}</strong> submitted an enquiry via <em>${source || 'Website'}</em></p>
           </td></tr>
 
