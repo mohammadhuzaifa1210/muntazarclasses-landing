@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiArrowUpRight } from 'react-icons/fi'
+import { FiArrowUpRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { FaCalendarAlt, FaGraduationCap, FaChalkboardTeacher, FaUsers } from 'react-icons/fa'
 
 // Right-side photos cross-fade while the headline stays fixed
@@ -24,6 +24,9 @@ export default function Hero({ onAdmissionClick }) {
     const t = setInterval(() => setIdx(p => (p + 1) % photos.length), 5000)
     return () => clearInterval(t)
   }, [])
+
+  const nextSlide = () => setIdx(p => (p + 1) % photos.length)
+  const prevSlide = () => setIdx(p => (p - 1 + photos.length) % photos.length)
 
   return (
     <section id="home" className="hero">
@@ -78,6 +81,15 @@ export default function Hero({ onAdmissionClick }) {
                   loading="eager"
                 />
               </AnimatePresence>
+              
+              <div className="hero__nav">
+                <button className="hero__nav-btn" onClick={prevSlide} aria-label="Previous image">
+                  <FiChevronLeft />
+                </button>
+                <button className="hero__nav-btn" onClick={nextSlide} aria-label="Next image">
+                  <FiChevronRight />
+                </button>
+              </div>
             </div>
 
           </motion.div>
@@ -182,6 +194,33 @@ export default function Hero({ onAdmissionClick }) {
           position: absolute; inset: 0;
           width: 100%; height: 100%;
           object-fit: cover;
+        }
+        
+        .hero__nav {
+          position: absolute;
+          bottom: 1rem;
+          right: 1rem;
+          display: flex;
+          gap: 0.5rem;
+          z-index: 10;
+        }
+        
+        .hero__nav-btn {
+          width: 40px; height: 40px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          color: var(--text-dark);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: all 0.2s var(--ease);
+        }
+        .hero__nav-btn:hover {
+          background: var(--white);
+          color: var(--blue);
         }
         /* Docked stat bar - 2x2 grid on phone */
         .hero__stats {

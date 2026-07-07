@@ -38,7 +38,6 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
       <Reviews />
       <Contact onEnquirySubmit={handleEnquirySubmit} />
       <Footer />
-      <StickyBottom onAdmissionClick={handleAdmissionClick} />
     </>
   )
 }
@@ -104,6 +103,7 @@ export default function App() {
         onEnquirySubmit={handleEnquirySubmit}
         prefilledCourse={prefilledCourse}
       />
+      <StickyBottom onAdmissionClick={handleAdmissionClick} />
     </Router>
   )
 }
