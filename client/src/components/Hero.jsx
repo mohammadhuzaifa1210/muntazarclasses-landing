@@ -52,8 +52,8 @@ export default function Hero({ onAdmissionClick }) {
               <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
                 Book Free Demo <FiArrowUpRight />
               </button>
-              <a href="#courses" className="btn btn--outline btn--lg">
-                View Programs
+              <a href="#achievements" className="btn btn--outline btn--lg">
+                View Results
               </a>
             </div>
           </motion.div>

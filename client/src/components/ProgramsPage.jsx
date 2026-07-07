@@ -177,8 +177,8 @@ export default function ProgramsPage() {
               <motion.article
                 key={p.id}
                 className="pp-card"
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: (i % 2) * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
               >

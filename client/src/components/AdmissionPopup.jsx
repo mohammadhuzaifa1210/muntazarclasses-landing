@@ -48,7 +48,6 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
               <div className="grid-pattern modal__grid" />
               <button className="modal__close" onClick={onClose} aria-label="Close"><FaTimes /></button>
               <div className="modal__head-row">
-                <div className="modal__icon"><FaUserGraduate /></div>
                 <div>
                   <span className="modal__eyebrow">Admissions 2026–27</span>
                   <h3 className="modal__title">Book Your Free Demo</h3>
@@ -237,7 +236,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         @media (min-width: 480px) {
           .modal-overlay { align-items: center; padding: 1.5rem; }
           .modal {
-            max-width: 450px;
+            max-width: 560px;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-lg);
           }

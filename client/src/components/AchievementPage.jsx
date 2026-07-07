@@ -202,7 +202,7 @@ export default function AchievementPage() {
         .ap-page { background: var(--gray-50); min-height: 100vh; }
 
         /* ── Header ── */
-        .ap-header { padding: 100px 0 2rem; }
+        .ap-header { padding-top: 100px; padding-bottom: 2rem; }
         .ap-back {
           display: inline-flex; align-items: center; gap: 0.4rem; color: var(--text-muted);
           text-decoration: none; font-weight: 600; font-size: 0.88rem; margin-bottom: 2rem;
@@ -230,7 +230,7 @@ export default function AchievementPage() {
         }
 
         /* ── Results Container ── */
-        .ap-results { padding: 1.5rem 1rem 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .ap-results { padding-top: 1.5rem; padding-bottom: 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
 
         /* ── Year Accordion ── */
         .ap-year {
@@ -269,62 +269,63 @@ export default function AchievementPage() {
           color: var(--text-dark); letter-spacing: 0.01em;
         }
 
-        /* ── Student Cards Grid — 1-col phone, scales up ── */
+        /* ── Student Cards Grid — always 4 per row ── */
         .ap-students-grid {
-          display: grid; grid-template-columns: 1fr; gap: 1.25rem; max-width: 320px; margin: 0 auto;
+          display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0;
         }
         .ap-student {
           background: var(--white);
-          border-radius: var(--radius-xl);
-          padding: 2rem 1rem;
+          border-radius: var(--radius);
+          padding: 0.75rem 0.35rem;
           display: flex;
           flex-direction: column;
           align-items: center;
           text-align: center;
           border: 1px solid var(--border);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.02);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.02);
           cursor: pointer;
           transition: all 0.3s var(--ease);
         }
         .ap-student:hover {
-          transform: translateY(-5px);
+          transform: translateY(-4px);
           border-color: rgba(26,86,219,0.3);
-          box-shadow: 0 15px 35px rgba(26,86,219,0.08);
+          box-shadow: 0 10px 25px rgba(26,86,219,0.08);
         }
         
         .ap-student__avatar-wrap {
           position: relative;
-          width: 120px;
-          height: 120px;
+          width: 60px;
+          height: 60px;
           flex-shrink: 0;
-          margin-bottom: 1.25rem;
+          margin-bottom: 0.5rem;
         }
         
         .ap-student__avatar {
           width: 100%; height: 100%; object-fit: cover; object-position: top;
-          border-radius: 50%; border: 3px solid var(--white);
-          box-shadow: 0 0 0 2px rgba(26,86,219,0.2), 0 10px 20px rgba(0,0,0,0.08);
+          border-radius: 50%; border: 2px solid var(--white);
+          box-shadow: 0 0 0 1.5px rgba(26,86,219,0.2), 0 4px 10px rgba(0,0,0,0.08);
           transition: transform 0.5s;
         }
-        .ap-student:hover .ap-student__avatar { transform: scale(1.05); box-shadow: 0 0 0 2px var(--blue), 0 15px 25px rgba(26,86,219,0.2); }
+        .ap-student:hover .ap-student__avatar { transform: scale(1.05); box-shadow: 0 0 0 2px var(--blue), 0 8px 18px rgba(26,86,219,0.2); }
 
         .ap-student__info-center {
           display: flex; flex-direction: column; align-items: center; width: 100%;
         }
         .ap-student__name {
-          font-size: 1.1rem; font-weight: 700; color: var(--text-dark); line-height: 1.2; margin-bottom: 0.5rem;
+          font-size: 0.62rem; font-weight: 700; color: var(--text-dark); line-height: 1.2; margin-bottom: 0.2rem;
+          overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%;
         }
         
         .ap-student__score {
-          display: flex; align-items: center; justify-content: center; gap: 0.3rem;
-          font-family: var(--font-display); font-size: 1.75rem; font-weight: 800; color: var(--gold-dark);
-          line-height: 1; margin-bottom: 0.75rem;
+          display: flex; align-items: center; justify-content: center; gap: 0.15rem;
+          font-family: var(--font-display); font-size: 0.85rem; font-weight: 800; color: var(--gold-dark);
+          line-height: 1; margin-bottom: 0.25rem;
         }
-        .ap-student__score-icon { font-size: 1.25rem; color: var(--gold); }
+        .ap-student__score-icon { font-size: 0.65rem; color: var(--gold); }
 
         .ap-student__subject {
-          font-size: 0.75rem; color: var(--text-muted); background: var(--gray-100);
-          padding: 0.25rem 0.6rem; border-radius: var(--radius-pill); font-weight: 600;
+          font-size: 0.55rem; color: var(--text-muted); background: var(--gray-100);
+          padding: 0.15rem 0.4rem; border-radius: var(--radius-pill); font-weight: 600;
         }
 
         /* ── Empty State ── */
@@ -332,6 +333,7 @@ export default function AchievementPage() {
           display: flex; flex-direction: column; align-items: center; justify-content: center;
           padding: 2.5rem; color: var(--text-faint); gap: 0.5rem;
           border: 2px dashed var(--border); border-radius: var(--radius); background: var(--gray-50);
+          grid-column: 1 / -1;
         }
         .ap-empty--full { padding: 5rem; }
         .ap-empty__icon { font-size: 2rem; opacity: 0.4; }
@@ -378,21 +380,37 @@ export default function AchievementPage() {
         }
         .ap-lightbox__info p { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
 
-        /* ── Responsive — mobile-first ── */
+        /* ── Responsive — scale up sizes on larger screens ── */
         @media (min-width: 480px) {
-          .ap-students-grid { grid-template-columns: repeat(2, 1fr); max-width: none; margin: 0; }
+          .ap-students-grid { gap: 0.75rem; }
+          .ap-student { padding: 1rem 0.5rem; }
+          .ap-student__avatar-wrap { width: 72px; height: 72px; }
+          .ap-student__name { font-size: 0.72rem; }
+          .ap-student__score { font-size: 1rem; }
+          .ap-student__score-icon { font-size: 0.75rem; }
           .ap-filter-btn { padding: 0.6rem 1.25rem; font-size: 0.82rem; }
-          .ap-results { padding: 2rem 1.25rem 5rem; }
+          .ap-results { padding-top: 2rem; padding-bottom: 5rem; }
         }
         @media (min-width: 768px) {
-          .ap-students-grid { grid-template-columns: repeat(3, 1fr); }
+          .ap-students-grid { gap: 1.25rem; }
+          .ap-student { padding: 1.5rem 0.75rem; border-radius: var(--radius-xl); }
+          .ap-student__avatar-wrap { width: 100px; height: 100px; margin-bottom: 0.75rem; }
+          .ap-student__avatar { border-width: 3px; }
+          .ap-student__name { font-size: 0.95rem; white-space: normal; }
+          .ap-student__score { font-size: 1.4rem; gap: 0.25rem; margin-bottom: 0.5rem; }
+          .ap-student__score-icon { font-size: 1rem; }
+          .ap-student__subject { font-size: 0.7rem; }
           .ap-year__header { padding: 1.25rem 1.75rem; }
           .ap-year__body { padding: 0 1.75rem 1.75rem; }
           .ap-year__title { font-size: 1.15rem; }
-          .ap-results { padding: 2.5rem 2rem 5rem; }
+          .ap-results { padding-top: 2.5rem; padding-bottom: 5rem; }
         }
         @media (min-width: 992px) {
-          .ap-students-grid { grid-template-columns: repeat(4, 1fr); }
+          .ap-student { padding: 2rem 1rem; }
+          .ap-student__avatar-wrap { width: 120px; height: 120px; margin-bottom: 1rem; }
+          .ap-student__name { font-size: 1.1rem; }
+          .ap-student__score { font-size: 1.75rem; gap: 0.3rem; margin-bottom: 0.75rem; }
+          .ap-student__score-icon { font-size: 1.25rem; }
         }
       `}</style>
     </>
