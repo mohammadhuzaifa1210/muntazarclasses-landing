@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { FiArrowLeft, FiX, FiChevronDown, FiChevronUp, FiSun, FiAward, FiBookOpen } from 'react-icons/fi'
+import { FiArrowLeft, FiX, FiChevronDown, FiChevronUp, FiSun, FiAward, FiBookOpen, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { FaCamera } from 'react-icons/fa'
 import { LuGraduationCap } from 'react-icons/lu'
 import Navbar from './Navbar'
@@ -77,20 +77,22 @@ function GalleryAccordion({ section, defaultOpen, onImageClick }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="gp-grid">
-              {section.images.map((src, i) => (
-                <motion.div
-                  key={i}
-                  className="gp-item"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06, duration: 0.5 }}
-                  onClick={() => onImageClick(src)}
-                >
-                  <img src={src} alt={`${section.title} ${i + 1}`} loading="lazy" />
-                </motion.div>
-              ))}
+            <div className="gp-section__body-inner">
+              <div className="gp-grid">
+                {section.images.map((src, i) => (
+                  <motion.div
+                    key={i}
+                    className="gp-item"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.06, duration: 0.5 }}
+                    onClick={() => onImageClick(src)}
+                  >
+                    <img src={src} alt={`${section.title} ${i + 1}`} loading="lazy" />
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}
@@ -100,7 +102,49 @@ function GalleryAccordion({ section, defaultOpen, onImageClick }) {
 }
 
 export default function GalleryPage() {
-  const [selectedImg, setSelectedImg] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  // Flatten all images across all sections
+  const allImages = galleryData.flatMap(section => section.images)
+
+  const handlePrev = (e) => {
+    if (e) e.stopPropagation()
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : allImages.length - 1))
+  }
+
+  const handleNext = (e) => {
+    if (e) e.stopPropagation()
+    setActiveIndex((prev) => (prev < allImages.length - 1 ? prev + 1 : 0))
+  }
+
+  // Handle keyboard navigation for Lightbox
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    const handleKeyDown = (e) => {
+      if (activeIndex === null) return
+      if (e.key === 'Escape') setActiveIndex(null)
+      if (e.key === 'ArrowLeft') handlePrev(e)
+      if (e.key === 'ArrowRight') handleNext(e)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [activeIndex])
+
+  const handleImageClick = (src) => {
+    const index = allImages.findIndex(img => img === src)
+    if (index !== -1) {
+      setActiveIndex(index)
+    }
+  }
 
   return (
     <>
@@ -122,7 +166,7 @@ export default function GalleryPage() {
               key={section.title}
               section={section}
               defaultOpen={i === 0}
-              onImageClick={setSelectedImg}
+              onImageClick={handleImageClick}
             />
           ))}
         </section>
@@ -132,19 +176,34 @@ export default function GalleryPage() {
 
       {/* ── Lightbox ── */}
       <AnimatePresence>
-        {selectedImg && (
-          <div className="lightbox-overlay" onClick={() => setSelectedImg(null)}>
-            <button className="lightbox-close" onClick={() => setSelectedImg(null)}><FiX /></button>
-            <motion.img
-              src={selectedImg}
-              alt="Expanded Gallery"
-              className="lightbox-img"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.3 }}
-              onClick={(e) => e.stopPropagation()}
-            />
+        {activeIndex !== null && (
+          <div className="lightbox-overlay" onClick={() => setActiveIndex(null)}>
+            <button className="lightbox-close" onClick={() => setActiveIndex(null)}><FiX /></button>
+
+            <div className="lightbox-wrapper" onClick={(e) => e.stopPropagation()}>
+              {/* Left Nav */}
+              <button className="lightbox-nav lightbox-nav--prev" onClick={handlePrev}>
+                <FiChevronLeft />
+              </button>
+              
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={activeIndex}
+                  src={allImages[activeIndex]}
+                  alt="Expanded Gallery"
+                  className="lightbox-img"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.2 }}
+                />
+              </AnimatePresence>
+
+              {/* Right Nav */}
+              <button className="lightbox-nav lightbox-nav--next" onClick={handleNext}>
+                <FiChevronRight />
+              </button>
+            </div>
           </div>
         )}
       </AnimatePresence>
@@ -199,7 +258,8 @@ export default function GalleryPage() {
           padding: 0.18rem 0.55rem; border-radius: var(--radius-pill);
         }
         .gp-section__toggle { color: var(--text-muted); font-size: 0.8rem; }
-        .gp-section__body { padding: 0 1.25rem 1.25rem; overflow: hidden; }
+        .gp-section__body { overflow: hidden; }
+        .gp-section__body-inner { padding: 0 1.25rem 1.25rem; }
 
         /* ── Photo Grid — 2x2 on mobile ── */
         .gp-grid {
@@ -233,6 +293,30 @@ export default function GalleryPage() {
           display: flex; align-items: center; justify-content: center;
           z-index: 3000; padding: 1rem;
         }
+        .lightbox-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          max-width: 100%;
+          max-height: 100%;
+        }
+        .lightbox-nav {
+          position: absolute; top: 50%; transform: translateY(-50%); z-index: 3002;
+          width: 48px; height: 48px; border-radius: 50%; border: none;
+          background: rgba(255, 255, 255, 0.12); color: white; font-size: 1.5rem;
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+          transition: background 0.2s;
+        }
+        .lightbox-nav:hover { background: rgba(255, 255, 255, 0.25); }
+        .lightbox-nav--prev { left: 0.5rem; }
+        .lightbox-nav--next { right: 0.5rem; }
+
+        @media (min-width: 768px) {
+          .lightbox-nav--prev { left: -68px; }
+          .lightbox-nav--next { right: -68px; }
+        }
+
         .lightbox-close {
           position: absolute; top: 1rem; right: 1rem;
           background: rgba(255, 255, 255, 0.12); border: none; color: white;
@@ -252,14 +336,14 @@ export default function GalleryPage() {
         @media (min-width: 480px) {
           .gp-grid { gap: 0.75rem; }
           .gp-section__header { padding: 1.25rem 1.5rem; }
-          .gp-section__body { padding: 0 1.5rem 1.5rem; }
+          .gp-section__body-inner { padding: 0 1.5rem 1.5rem; }
           .gp-section__title { font-size: 1.1rem; }
         }
         @media (min-width: 768px) {
           .gp-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
           .gp-item { aspect-ratio: 4/3; }
           .gp-section__header { padding: 1.25rem 1.75rem; }
-          .gp-section__body { padding: 0 1.75rem 1.75rem; }
+          .gp-section__body-inner { padding: 0 1.75rem 1.75rem; }
           .gp-section__title { font-size: 1.15rem; }
           .lightbox-overlay { padding: 2rem; }
           .lightbox-close { top: 1.5rem; right: 1.5rem; }

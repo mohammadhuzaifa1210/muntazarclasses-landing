@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { FiArrowLeft, FiAward, FiChevronDown, FiChevronUp, FiArrowUp, FiX } from 'react-icons/fi'
+import { FiArrowLeft, FiAward, FiChevronDown, FiChevronUp, FiArrowUp, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { LuGraduationCap } from 'react-icons/lu'
 import { PiMedalBold } from 'react-icons/pi'
 import Navbar from './Navbar'
@@ -18,6 +18,10 @@ const resultsData = [
         students: [
           { name: 'Anam Patni', score: '88.40%', image: '/SSC EM Results 2025-26/Anam Patni 88.40.jpeg' },
           { name: 'Sayyed Mohd Mehdi', score: '83.20%', image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg' },
+          { name: 'Khan Nasreen', score: '83.00%', image: '/SSC EM Results 2025-26/Khan Nasreen 83.00.jpeg' },
+          { name: 'Shaikh Arshin', score: '81.00%', image: '/SSC EM Results 2025-26/Shaikh Arshin 81.00.jpeg' },
+          { name: 'Ansari Muskan', score: '79.60%', image: '/SSC EM Results 2025-26/Ansari Muskan 79.60.jpeg' },
+          { name: 'Khan Merajuddin', score: '78.80%', image: '/SSC EM Results 2025-26/Khan Merajuddin 78.80.jpeg' },
         ]
       },
       { medium: 'Urdu Medium', students: [] }
@@ -67,20 +71,69 @@ const resultsData = [
 const filters = ['All', 'SSC', 'HSC', 'University']
 
 /* ── Lightbox Component ── */
-function Lightbox({ student, onClose }) {
-  if (!student) return null
+function Lightbox({ activeIndex, allStudents, onClose, onPrev, onNext }) {
+  useEffect(() => {
+    if (activeIndex !== null) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+
+    const handleKeyDown = (e) => {
+      if (activeIndex === null) return
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowLeft') onPrev(e)
+      if (e.key === 'ArrowRight') onNext(e)
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [activeIndex, onClose, onPrev, onNext])
+
+  if (activeIndex === null || !allStudents[activeIndex]) return null
+  const student = allStudents[activeIndex]
+
   return (
     <AnimatePresence>
       <motion.div className="ap-lightbox" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
-        <motion.div className="ap-lightbox__card" initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} transition={{ type: 'spring', damping: 25 }} onClick={e => e.stopPropagation()}>
-          <button className="ap-lightbox__close" onClick={onClose}><FiX /></button>
-          <img src={student.image} alt={student.name} className="ap-lightbox__img" />
-          <div className="ap-lightbox__info">
-            <h3>{student.name}</h3>
-            <div className="ap-lightbox__score"><FiAward /> {student.score}</div>
-            {student.subject && <p>{student.subject}</p>}
-          </div>
-        </motion.div>
+        
+        <div className="ap-lightbox__wrapper">
+          {/* Left Arrow */}
+          <button className="ap-lightbox__nav ap-lightbox__nav--prev" onClick={onPrev}>
+            <FiChevronLeft />
+          </button>
+
+          <motion.div className="ap-lightbox__card" initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} transition={{ type: 'spring', damping: 25 }} onClick={e => e.stopPropagation()}>
+            <button className="ap-lightbox__close" onClick={onClose}><FiX /></button>
+            
+            {/* Use AnimatePresence for smooth slide transitions within the card */}
+            <AnimatePresence mode="wait">
+              <motion.div 
+                key={activeIndex}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.2 }}
+              >
+                <img src={student.image} alt={student.name} className="ap-lightbox__img" />
+                <div className="ap-lightbox__info">
+                  <h3>{student.name}</h3>
+                  <div className="ap-lightbox__score"><FiAward /> {student.score}</div>
+                  {student.subject && <p>{student.subject}</p>}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Right Arrow */}
+          <button className="ap-lightbox__nav ap-lightbox__nav--next" onClick={onNext}>
+            <FiChevronRight />
+          </button>
+        </div>
+
       </motion.div>
     </AnimatePresence>
   )
@@ -106,8 +159,9 @@ function YearSection({ section, defaultOpen, onStudentClick }) {
       <AnimatePresence>
         {open && (
           <motion.div className="ap-year__body" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
-            {section.mediums.map((med, mi) => (
-              <div key={mi} className="ap-medium">
+            <div className="ap-year__body-inner">
+              {section.mediums.map((med, mi) => (
+                <div key={mi} className="ap-medium">
                 <div className="ap-medium__header">
                   <div className="ap-medium__bar" />
                   <h3 className="ap-medium__title">{med.medium}</h3>
@@ -141,6 +195,7 @@ function YearSection({ section, defaultOpen, onStudentClick }) {
                 )}
               </div>
             ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -150,7 +205,7 @@ function YearSection({ section, defaultOpen, onStudentClick }) {
 
 export default function AchievementPage() {
   const [activeFilter, setActiveFilter] = useState('All')
-  const [lightboxStudent, setLightboxStudent] = useState(null)
+  const [activeIndex, setActiveIndex] = useState(null)
   const [showScrollTop, setShowScrollTop] = useState(false)
 
   useEffect(() => {
@@ -160,6 +215,26 @@ export default function AchievementPage() {
   }, [])
 
   const filtered = activeFilter === 'All' ? resultsData : resultsData.filter(s => s.board === activeFilter)
+
+  // Flatten all currently visible students
+  const allVisibleStudents = filtered.flatMap(section => 
+    section.mediums.flatMap(med => med.students)
+  )
+
+  const handleStudentClick = (student) => {
+    const idx = allVisibleStudents.findIndex(s => s.name === student.name && s.score === student.score)
+    if (idx !== -1) setActiveIndex(idx)
+  }
+
+  const handlePrev = (e) => {
+    if (e) e.stopPropagation()
+    setActiveIndex((prev) => (prev > 0 ? prev - 1 : allVisibleStudents.length - 1))
+  }
+
+  const handleNext = (e) => {
+    if (e) e.stopPropagation()
+    setActiveIndex((prev) => (prev < allVisibleStudents.length - 1 ? prev + 1 : 0))
+  }
 
   return (
     <>
@@ -182,7 +257,7 @@ export default function AchievementPage() {
             <div className="ap-empty ap-empty--full"><LuGraduationCap className="ap-empty__icon" /><p>No results found for this filter.</p></div>
           ) : (
             filtered.map((section, i) => (
-              <YearSection key={`${section.board}-${section.year}`} section={section} defaultOpen={i === 0} onStudentClick={setLightboxStudent} />
+              <YearSection key={`${section.board}-${section.year}`} section={section} defaultOpen={i === 0} onStudentClick={handleStudentClick} />
             ))
           )}
         </section>
@@ -195,7 +270,13 @@ export default function AchievementPage() {
         </AnimatePresence>
 
         {/* ── Lightbox ── */}
-        <Lightbox student={lightboxStudent} onClose={() => setLightboxStudent(null)} />
+        <Lightbox 
+          activeIndex={activeIndex} 
+          allStudents={allVisibleStudents}
+          onClose={() => setActiveIndex(null)} 
+          onPrev={handlePrev}
+          onNext={handleNext}
+        />
       </main>
 
       <style>{`
@@ -212,25 +293,29 @@ export default function AchievementPage() {
 
         /* ── Filters ── */
         .ap-filter-row {
-          display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+          display: flex; gap: 0.25rem; justify-content: center; flex-wrap: nowrap;
           background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-pill);
           padding: 0.35rem; max-width: 500px; margin: 0 auto;
+          overflow-x: auto; scrollbar-width: none;
         }
+        .ap-filter-row::-webkit-scrollbar { display: none; }
+        
         .ap-filter-btn {
           display: inline-flex; align-items: center; justify-content: center;
           flex: 1 1 auto; min-height: 44px; white-space: nowrap;
-          font-family: var(--font-display); font-size: 0.82rem; font-weight: 500;
-          padding: 0.6rem 1.25rem; border-radius: var(--radius-pill); border: none;
+          font-family: var(--font-display); font-size: 0.82rem; font-weight: 600;
+          padding: 0.5rem 0.75rem; border-radius: var(--radius-pill); border: none;
           background: transparent; color: var(--text-muted); cursor: pointer;
-          transition: all 0.3s var(--ease);
+          transition: background 0.3s var(--ease), color 0.3s var(--ease);
         }
-        .ap-filter-btn:hover { color: var(--blue); }
+        .ap-filter-btn:not(.ap-filter-btn--active):hover { color: var(--blue); background: var(--blue-soft); }
         .ap-filter-btn--active {
-          background: var(--blue); color: #fff; font-weight: 600;
+          background: var(--blue); color: #fff;
         }
 
         /* ── Results Container ── */
-        .ap-results { padding-top: 1.5rem; padding-bottom: 5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .ap-results { padding-top: 1.5rem; padding-bottom: 5rem; display: flex; flex-direction: column; gap: 1.5rem; min-height: 100vh; }
+        .ap-results__anim-wrapper { display: flex; flex-direction: column; gap: 1.5rem; width: 100%; }
 
         /* ── Year Accordion ── */
         .ap-year {
@@ -257,7 +342,8 @@ export default function AchievementPage() {
           padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
         }
         .ap-year__toggle { color: var(--text-muted); font-size: 0.8rem; }
-        .ap-year__body { padding: 0 1.75rem 1.75rem; overflow: hidden; }
+        .ap-year__body { overflow: hidden; }
+        .ap-year__body-inner { padding: 0 1.25rem 1.25rem; }
 
         /* ── Medium Sub-section ── */
         .ap-medium { margin-bottom: 2rem; }
@@ -269,11 +355,12 @@ export default function AchievementPage() {
           color: var(--text-dark); letter-spacing: 0.01em;
         }
 
-        /* ── Student Cards Grid — always 4 per row ── */
+        /* ── Student Cards Grid ── */
         .ap-students-grid {
-          display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin: 0;
+          display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin: 0;
         }
         .ap-student {
+          height: 100%;
           background: var(--white);
           border-radius: var(--radius);
           padding: 0.75rem 0.35rem;
@@ -298,15 +385,26 @@ export default function AchievementPage() {
           height: 60px;
           flex-shrink: 0;
           margin-bottom: 0.5rem;
+          border-radius: 50%;
+          border: 2px solid var(--white);
+          box-shadow: 0 0 0 1.5px rgba(26,86,219,0.2), 0 4px 10px rgba(0,0,0,0.08);
+          overflow: hidden;
+          transition: transform 0.5s, box-shadow 0.3s;
         }
         
-        .ap-student__avatar {
-          width: 100%; height: 100%; object-fit: cover; object-position: top;
-          border-radius: 50%; border: 2px solid var(--white);
-          box-shadow: 0 0 0 1.5px rgba(26,86,219,0.2), 0 4px 10px rgba(0,0,0,0.08);
-          transition: transform 0.5s;
+        .ap-student:hover .ap-student__avatar-wrap { 
+          transform: scale(1.05); 
+          box-shadow: 0 0 0 2px var(--blue), 0 8px 18px rgba(26,86,219,0.2); 
         }
-        .ap-student:hover .ap-student__avatar { transform: scale(1.05); box-shadow: 0 0 0 2px var(--blue), 0 8px 18px rgba(26,86,219,0.2); }
+
+        .ap-student__avatar {
+          width: 100%; 
+          height: 100%; 
+          object-fit: cover; 
+          object-position: top;
+          aspect-ratio: 1 / 1;
+          display: block;
+        }
 
         .ap-student__info-center {
           display: flex; flex-direction: column; align-items: center; width: 100%;
@@ -352,13 +450,32 @@ export default function AchievementPage() {
 
         /* ── Lightbox ── */
         .ap-lightbox {
-          position: fixed; inset: 0; z-index: 100; background: rgba(15,23,42,0.85);
+          position: fixed; inset: 0; z-index: 2000; background: rgba(15,23,42,0.85);
           backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center;
           padding: 2rem;
         }
+        .ap-lightbox__wrapper {
+          position: relative;
+          width: 100%;
+          max-width: 420px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .ap-lightbox__nav {
+          position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+          width: 48px; height: 48px; border-radius: 50%; border: none;
+          background: rgba(15,23,42,0.6); color: #fff; font-size: 1.5rem;
+          cursor: pointer; display: flex; align-items: center; justify-content: center;
+          transition: background 0.2s;
+        }
+        .ap-lightbox__nav:hover { background: rgba(15,23,42,0.85); }
+        .ap-lightbox__nav--prev { left: 0.5rem; }
+        .ap-lightbox__nav--next { right: 0.5rem; }
+
         .ap-lightbox__card {
           position: relative; background: var(--white); border-radius: var(--radius-sm);
-          overflow: hidden; max-width: 420px; width: 100%;
+          overflow: hidden; width: 100%;
           box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
         .ap-lightbox__close {
@@ -382,30 +499,35 @@ export default function AchievementPage() {
 
         /* ── Responsive — scale up sizes on larger screens ── */
         @media (min-width: 480px) {
-          .ap-students-grid { gap: 0.75rem; }
+          .ap-students-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
           .ap-student { padding: 1rem 0.5rem; }
           .ap-student__avatar-wrap { width: 72px; height: 72px; }
           .ap-student__name { font-size: 0.72rem; }
           .ap-student__score { font-size: 1rem; }
           .ap-student__score-icon { font-size: 0.75rem; }
-          .ap-filter-btn { padding: 0.6rem 1.25rem; font-size: 0.82rem; }
+          .ap-filter-row { gap: 0.5rem; }
+          .ap-filter-btn { padding: 0.6rem 1.25rem; }
           .ap-results { padding-top: 2rem; padding-bottom: 5rem; }
         }
         @media (min-width: 768px) {
-          .ap-students-grid { gap: 1.25rem; }
+          .ap-students-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
           .ap-student { padding: 1.5rem 0.75rem; border-radius: var(--radius-xl); }
-          .ap-student__avatar-wrap { width: 100px; height: 100px; margin-bottom: 0.75rem; }
-          .ap-student__avatar { border-width: 3px; }
+          .ap-student__avatar-wrap { width: 100px; height: 100px; margin-bottom: 0.75rem; border-width: 3px; }
           .ap-student__name { font-size: 0.95rem; white-space: normal; }
           .ap-student__score { font-size: 1.4rem; gap: 0.25rem; margin-bottom: 0.5rem; }
           .ap-student__score-icon { font-size: 1rem; }
           .ap-student__subject { font-size: 0.7rem; }
           .ap-year__header { padding: 1.25rem 1.75rem; }
-          .ap-year__body { padding: 0 1.75rem 1.75rem; }
+          .ap-year__body-inner { padding: 0 1.75rem 1.75rem; }
           .ap-year__title { font-size: 1.15rem; }
           .ap-results { padding-top: 2.5rem; padding-bottom: 5rem; }
+
+          /* Lightbox nav moved outside the card */
+          .ap-lightbox__nav--prev { left: -68px; }
+          .ap-lightbox__nav--next { right: -68px; }
         }
         @media (min-width: 992px) {
+          .ap-students-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
           .ap-student { padding: 2rem 1rem; }
           .ap-student__avatar-wrap { width: 120px; height: 120px; margin-bottom: 1rem; }
           .ap-student__name { font-size: 1.1rem; }

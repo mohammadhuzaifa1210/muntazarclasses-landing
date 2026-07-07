@@ -24,7 +24,24 @@ const toppers = [
     year: '2025-26',
     image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg',
     rank: 2
-  }
+  },
+  {
+    name: 'Khan Nasreen',
+    score: '83.00%',
+    board: 'SSC',
+    medium: 'English Medium',
+    year: '2025-26',
+    image: '/SSC EM Results 2025-26/Khan Nasreen 83.00.jpeg',
+    rank: 3
+  },
+  {
+    name: 'Shaikh Arshin',
+    score: '81.00%',
+    board: 'SSC',
+    medium: 'English Medium',
+    year: '2025-26',
+    image: '/SSC EM Results 2025-26/Shaikh Arshin 81.00.jpeg'
+  },
 ]
 
 /* ── Animated counter hook ── */
@@ -356,20 +373,23 @@ export default function AchievementSection() {
           height: 150px;
           flex-shrink: 0;
           margin-bottom: 1.5rem;
+          border-radius: 50%;
+          border: 4px solid var(--white);
+          box-shadow: 0 0 0 2px var(--gold), 0 15px 30px rgba(0,0,0,0.1);
+          overflow: hidden;
+          transition: transform 0.5s var(--ease), box-shadow 0.3s var(--ease);
+        }
+        .rs-topper:hover .rs-topper__avatar-wrap {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 2px var(--blue), 0 15px 30px rgba(26,86,219,0.15);
         }
         .rs-topper__avatar {
           width: 100%;
           height: 100%;
           object-fit: cover;
           object-position: top;
-          border-radius: 50%;
-          border: 4px solid var(--white);
-          box-shadow: 0 0 0 2px var(--gold), 0 15px 30px rgba(0,0,0,0.1);
-          transition: transform 0.5s var(--ease);
-        }
-        .rs-topper:hover .rs-topper__avatar {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 2px var(--blue), 0 15px 30px rgba(26,86,219,0.15);
+          aspect-ratio: 1 / 1;
+          display: block;
         }
 
         /* ── Rank Medallion (Circular badge on edge of photo) ── */
