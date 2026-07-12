@@ -3,69 +3,50 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FiArrowLeft, FiAward, FiChevronDown, FiChevronUp, FiArrowUp, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { LuGraduationCap } from 'react-icons/lu'
-import { PiMedalBold } from 'react-icons/pi'
 import Navbar from './Navbar'
 
 /* ═══════════════════════════════════════════
-   RESULTS DATA — Organized by Year > Board > Medium
+   RESULTS DATA — Organized by Year > Board
    ═══════════════════════════════════════════ */
 const resultsData = [
   {
     year: '2025-26', board: 'SSC', label: 'SSC 2025-26 Results',
-    mediums: [
-      {
-        medium: 'English Medium',
-        students: [
-          { name: 'Anam Patni', score: '88.40%', image: '/SSC EM Results 2025-26/Anam Patni 88.40.jpeg' },
-          { name: 'Sayyed Mohd Mehdi', score: '83.20%', image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg' },
-          { name: 'Khan Nasreen', score: '83.00%', image: '/SSC EM Results 2025-26/Khan Nasreen 83.00.jpeg' },
-          { name: 'Shaikh Arshin', score: '81.00%', image: '/SSC EM Results 2025-26/Shaikh Arshin 81.00.jpeg' },
-          { name: 'Ansari Muskan', score: '79.60%', image: '/SSC EM Results 2025-26/Ansari Muskan 79.60.jpeg' },
-          { name: 'Khan Merajuddin', score: '78.80%', image: '/SSC EM Results 2025-26/Khan Merajuddin 78.80.jpeg' },
-        ]
-      },
-      { medium: 'Urdu Medium', students: [] }
+    students: [
+      { name: 'Anam Patni', score: '88.40%', school: '1st in Citizen English School', image: '/SSC EM Results 2025-26/Anam Patni 88.40.jpeg' },
+      { name: 'Sayed Nuzail Abbas', score: '86.80%', school: 'Shri Gita Vidyalay', image: '/SSC EM Results 2025-26/Sayed Nuzail Abbas 86.80.jpeg', objectPosition: '50% 20%' },
+      { name: 'Sayyed Mohd Mehdi', score: '83.20%', school: 'Jafri English School', image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg' },
+      { name: 'Khan Nasreen', score: '83.00%', school: 'VK English School', image: '/SSC EM Results 2025-26/Khan Nasreen 83.00.jpeg' },
+      { name: 'Shaikh Arshin', score: '81.00%', school: 'Al Amaan English School', image: '/SSC EM Results 2025-26/Shaikh Arshin 81.00.jpeg' },
+      { name: 'Ansari Muskan', score: '79.60%', school: '1st in Ruby English School', image: '/SSC EM Results 2025-26/Ansari Muskan 79.60.jpeg' },
+      { name: 'Khan Merajuddin', score: '78.80%', school: '1st in All Sense English School', image: '/SSC EM Results 2025-26/Khan Merajuddin 78.80.jpeg' },
+      { name: 'Qureshi Mahesaba', score: '75.60%', school: '4th in VK English School', image: '/SSC EM Results 2025-26/Qureshi Mahesaba 75.60.jpeg' },
+      { name: 'Sayed Yasmeen', score: '74.60%', school: 'Ruby English School', image: '/SSC EM Results 2025-26/Sayed Yasmeen 74.60.jpeg' }
     ]
   },
   {
     year: '2025-26', board: 'HSC', label: 'HSC 2025-26 Results',
-    mediums: [
-      { medium: 'English Medium', students: [] },
-      { medium: 'Urdu Medium', students: [] }
-    ]
+    students: []
   },
   {
     year: '2025-26', board: 'University', label: 'University 2025-26 Results',
-    mediums: [{ medium: 'All Programs', students: [] }]
+    students: []
   },
   {
     year: '2024-25', board: 'SSC', label: 'SSC 2024-25 Results',
-    mediums: [
-      { medium: 'English Medium', students: [] },
-      { medium: 'Urdu Medium', students: [] }
-    ]
+    students: []
   },
   {
     year: '2024-25', board: 'HSC', label: 'HSC 2024-25 Results',
-    mediums: [
-      { medium: 'English Medium', students: [] },
-      { medium: 'Urdu Medium', students: [] }
-    ]
+    students: []
   },
   {
     year: '2023-24', board: 'SSC', label: 'SSC 2023-24 Results',
-    mediums: [
-      { medium: 'English Medium', students: [] },
-      { medium: 'Urdu Medium', students: [] }
-    ]
+    students: []
   },
   {
     year: '2023-24', board: 'HSC', label: 'HSC 2023-24 Results',
-    mediums: [
-      { medium: 'English Medium', students: [] },
-      { medium: 'Urdu Medium', students: [] }
-    ]
-  },
+    students: []
+  }
 ]
 
 const filters = ['All', 'SSC', 'HSC', 'University']
@@ -122,7 +103,7 @@ function Lightbox({ activeIndex, allStudents, onClose, onPrev, onNext }) {
                 <div className="ap-lightbox__info">
                   <h3>{student.name}</h3>
                   <div className="ap-lightbox__score"><FiAward /> {student.score}</div>
-                  {student.subject && <p>{student.subject}</p>}
+                  {student.school && <p>{student.school}</p>}
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -142,16 +123,14 @@ function Lightbox({ activeIndex, allStudents, onClose, onPrev, onNext }) {
 /* ── Year Section (Accordion) ── */
 function YearSection({ section, defaultOpen, onStudentClick }) {
   const [open, setOpen] = useState(defaultOpen)
-  const hasStudents = section.mediums.some(m => m.students.length > 0)
-  const boardIcon = section.board === 'University' ? <LuGraduationCap /> : <PiMedalBold />
+  const hasStudents = section.students && section.students.length > 0
 
   return (
     <div className={`ap-year ${open ? 'ap-year--open' : ''}`}>
       <button className="ap-year__header" onClick={() => setOpen(!open)}>
         <div className="ap-year__header-left">
-          <span className="ap-year__icon">{boardIcon}</span>
           <h2 className="ap-year__title">{section.label}</h2>
-          {hasStudents && <span className="ap-year__count">{section.mediums.reduce((a, m) => a + m.students.length, 0)} students</span>}
+          {hasStudents && <span className="ap-year__count">{section.students.length} students</span>}
         </div>
         <span className="ap-year__toggle">{open ? <FiChevronUp /> : <FiChevronDown />}</span>
       </button>
@@ -160,41 +139,32 @@ function YearSection({ section, defaultOpen, onStudentClick }) {
         {open && (
           <motion.div className="ap-year__body" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}>
             <div className="ap-year__body-inner">
-              {section.mediums.map((med, mi) => (
-                <div key={mi} className="ap-medium">
-                <div className="ap-medium__header">
-                  <div className="ap-medium__bar" />
-                  <h3 className="ap-medium__title">{med.medium}</h3>
-                </div>
-                {med.students.length > 0 ? (
-                  <div className="ap-students-grid">
-                    {med.students.map((s, si) => (
-                      <motion.div key={si} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (si % 4) * 0.08, duration: 0.5 }}>
-                        <div className="ap-student" onClick={() => onStudentClick(s)}>
-                          <div className="ap-student__avatar-wrap">
-                            <img src={s.image} alt={s.name} className="ap-student__avatar" loading="lazy" />
-                          </div>
-                          
-                          <div className="ap-student__info-center">
-                            <h4 className="ap-student__name">{s.name}</h4>
-                            <div className="ap-student__score">
-                              <FiAward className="ap-student__score-icon" />
-                              {s.score}
-                            </div>
-                            {s.subject && <div className="ap-student__subject">{s.subject}</div>}
-                          </div>
+              {hasStudents ? (
+                <div className="ap-students-grid">
+                  {section.students.map((s, si) => (
+                    <motion.div key={si} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: (si % 4) * 0.08, duration: 0.5 }}>
+                      <div className="ap-student" onClick={() => onStudentClick(s)}>
+                        <div className="ap-student__avatar-wrap">
+                          <img src={s.image} alt={s.name} className="ap-student__avatar" style={{ objectPosition: s.objectPosition || 'top' }} loading="lazy" />
                         </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="ap-empty">
-                    <LuGraduationCap className="ap-empty__icon" />
-                    <p>Results coming soon</p>
-                  </div>
-                )}
-              </div>
-            ))}
+                        
+                        <div className="ap-student__info-center">
+                          <h4 className="ap-student__name">{s.name}</h4>
+                          <div className="ap-student__score">
+                            {s.score}
+                          </div>
+                          {s.school && <div className="ap-student__school">{s.school}</div>}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="ap-empty">
+                  <LuGraduationCap className="ap-empty__icon" />
+                  <p>Results coming soon</p>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
@@ -217,9 +187,7 @@ export default function AchievementPage() {
   const filtered = activeFilter === 'All' ? resultsData : resultsData.filter(s => s.board === activeFilter)
 
   // Flatten all currently visible students
-  const allVisibleStudents = filtered.flatMap(section => 
-    section.mediums.flatMap(med => med.students)
-  )
+  const allVisibleStudents = filtered.flatMap(section => section.students || [])
 
   const handleStudentClick = (student) => {
     const idx = allVisibleStudents.findIndex(s => s.name === student.name && s.score === student.score)
@@ -289,7 +257,7 @@ export default function AchievementPage() {
           text-decoration: none; font-weight: 600; font-size: 0.88rem; margin-bottom: 2rem;
           transition: color 0.2s;
         }
-        .ap-back:hover { color: var(--blue); }
+        .ap-back:hover { color: var(--primary); }
 
         /* ── Filters ── */
         .ap-filter-row {
@@ -308,9 +276,9 @@ export default function AchievementPage() {
           background: transparent; color: var(--text-muted); cursor: pointer;
           transition: background 0.3s var(--ease), color 0.3s var(--ease);
         }
-        .ap-filter-btn:not(.ap-filter-btn--active):hover { color: var(--blue); background: var(--blue-soft); }
+        .ap-filter-btn:not(.ap-filter-btn--active):hover { color: var(--primary); background: var(--primary-soft); }
         .ap-filter-btn--active {
-          background: var(--blue); color: #fff;
+          background: var(--primary); color: #fff;
         }
 
         /* ── Results Container ── */
@@ -322,7 +290,7 @@ export default function AchievementPage() {
           background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg);
           overflow: hidden; transition: border-color 0.3s;
         }
-        .ap-year--open { border-color: rgba(26,86,219,0.2); }
+        .ap-year--open { border-color: rgba(0,132,108,0.2); }
         .ap-year__header {
           display: flex; align-items: center; justify-content: space-between; width: 100%;
           padding: 1.25rem 1.75rem; border: none; background: none; cursor: pointer;
@@ -332,28 +300,19 @@ export default function AchievementPage() {
         .ap-year__header-left { display: flex; align-items: center; gap: 0.75rem; }
         .ap-year__icon {
           display: flex; align-items: center; justify-content: center; width: 38px; height: 38px;
-          background: var(--gold-soft); color: var(--gold-dark); border-radius: 10px; font-size: 1.1rem;
+          background: var(--primary-soft); color: var(--primary); border-radius: 10px; font-size: 1.1rem;
         }
         .ap-year__title {
           font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--text-dark);
         }
         .ap-year__count {
-          font-size: 0.72rem; font-weight: 600; color: var(--blue); background: var(--blue-soft);
+          font-size: 0.72rem; font-weight: 600; color: var(--primary); background: var(--primary-soft);
           padding: 0.2rem 0.6rem; border-radius: var(--radius-pill);
         }
         .ap-year__toggle { color: var(--text-muted); font-size: 0.8rem; }
         .ap-year__body { overflow: hidden; }
         .ap-year__body-inner { padding: 0 1.25rem 1.25rem; }
 
-        /* ── Medium Sub-section ── */
-        .ap-medium { margin-bottom: 2rem; }
-        .ap-medium:last-child { margin-bottom: 0; }
-        .ap-medium__header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
-        .ap-medium__bar { width: 4px; height: 22px; background: linear-gradient(180deg, var(--gold), var(--gold-dark)); border-radius: 4px; }
-        .ap-medium__title {
-          font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
-          color: var(--text-dark); letter-spacing: 0.01em;
-        }
 
         /* ── Student Cards Grid ── */
         .ap-students-grid {
@@ -369,16 +328,10 @@ export default function AchievementPage() {
           align-items: center;
           text-align: center;
           border: 1px solid var(--border);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+          box-shadow: none;
           cursor: pointer;
           transition: all 0.3s var(--ease);
         }
-        .ap-student:hover {
-          transform: translateY(-4px);
-          border-color: rgba(26,86,219,0.3);
-          box-shadow: 0 10px 25px rgba(26,86,219,0.08);
-        }
-        
         .ap-student__avatar-wrap {
           position: relative;
           width: 60px;
@@ -387,14 +340,12 @@ export default function AchievementPage() {
           margin-bottom: 0.5rem;
           border-radius: 50%;
           border: 2px solid var(--white);
-          box-shadow: 0 0 0 1.5px rgba(26,86,219,0.2), 0 4px 10px rgba(0,0,0,0.08);
+          box-shadow: 0 0 0 1.5px var(--accent);
           overflow: hidden;
           transition: transform 0.5s, box-shadow 0.3s;
         }
-        
-        .ap-student:hover .ap-student__avatar-wrap { 
-          transform: scale(1.05); 
-          box-shadow: 0 0 0 2px var(--blue), 0 8px 18px rgba(26,86,219,0.2); 
+        .ap-student:hover .ap-student__avatar-wrap {
+          box-shadow: 0 0 0 1.5px var(--accent-light);
         }
 
         .ap-student__avatar {
@@ -416,14 +367,16 @@ export default function AchievementPage() {
         
         .ap-student__score {
           display: flex; align-items: center; justify-content: center; gap: 0.15rem;
-          font-family: var(--font-display); font-size: 0.85rem; font-weight: 800; color: var(--gold-dark);
+          font-family: var(--font-display); font-size: 0.85rem; font-weight: 800; color: var(--primary);
           line-height: 1; margin-bottom: 0.25rem;
         }
-        .ap-student__score-icon { font-size: 0.65rem; color: var(--gold); }
+        .ap-student__score-icon { font-size: 0.65rem; color: var(--primary); }
 
-        .ap-student__subject {
-          font-size: 0.55rem; color: var(--text-muted); background: var(--gray-100);
+        .ap-student__school {
+          font-size: 0.58rem; color: var(--accent-dark); background: var(--accent-soft);
           padding: 0.15rem 0.4rem; border-radius: var(--radius-pill); font-weight: 600;
+          margin-top: 0.25rem; text-align: center; white-space: nowrap;
+          max-width: 100%; overflow: hidden; text-overflow: ellipsis;
         }
 
         /* ── Empty State ── */
@@ -441,12 +394,12 @@ export default function AchievementPage() {
         .ap-scroll-top {
           position: fixed; bottom: 2rem; right: 2rem; z-index: 50;
           width: 44px; height: 44px; border-radius: 50%; border: none;
-          background: var(--blue);
+          background: var(--primary);
           color: var(--white); font-size: 1.1rem; cursor: pointer;
           display: flex; align-items: center; justify-content: center;
           transition: background 0.3s;
         }
-        .ap-scroll-top:hover { background: var(--blue-dark); }
+        .ap-scroll-top:hover { background: var(--primary-dark); }
 
         /* ── Lightbox ── */
         .ap-lightbox {
@@ -476,7 +429,7 @@ export default function AchievementPage() {
         .ap-lightbox__card {
           position: relative; background: var(--white); border-radius: var(--radius-sm);
           overflow: hidden; width: 100%;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+          box-shadow: none;
         }
         .ap-lightbox__close {
           position: absolute; top: 0.75rem; right: 0.75rem; z-index: 2;
@@ -492,7 +445,7 @@ export default function AchievementPage() {
         .ap-lightbox__score {
           display: inline-flex; align-items: center; gap: 0.4rem;
           font-family: var(--font-display); font-size: 1.1rem; font-weight: 800;
-          color: var(--gold-dark); background: var(--gold-soft);
+          color: var(--primary); background: var(--primary-soft);
           padding: 0.4rem 1rem; border-radius: var(--radius-pill);
         }
         .ap-lightbox__info p { margin-top: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
@@ -516,7 +469,7 @@ export default function AchievementPage() {
           .ap-student__name { font-size: 0.95rem; white-space: normal; }
           .ap-student__score { font-size: 1.4rem; gap: 0.25rem; margin-bottom: 0.5rem; }
           .ap-student__score-icon { font-size: 1rem; }
-          .ap-student__subject { font-size: 0.7rem; }
+          .ap-student__school { font-size: 0.72rem; }
           .ap-year__header { padding: 1.25rem 1.75rem; }
           .ap-year__body-inner { padding: 0 1.75rem 1.75rem; }
           .ap-year__title { font-size: 1.15rem; }

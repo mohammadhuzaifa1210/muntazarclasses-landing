@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
 export default function Contact({ onEnquirySubmit }) {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', course: 'School Section (5th to 10th)', message: '' })
+  const [form, setForm] = useState({ name: '', phone: '', email: '', course: 'School Section (7th to 10th)', message: '' })
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -11,7 +11,7 @@ export default function Contact({ onEnquirySubmit }) {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
-    try { await onEnquirySubmit(form); setDone(true); setForm({ name: '', phone: '', email: '', course: 'School Section (5th to 10th)', message: '' }) }
+    try { await onEnquirySubmit(form); setDone(true); setForm({ name: '', phone: '', email: '', course: 'School Section (7th to 10th)', message: '' }) }
     catch (err) { console.error(err) }
     setLoading(false)
   }
@@ -69,7 +69,7 @@ export default function Contact({ onEnquirySubmit }) {
                 <div className="field">
                   <label className="field__label">Program</label>
                   <select name="course" value={form.course} onChange={handleChange} className="field__select">
-                    <option>School Section (5th to 10th)</option>
+                    <option>School Section (7th to 10th)</option>
                     <option>College Section (11th & 12th)</option>
                     <option>Degree Section (B.Com, BAF, BMS)</option>
                   </select>
@@ -80,7 +80,7 @@ export default function Contact({ onEnquirySubmit }) {
                   <textarea name="message" rows="3" value={form.message} onChange={handleChange} placeholder="Any specific questions or goals..." className="field__textarea" />
                 </div>
 
-                <button type="submit" className="btn btn--blue btn--lg" disabled={loading} style={{ width: '100%' }}>
+                <button type="submit" className="btn btn--primary btn--lg" disabled={loading} style={{ width: '100%' }}>
                   {loading ? 'Sending...' : 'Submit Inquiry'}
                 </button>
               </form>
@@ -113,7 +113,7 @@ export default function Contact({ onEnquirySubmit }) {
           font-family: var(--font-sans);
           font-size: 0.75rem;
           font-weight: 700;
-          color: var(--blue);
+          color: var(--primary);
           letter-spacing: 0.15em;
           text-transform: uppercase;
           margin-bottom: 1rem;
@@ -139,7 +139,7 @@ export default function Contact({ onEnquirySubmit }) {
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
           padding: 2rem;
-          box-shadow: var(--shadow-sm);
+          box-shadow: none;
         }
         .cf-title {
           font-size: 1.4rem;
@@ -164,9 +164,9 @@ export default function Contact({ onEnquirySubmit }) {
         .cf-success {
           text-align: center;
           padding: 3rem 1.5rem;
-          background: var(--blue-soft);
+          background: var(--primary-soft);
           border-radius: var(--radius-sm);
-          border: 1px solid rgba(26,86,219,0.15);
+          border: 1px solid rgba(0,132,108,0.15);
         }
         .cf-success h4 {
           font-size: 1.15rem;

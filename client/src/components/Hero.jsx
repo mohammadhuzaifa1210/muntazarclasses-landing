@@ -2,19 +2,32 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiArrowUpRight, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { FaCalendarAlt, FaGraduationCap, FaChalkboardTeacher, FaUsers } from 'react-icons/fa'
+import galleryData from '../data/galleryData.generated'
+
+// Folders to EXCLUDE from hero carousel (picnics, trips, outings)
+const excludedFolders = [
+  'girls-picnic-monteria-2026',
+  'boys-trip-murud-alibaug-2026',
+  'girls-trip-matheran-2026',
+  'movie-time-with-students',
+  'nehru-science-centre-2024',
+  'Some more'
+]
+
+// Dynamically load felicitation + academic/event photos (no picnic/trip)
+const felicitationPhotos = galleryData.find(s => s.folder === 'felicitation')?.images || []
+const eventPhotos = galleryData
+  .filter(s => s.folder !== 'felicitation' && !excludedFolders.includes(s.folder))
+  .flatMap(s => s.images)
 
 // Right-side photos cross-fade while the headline stays fixed
-const photos = [
-  'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80',
-  'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80'
-]
+const photos = [...felicitationPhotos, ...eventPhotos]
 
 const stats = [
   { value: '18+', label: 'Years of Excellence', icon: <FaCalendarAlt /> },
   { value: '3', label: 'Language Mediums', icon: <FaGraduationCap /> },
   { value: '200+', label: 'Top Board Scorers', icon: <FaChalkboardTeacher /> },
-  { value: '25', label: 'Students / Batch', icon: <FaUsers /> }
+  { value: '35', label: 'Students / Batch', icon: <FaUsers /> }
 ]
 
 export default function Hero({ onAdmissionClick }) {
@@ -48,11 +61,11 @@ export default function Hero({ onAdmissionClick }) {
             </h1>
 
             <p className="hero__desc">
-              Trusted coaching in Hindi, Urdu &amp; English - from 5th standard to degree.
+              Trusted coaching in Hindi, Urdu &amp; English - from 7th standard to degree.
             </p>
 
             <div className="hero__btns">
-              <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
+              <button onClick={onAdmissionClick} className="btn btn--primary btn--lg">
                 Book Free Demo <FiArrowUpRight />
               </button>
               <a href="#achievements" className="btn btn--outline btn--lg">
@@ -70,16 +83,18 @@ export default function Hero({ onAdmissionClick }) {
           >
             <div className="hero__photo">
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={idx}
-                  src={photos[idx]}
-                  alt="Muntazar Classes students learning"
+                  className="hero__photo-wrapper"
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 1 }}
-                  loading="eager"
-                />
+                >
+                  <img src={photos[idx]} alt="" className="hero__photo-bg" />
+                  <div className="hero__photo-overlay" />
+                  <img src={photos[idx]} alt="Muntazar Classes students learning" className="hero__photo-fg" loading="eager" />
+                </motion.div>
               </AnimatePresence>
               
               <div className="hero__nav">
@@ -133,12 +148,12 @@ export default function Hero({ onAdmissionClick }) {
         }
         .hero__glow--a {
           width: 300px; height: 300px;
-          background: rgba(59,130,246,0.18);
+          background: rgba(0,132,108,0.15);
           top: -110px; right: -90px;
         }
         .hero__glow--b {
           width: 280px; height: 280px;
-          background: rgba(26,86,219,0.10);
+          background: rgba(243,112,33,0.08);
           bottom: 40px; left: -120px;
         }
         .hero__wrap { position: relative; z-index: 2; }
@@ -159,7 +174,7 @@ export default function Hero({ onAdmissionClick }) {
           color: var(--text-dark);
           margin-bottom: var(--gap-lg);
         }
-        .hero__accent { color: var(--blue); }
+        .hero__accent { color: var(--primary); }
         .hero__desc {
           font-size: var(--fs-lead);
           color: var(--text-muted);
@@ -187,13 +202,31 @@ export default function Hero({ onAdmissionClick }) {
           aspect-ratio: 4 / 3.2;
           border-radius: var(--radius-lg);
           overflow: hidden;
-          box-shadow: var(--shadow-lg);
-          background: var(--gray-100);
+          box-shadow: none;
+          background: #000;
         }
-        .hero__photo img {
+        .hero__photo-wrapper {
           position: absolute; inset: 0;
           width: 100%; height: 100%;
+        }
+        .hero__photo-bg {
+          position: absolute;
+          inset: -10%;
+          width: 120%; height: 120%;
           object-fit: cover;
+          filter: blur(25px);
+          z-index: 1;
+        }
+        .hero__photo-overlay {
+          position: absolute; inset: 0;
+          background: rgba(0, 0, 0, 0.4);
+          z-index: 2;
+        }
+        .hero__photo-fg {
+          position: absolute; inset: 0;
+          width: 100%; height: 100%;
+          object-fit: contain;
+          z-index: 3;
         }
         
         .hero__nav {
@@ -220,7 +253,7 @@ export default function Hero({ onAdmissionClick }) {
         }
         .hero__nav-btn:hover {
           background: var(--white);
-          color: var(--blue);
+          color: var(--primary);
         }
         /* Docked stat bar - 2x2 grid on phone */
         .hero__stats {
@@ -229,9 +262,9 @@ export default function Hero({ onAdmissionClick }) {
           margin-top: var(--gap-lg);
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          background: var(--blue-deep);
+          background: var(--primary-deep);
           border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-          box-shadow: var(--shadow-lg);
+          box-shadow: none;
           overflow: hidden;
         }
         .hero__stat {
@@ -245,7 +278,7 @@ export default function Hero({ onAdmissionClick }) {
         .hero__stat:nth-child(2n) { border-right: none; }
         .hero__stat:nth-child(n+3) { border-bottom: none; }
         .hero__stat-icon {
-          color: var(--blue-light);
+          color: var(--primary-light);
           font-size: 1.35rem;
           flex-shrink: 0;
         }

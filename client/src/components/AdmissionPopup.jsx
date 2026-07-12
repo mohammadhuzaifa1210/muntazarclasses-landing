@@ -4,7 +4,7 @@ import { FaTimes, FaUserGraduate, FaCheck, FaRegClock } from 'react-icons/fa'
 import { FiArrowUpRight } from 'react-icons/fi'
 
 export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefilledCourse }) {
-  const [form, setForm] = useState({ name: '', phone: '', course: prefilledCourse || 'School Section (5th to 10th)' })
+  const [form, setForm] = useState({ name: '', phone: '', course: prefilledCourse || 'School Section (7th to 10th)' })
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
 
@@ -20,7 +20,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
     try {
       await onEnquirySubmit({ ...form, message: 'Submitted via Admission Popup' })
       setDone(true)
-      setTimeout(() => { onClose(); setDone(false); setForm({ name: '', phone: '', course: 'School Section (5th to 10th)' }) }, 2500)
+      setTimeout(() => { onClose(); setDone(false); setForm({ name: '', phone: '', course: 'School Section (7th to 10th)' }) }, 2500)
     } catch (err) { console.error(err) }
     setLoading(false)
   }
@@ -79,13 +79,13 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
                   <div className="field">
                     <label className="field__label">Program</label>
                     <select name="course" value={form.course} onChange={handleChange} className="field__select">
-                      <option>School Section (5th to 10th)</option>
+                      <option>School Section (7th to 10th)</option>
                       <option>College Section (11th &amp; 12th)</option>
                       <option>Degree Section (B.Com, BAF, BMS)</option>
                     </select>
                   </div>
 
-                  <button type="submit" className="btn btn--blue btn--lg" disabled={loading} style={{ width: '100%' }}>
+                  <button type="submit" className="btn btn--primary btn--lg" disabled={loading} style={{ width: '100%' }}>
                     {loading ? 'Processing...' : <>Request Free Consultation <FiArrowUpRight /></>}
                   </button>
 
@@ -118,7 +118,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           max-width: 450px;
           max-height: calc(100dvh - 3rem);
           overflow-y: auto;
-          box-shadow: var(--shadow-lg);
+          box-shadow: none;
         }
         .modal .field__input,
         .modal .field__select,
@@ -126,7 +126,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         .modal__head {
           position: relative;
           overflow: hidden;
-          background: var(--blue-deep);
+          background: var(--primary-deep);
           padding: 2rem 2.25rem 1.75rem;
         }
         .modal__grid {
@@ -161,11 +161,11 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           flex-shrink: 0;
           width: 46px; height: 46px;
           border-radius: 12px;
-          background: var(--blue-glow);
+          background: var(--primary-glow);
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--blue-light);
+          color: var(--primary-light);
           font-size: 1.2rem;
         }
         .modal__eyebrow {
@@ -175,7 +175,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.16em;
-          color: var(--blue-light);
+          color: var(--primary-light);
           margin-bottom: 0.3rem;
         }
         .modal__title {
@@ -203,7 +203,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           font-size: 0.78rem;
           color: var(--text-muted);
         }
-        .modal__reassure svg { color: var(--blue); font-size: 0.75rem; }
+        .modal__reassure svg { color: var(--primary); font-size: 0.75rem; }
         .modal__success {
           text-align: center;
           padding: 1.5rem 1rem 1rem;
@@ -211,8 +211,8 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         .modal__success-tick {
           width: 56px; height: 56px;
           border-radius: 50%;
-          background: var(--blue-soft);
-          color: var(--blue);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -227,7 +227,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
         .modal {
           max-width: 100%;
           border-radius: 1.5rem 1.5rem 0 0;
-          box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+          box-shadow: none;
         }
         .modal__head { padding: 1.75rem 1.5rem 1.5rem; }
         .modal__body { padding: 1.5rem 1.5rem 1.75rem; }
@@ -238,7 +238,7 @@ export default function AdmissionPopup({ isOpen, onClose, onEnquirySubmit, prefi
           .modal {
             max-width: 560px;
             border-radius: var(--radius-lg);
-            box-shadow: var(--shadow-lg);
+            box-shadow: none;
           }
           .modal__head { padding: 2rem 2.25rem 1.75rem; }
           .modal__body { padding: 1.75rem 2.25rem 2rem; }

@@ -20,7 +20,7 @@ export default function StickyBottom({ onAdmissionClick }) {
           <a href="tel:+919221105658" className="btn btn--outline btn--sm" style={{ flex: 1, borderColor: 'var(--border-strong)' }}>
             <FaPhoneAlt /> Call
           </a>
-          <button onClick={onAdmissionClick} className="btn btn--blue btn--sm" style={{ flex: 1.4 }}>
+          <button onClick={onAdmissionClick} className="btn btn--primary btn--sm" style={{ flex: 1.4 }}>
             <FaCalendarCheck /> Book Demo
           </button>
           <a href="https://wa.me/919221105658" target="_blank" rel="noopener noreferrer" className="btn btn--wa btn--sm" style={{ flex: 1 }}>
@@ -56,17 +56,17 @@ export default function StickyBottom({ onAdmissionClick }) {
           font-size: 1.5rem;
         }
         .fab--phone {
-          background: var(--blue);
+          background: var(--primary);
           color: var(--text-white);
           font-size: 1.15rem;
-          border: 1px solid var(--blue-dark);
+          border: 1px solid var(--primary-dark);
         }
         .mobile-bottom {
           position: fixed;
           bottom: 0; left: 0; right: 0;
           background: var(--white);
           border-top: 1px solid var(--border);
-          box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+          box-shadow: none;
           z-index: 999;
           padding: 0.6rem 0.6rem calc(0.6rem + env(safe-area-inset-bottom));
         }

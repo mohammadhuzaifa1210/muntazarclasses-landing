@@ -68,7 +68,7 @@ export default function ProgramChips() {
       <style>{`
         .chips-sec {
           position: relative;
-          background: linear-gradient(180deg, #eef2ff 0%, #f3f6ff 60%, var(--white) 100%);
+          background: linear-gradient(180deg, #fef8f4 0%, #f5faf8 60%, var(--white) 100%);
           padding: var(--gap-4xl) 0;
           overflow: hidden;
         }
@@ -116,21 +116,21 @@ export default function ProgramChips() {
           border-radius: var(--radius-pill);
           transition: all 0.35s var(--ease);
         }
-        .chip__icon { color: var(--blue); font-size: 0.85rem; display: flex; }
+        .chip__icon { color: var(--primary); font-size: 0.85rem; display: flex; }
         .chip:hover {
-          border-color: var(--blue);
-          background: var(--blue-soft);
-          color: var(--blue);
+          border-color: var(--primary);
+          background: var(--primary-soft);
+          color: var(--primary);
           transform: translateY(-2px);
         }
         .chip--cta {
-          background: var(--blue);
-          border-color: var(--blue);
+          background: var(--primary);
+          border-color: var(--primary);
           color: var(--text-white);
         }
         .chip--cta:hover {
-          background: var(--blue-dark);
-          border-color: var(--blue-dark);
+          background: var(--primary-dark);
+          border-color: var(--primary-dark);
           color: var(--text-white);
         }
 

@@ -141,7 +141,7 @@ export default function Reviews() {
           font-size: var(--fs-h2);
           line-height: 1.15;
         }
-        .rev-title em { color: var(--blue); }
+        .rev-title em { color: var(--accent); }
 
         /* Nav arrows are hidden on phone — swipe is the primary affordance. */
         .rev-nav { display: none; gap: var(--gap-sm); }
@@ -157,16 +157,16 @@ export default function Reviews() {
           font-size: 1.05rem;
           transition: all 0.3s var(--ease);
         }
-        .rev-arrow:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+        .rev-arrow:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
         .rev-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
         .rev-arrow--primary {
-          background: var(--blue);
-          border-color: var(--blue);
+          background: var(--primary);
+          border-color: var(--primary);
           color: var(--text-white);
         }
         .rev-arrow--primary:hover:not(:disabled) {
-          background: var(--blue-dark);
-          border-color: var(--blue-dark);
+          background: var(--primary-dark);
+          border-color: var(--primary-dark);
           color: var(--text-white);
         }
 
@@ -200,7 +200,7 @@ export default function Reviews() {
           position: absolute;
           top: 1.5rem; right: 1.5rem;
           font-size: 2rem;
-          color: var(--blue);
+          color: var(--primary);
           opacity: 0.1;
         }
         .rev-card__stars {
@@ -267,7 +267,7 @@ export default function Reviews() {
           background: var(--border-strong);
           transition: all 0.3s var(--ease);
         }
-        .rev-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+        .rev-dot.active::before { background: var(--primary); width: 24px; border-radius: 99px; }
 
         /* ─── ≥480px: roomier cards ─── */
         @media (min-width: 480px) {
@@ -307,8 +307,8 @@ export default function Reviews() {
             scroll-snap-align: start;
           }
           .rev-card:hover {
-            border-color: var(--blue-light);
-            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
+            box-shadow: none;
             transform: translateY(-3px);
           }
         }

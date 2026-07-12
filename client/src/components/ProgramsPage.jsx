@@ -13,12 +13,12 @@ const programs = [
   {
     id: 'ssc',
     icon: <FaBook />,
-    title: 'School Section — SSC (5th to 10th)',
+    title: 'School Section — SSC (7th to 10th)',
     tag: 'Foundation & Board',
     desc: 'A concept-first foundation for young learners, building all the way up to a confident 10th board result across every medium.',
     meta: [
       { icon: <FaLanguage />, label: 'Mediums', value: 'Hindi · Urdu · English' },
-      { icon: <FaLayerGroup />, label: 'Classes', value: '5th to 9th + 10th Board' },
+      { icon: <FaLayerGroup />, label: 'Classes', value: '7th to 9th + 10th Board' },
       { icon: <FaClock />, label: 'Mode', value: 'Regular & Private' }
     ],
     highlights: [
@@ -210,7 +210,7 @@ export default function ProgramsPage() {
                   ))}
                 </ul>
 
-                <button className="btn btn--blue" onClick={() => enquireAbout(p.title)}>
+                <button className="btn btn--primary" onClick={() => enquireAbout(p.title)}>
                   Enquire about this <FiArrowUpRight />
                 </button>
               </motion.article>
@@ -278,7 +278,7 @@ export default function ProgramsPage() {
                       <label className="field__label">Message (optional)</label>
                       <textarea name="message" rows="3" value={form.message} onChange={handleChange} placeholder="Any specific questions or goals..." className="field__textarea" />
                     </div>
-                    <button type="submit" className="btn btn--blue btn--lg" disabled={loading} style={{ width: '100%' }}>
+                    <button type="submit" className="btn btn--primary btn--lg" disabled={loading} style={{ width: '100%' }}>
                       {loading ? 'Sending...' : 'Submit Enquiry'}
                     </button>
                   </form>
@@ -305,12 +305,12 @@ export default function ProgramsPage() {
           display: inline-flex;
           align-items: center;
           gap: 0.4rem;
-          color: var(--blue);
+          color: var(--primary);
           font-weight: 600;
           font-size: 0.85rem;
           transition: color 0.2s ease;
         }
-        .back-link:hover { color: var(--blue-dark); }
+        .back-link:hover { color: var(--primary-dark); }
 
         .pp-nav { display: flex; gap: var(--gap-sm); }
         .pp-arrow {
@@ -328,8 +328,8 @@ export default function ProgramsPage() {
         }
         .pp-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
         .pp-arrow--primary {
-          background: var(--blue);
-          border-color: var(--blue);
+          background: var(--primary);
+          border-color: var(--primary);
           color: var(--text-white);
         }
 
@@ -356,17 +356,17 @@ export default function ProgramsPage() {
           border: 1px solid var(--border);
           border-radius: var(--radius-lg);
           padding: 1.75rem;
-          box-shadow: var(--shadow-sm);
+          box-shadow: none;
           transition: all 0.4s var(--ease);
         }
-        .pp-card:hover { border-color: var(--blue); box-shadow: var(--shadow-md); transform: translateY(-3px); }
+        .pp-card:hover { border-color: var(--primary); box-shadow: none; transform: translateY(-3px); }
         .pp-card__head { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem; }
         .pp-card__icon {
           flex-shrink: 0;
           width: 52px; height: 52px;
           border-radius: 14px;
-          background: var(--blue-soft);
-          color: var(--blue);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -378,8 +378,8 @@ export default function ProgramsPage() {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.14em;
-          color: var(--blue);
-          background: var(--blue-soft);
+          color: var(--primary);
+          background: var(--primary-soft);
           padding: 0.3rem 0.7rem;
           border-radius: var(--radius-pill);
           margin-bottom: 0.5rem;
@@ -398,7 +398,7 @@ export default function ProgramsPage() {
           margin-bottom: 1.5rem;
         }
         .pp-meta { display: flex; align-items: flex-start; gap: 0.6rem; }
-        .pp-meta__icon { color: var(--blue); font-size: 0.85rem; margin-top: 3px; }
+        .pp-meta__icon { color: var(--primary); font-size: 0.85rem; margin-top: 3px; }
         .pp-meta__label {
           display: block;
           font-size: 0.6rem;
@@ -414,8 +414,8 @@ export default function ProgramsPage() {
           flex-shrink: 0;
           width: 20px; height: 20px;
           border-radius: 50%;
-          background: var(--blue-soft);
-          color: var(--blue);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -448,7 +448,7 @@ export default function ProgramsPage() {
           background: var(--border-strong);
           transition: all 0.3s var(--ease);
         }
-        .pp-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+        .pp-dot.active::before { background: var(--primary); width: 24px; border-radius: 99px; }
 
         /* Enquiry */
         .pp-enquiry { background: var(--grad-soft); padding: var(--gap-4xl) 0 var(--gap-5xl); }
@@ -457,7 +457,7 @@ export default function ProgramsPage() {
           margin: 0 auto;
           background: var(--white);
           border-radius: var(--radius-lg);
-          box-shadow: var(--shadow-lg);
+          box-shadow: none;
           border: 1px solid var(--border);
         }
 
@@ -468,8 +468,8 @@ export default function ProgramsPage() {
         .pp-form-success__tick {
           width: 56px; height: 56px;
           border-radius: 50%;
-          background: var(--blue-soft);
-          color: var(--blue);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;

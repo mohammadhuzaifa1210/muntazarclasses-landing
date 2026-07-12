@@ -6,12 +6,12 @@ import { FaClock, FaBook, FaCalendarCheck } from 'react-icons/fa'
 const programs = [
   {
     num: '01',
-    title: 'School Section (5th to 10th)',
+    title: 'School Section (7th to 10th)',
     tag: 'Regular & Private',
-    desc: 'Board preparation for 5th to 10th, across all mediums.',
+    desc: 'Board preparation for 7th to 10th, across all mediums.',
     details: [
       { icon: <FaClock />, label: 'Batches', value: 'Hindi · Urdu · English Medium' },
-      { icon: <FaCalendarCheck />, label: 'Classes', value: '5th to 9th · 10th Board' },
+      { icon: <FaCalendarCheck />, label: 'Classes', value: '7th to 9th · 10th Board' },
       { icon: <FaBook />, label: 'Syllabus', value: 'All Subjects Covered' }
     ]
   },
@@ -125,7 +125,7 @@ export default function Courses({ onEnquiryClick }) {
                 </div>
 
                 <div className="prog-card__actions">
-                  <button onClick={() => onEnquiryClick(prog.title)} className="btn btn--blue" style={{ width: '100%' }}>
+                  <button onClick={() => onEnquiryClick(prog.title)} className="btn btn--primary" style={{ width: '100%' }}>
                     Enquire Now <FiArrowUpRight />
                   </button>
                 </div>
@@ -165,7 +165,7 @@ export default function Courses({ onEnquiryClick }) {
         .courses-header__title {
           font-size: var(--fs-h2);
         }
-        .courses-header__title em { color: var(--blue); }
+        .courses-header__title em { color: var(--accent); }
 
         /* Mobile carousel arrows */
         .courses-nav { display: flex; gap: var(--gap-sm); }
@@ -184,8 +184,8 @@ export default function Courses({ onEnquiryClick }) {
         }
         .courses-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
         .courses-arrow--primary {
-          background: var(--blue);
-          border-color: var(--blue);
+          background: var(--primary);
+          border-color: var(--primary);
           color: var(--text-white);
         }
 
@@ -226,7 +226,7 @@ export default function Courses({ onEnquiryClick }) {
           background: var(--border-strong);
           transition: all 0.3s var(--ease);
         }
-        .courses-dot.active::before { background: var(--blue); width: 24px; border-radius: 99px; }
+        .courses-dot.active::before { background: var(--primary); width: 24px; border-radius: 99px; }
 
         .prog-card {
           display: flex;
@@ -238,11 +238,11 @@ export default function Courses({ onEnquiryClick }) {
           border-radius: var(--radius-lg);
           padding: 1.75rem;
           transition: all 0.4s var(--ease);
-          box-shadow: var(--shadow-sm);
+          box-shadow: none;
         }
         .prog-card:hover {
-          border-color: var(--blue);
-          box-shadow: var(--shadow-md);
+          border-color: var(--primary);
+          box-shadow: none;
           transform: translateY(-3px);
         }
         .prog-card__top {
@@ -255,7 +255,7 @@ export default function Courses({ onEnquiryClick }) {
           font-family: var(--font-display);
           font-size: 2.5rem;
           font-weight: 900;
-          color: var(--blue);
+          color: var(--primary);
           opacity: 0.15;
           letter-spacing: -0.04em;
           line-height: 1;
@@ -265,8 +265,8 @@ export default function Courses({ onEnquiryClick }) {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.15em;
-          color: var(--blue);
-          background: var(--blue-soft);
+          color: var(--primary);
+          background: var(--primary-soft);
           padding: 0.35rem 0.85rem;
           border-radius: var(--radius-pill);
         }
@@ -306,7 +306,7 @@ export default function Courses({ onEnquiryClick }) {
           gap: 0.6rem;
         }
         .prog-card__detail-icon {
-          color: var(--blue);
+          color: var(--primary);
           font-size: 0.85rem;
           margin-top: 2px;
         }
@@ -351,8 +351,8 @@ export default function Courses({ onEnquiryClick }) {
           }
           .prog-card { flex: none; scroll-snap-align: none; padding: 2rem; }
           .prog-card:hover {
-            border-color: var(--blue);
-            box-shadow: var(--shadow-md);
+            border-color: var(--primary);
+            box-shadow: none;
             transform: translateY(-3px);
           }
         }

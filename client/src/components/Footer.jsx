@@ -9,7 +9,7 @@ const navLinks = [
 ]
 
 const courses = [
-  'School Section (5th to 10th)',
+  'School Section (7th to 10th)',
   'College Section (11th & 12th)',
   'Degree Section (FY, SY, TY, B.Com, BMS, BAF)',
   'Hindi, Urdu & English Medium'
@@ -79,7 +79,7 @@ export default function Footer() {
 
       <style>{`
         .footer {
-          background: var(--blue-deep);
+          background: var(--primary-deep);
           color: rgba(255,255,255,0.6);
           padding: var(--gap-3xl) 0 var(--gap-xl);
         }
@@ -127,7 +127,7 @@ export default function Footer() {
           font-family: var(--font-display);
           font-size: 0.5rem;
           font-weight: 600;
-          color: var(--blue-light);
+          color: var(--primary-light);
           letter-spacing: 0.22em;
           line-height: 1;
           margin-top: 3px;
@@ -153,9 +153,9 @@ export default function Footer() {
           transition: all 0.3s var(--ease);
         }
         .footer-social:hover {
-          background: var(--blue);
+          background: var(--primary);
           color: var(--text-white);
-          border-color: var(--blue);
+          border-color: var(--primary);
           transform: translateY(-2px);
         }
 

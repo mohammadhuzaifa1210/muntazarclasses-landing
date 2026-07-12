@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-route
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ProgramChips from './components/ProgramChips'
+import FounderDesk from './components/FounderDesk'
 import EasySteps from './components/EasySteps'
 import BentoFeatures from './components/BentoFeatures'
 import Courses from './components/Courses'
@@ -14,6 +15,7 @@ import ProgramsPage from './components/ProgramsPage'
 import AdmissionsBanner from './components/AdmissionsBanner'
 import FAQ from './components/FAQ'
 import Reviews from './components/Reviews'
+import Alumni from './components/Alumni'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import StickyBottom from './components/StickyBottom'
@@ -28,6 +30,7 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
       <Navbar onAdmissionClick={handleAdmissionClick} />
       <Hero onAdmissionClick={handleAdmissionClick} />
       <ProgramChips />
+      <FounderDesk />
       <EasySteps onAdmissionClick={handleAdmissionClick} />
       <BentoFeatures />
       <Courses onEnquiryClick={handleEnquiryClick} />
@@ -36,6 +39,7 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
       <AdmissionsBanner onAdmissionClick={handleAdmissionClick} />
       <FAQ />
       <Reviews />
+      <Alumni />
       <Contact onEnquirySubmit={handleEnquirySubmit} />
       <Footer />
     </>
@@ -44,7 +48,7 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
 
 export default function App() {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
-  const [prefilledCourse, setPrefilledCourse] = useState('School Section (5th to 10th)')
+  const [prefilledCourse, setPrefilledCourse] = useState('School Section (7th to 10th)')
 
   // Auto trigger admission modal popup after 20 seconds (highly premium, non-intrusive)
   useEffect(() => {
@@ -55,7 +59,7 @@ export default function App() {
   }, [])
 
   const handleAdmissionClick = () => {
-    setPrefilledCourse('School Section (5th to 10th)')
+    setPrefilledCourse('School Section (7th to 10th)')
     setIsPopupOpen(true)
   }
 

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   MUNTAZAR CLASSES - Light Blue Professional Design System
+   MUNTAZAR CLASSES - Warm Teal & Orange Professional Design System
    ═══════════════════════════════════════════════════════════ */
 
 :root {
@@ -7,19 +7,26 @@
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-body: 'Inter', -apple-system, sans-serif;
 
-  /* Blue Professional Palette */
-  --blue: #1a56db;
-  --blue-dark: #1e3a8a;
-  --blue-deep: #172554;
-  --blue-light: #3b82f6;
-  --blue-soft: rgba(26,86,219,0.06);
-  --blue-glow: rgba(26,86,219,0.12);
+  /* Primary Teal Palette */
+  --primary: #00846c;
+  --primary-dark: #006b57;
+  --primary-deep: #003d32;
+  --primary-light: #2ba88e;
+  --primary-soft: rgba(0,132,108,0.06);
+  --primary-glow: rgba(0,132,108,0.12);
+
+  /* Accent Orange Palette */
+  --accent: #f37021;
+  --accent-dark: #d45e18;
+  --accent-light: #f89858;
+  --accent-soft: rgba(243,112,33,0.07);
+  --accent-glow: rgba(243,112,33,0.14);
 
 
   /* Surfaces */
   --white: #ffffff;
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
+  --gray-50: #fafaf8;
+  --gray-100: #f3f1ee;
   --gray-200: #e2e8f0;
   --border: rgba(15,23,42,0.07);
   --border-strong: rgba(15,23,42,0.12);
@@ -52,16 +59,16 @@
   --radius-pill: 100px;
 
   /* Section / hero gradients */
-  --grad-hero: linear-gradient(135deg,#eef4ff 0%,#e0ecff 55%,#dbe7ff 100%);
-  --grad-soft: linear-gradient(180deg,#f8fbff 0%,#eef4ff 100%);
+  --grad-hero: linear-gradient(135deg, #fef8f4 0%, #f0faf7 55%, #f5f3f0 100%);
+  --grad-soft: linear-gradient(180deg, #fafaf8 0%, #f0faf7 100%);
 
-  /* Pastel accent tints (blue-family) */
-  --tint-blue: #e8f0ff;   --tint-blue-ink: #1e40af;
-  --tint-sky: #e6f6ff;    --tint-sky-ink: #0369a1;
-  --tint-indigo: #eef0ff; --tint-indigo-ink: #4338ca;
-  --tint-slate: #eef2f7;  --tint-slate-ink: #334155;
+  /* Pastel accent tints (warm family) */
+  --tint-warm: #fef0e4;   --tint-warm-ink: #d45e18;
+  --tint-mint: #e2f6f0;   --tint-mint-ink: #006b57;
+  --tint-amber: #fdf3e0;  --tint-amber-ink: #b8860b;
+  --tint-sage: #ede8f5;   --tint-sage-ink: #5b3e96;
 
-  /* Intentionally non-blue accents */
+  /* Additional accent colors */
   --amber: #f59e0b;       /* star ratings only */
   --wa-green: #25d366;    /* WhatsApp only */
 
@@ -77,9 +84,9 @@
   --surface-dark-2: #1e293b;
 
   /* Elevation */
-  --shadow-sm: 0 4px 12px -4px rgba(23,37,84,0.10);
-  --shadow-md: 0 12px 32px -12px rgba(23,37,84,0.18);
-  --shadow-lg: 0 24px 60px -20px rgba(23,37,84,0.22);
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
 
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -109,7 +116,12 @@
    ═══════════════════════════════════════════════════════════ */
 
 /* ─── Reset ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
 
 html {
   scroll-behavior: smooth;
@@ -141,10 +153,10 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-dark);
 }
 
-/* Emphasised word inside a heading — unified clean blue accent
+/* Emphasised word inside a heading — warm accent
    (single treatment used site-wide for visual consistency) */
 .accent-serif {
-  color: var(--blue);
+  color: var(--accent);
   font-style: normal;
   font-weight: inherit;
   font-family: inherit;
@@ -153,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--gray-50); }
-::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 99px; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 99px; }
 
 /* ─── Layout ─── */
 .wrap {
@@ -187,12 +199,12 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
-.btn--blue {
-  background: var(--blue);
+.btn--primary {
+  background: var(--accent);
   color: var(--text-white);
 }
-.btn--blue:hover {
-  background: var(--blue-dark);
+.btn--primary:hover {
+  background: var(--accent-dark);
   transform: translateY(-2px);
 }
 
@@ -203,8 +215,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 1.5px solid var(--border-strong);
 }
 .btn--outline:hover {
-  border-color: var(--blue);
-  color: var(--blue);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .btn--outline-light {
@@ -219,7 +231,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .btn--white {
   background: var(--white);
-  color: var(--blue);
+  color: var(--primary);
   font-weight: 700;
 }
 .btn--white:hover {
@@ -244,8 +256,8 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(26,86,219,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26,86,219,0.055) 1px, transparent 1px);
+    linear-gradient(rgba(0,132,108,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,132,108,0.055) 1px, transparent 1px);
   background-size: 46px 46px;
   -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 80%);
   mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000 40%, transparent 80%);
@@ -264,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
   white-space: nowrap;
   margin-bottom: 1.1rem;
 }
-.section-head__title em { color: var(--blue); }
+.section-head__title em { color: var(--accent); }
 .section-head__desc {
   font-size: 1.05rem;
   color: var(--text-muted);
@@ -281,7 +293,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  color: var(--blue);
+  color: var(--accent);
   margin-bottom: 1.25rem;
 }
 
@@ -289,7 +301,7 @@ h1, h2, h3, h4, h5, h6 {
   content: '';
   width: 28px;
   height: 2px;
-  background: var(--blue);
+  background: var(--accent);
   border-radius: 2px;
 }
 
@@ -325,7 +337,7 @@ h1, h2, h3, h4, h5, h6 {
 .field__input:focus,
 .field__select:focus,
 .field__textarea:focus {
-  border-color: var(--blue);
+  border-color: var(--primary);
 }
 
 .field__input::placeholder,

@@ -71,7 +71,7 @@ export default function FAQ() {
 
         <div className="faq-foot">
           <span>Still have questions?</span>
-          <a href="#contact" className="btn btn--blue btn--sm">Contact Us</a>
+          <a href="#contact" className="btn btn--primary btn--sm">Contact Us</a>
         </div>
       </div>
 
@@ -97,9 +97,9 @@ export default function FAQ() {
           transition: background 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
         }
         .faq-item--open {
-          background: var(--blue-deep);
-          border-color: var(--blue-deep);
-          box-shadow: var(--shadow-md);
+          background: var(--primary-deep);
+          border-color: var(--primary-deep);
+          box-shadow: none;
         }
         .faq-q {
           width: 100%;
@@ -121,16 +121,16 @@ export default function FAQ() {
           -webkit-tap-highlight-color: transparent;
         }
         .faq-item--open .faq-q { color: var(--text-white); }
-        .faq-q:hover { color: var(--blue); }
+        .faq-q:hover { color: var(--primary); }
         .faq-item--open .faq-q:hover { color: var(--text-white); }
         .faq-q__text { flex: 1; }
         .faq-q__icon {
-          color: var(--blue);
+          color: var(--primary);
           flex-shrink: 0;
           transition: transform 0.35s var(--ease);
           display: flex;
         }
-        .faq-item--open .faq-q__icon { color: var(--blue-light); }
+        .faq-item--open .faq-q__icon { color: var(--primary-light); }
         .faq-q__icon--open { transform: rotate(45deg); }
         .faq-a {
           padding: 0 1.25rem 1.25rem;

@@ -15,7 +15,7 @@ export default function CTA({ onAdmissionClick }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="eyebrow cta-eyebrow" style={{ color: 'var(--blue-light)' }}>Admissions Open · 2026–27</span>
+          <span className="eyebrow cta-eyebrow" style={{ color: 'var(--primary-light)' }}>Admissions Open · 2026–27</span>
           <h2 className="cta-title">
             Your Child's Academic <em className="accent-serif">Future</em> Starts Here
           </h2>
@@ -23,7 +23,7 @@ export default function CTA({ onAdmissionClick }) {
             Limited seats each batch. Scholarships for meritorious students.
           </p>
           <div className="cta-btns">
-            <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
+            <button onClick={onAdmissionClick} className="btn btn--primary btn--lg">
               Book a Free Demo <FiArrowUpRight />
             </button>
             <a
@@ -40,7 +40,7 @@ export default function CTA({ onAdmissionClick }) {
 
       <style>{`
         .cta-sec {
-          background: var(--blue-deep);
+          background: var(--primary-deep);
           position: relative;
           overflow: hidden;
           padding: var(--gap-3xl) 0;
@@ -49,8 +49,8 @@ export default function CTA({ onAdmissionClick }) {
           position: absolute;
           inset: 0;
           background-image:
-            radial-gradient(circle at 20% 50%, rgba(59,130,246,0.15) 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, rgba(59,130,246,0.1) 0%, transparent 50%);
+            radial-gradient(circle at 20% 50%, rgba(0,132,108,0.12) 0%, transparent 50%),
+            radial-gradient(circle at 80% 50%, rgba(243,112,33,0.08) 0%, transparent 50%);
           pointer-events: none;
         }
         .cta-inner { position: relative; z-index: 1; }

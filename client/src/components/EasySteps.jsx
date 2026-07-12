@@ -4,10 +4,10 @@ import { FiArrowUpRight } from 'react-icons/fi'
 import { FaPhoneAlt } from 'react-icons/fa'
 
 const steps = [
-  { num: '01', title: 'Choose Your Program', desc: 'School, College or Degree.', tint: 'blue' },
-  { num: '02', title: 'Book a Free Demo', desc: 'Sit in a live lecture.', tint: 'sky' },
-  { num: '03', title: 'Enrol & Get Materials', desc: 'Modules, tests and a mentor.', tint: 'indigo' },
-  { num: '04', title: 'Start Learning', desc: 'Daily doubts and tracking.', tint: 'slate' }
+  { num: '01', title: 'Choose Your Program', desc: 'School, College or Degree.', tint: 'warm' },
+  { num: '02', title: 'Book a Free Demo', desc: 'Sit in a live lecture.', tint: 'mint' },
+  { num: '03', title: 'Enrol & Get Materials', desc: 'Modules, tests and a mentor.', tint: 'amber' },
+  { num: '04', title: 'Start Learning', desc: 'Daily doubts and tracking.', tint: 'sage' }
 ]
 
 export default function EasySteps({ onAdmissionClick }) {
@@ -30,7 +30,7 @@ export default function EasySteps({ onAdmissionClick }) {
             From first demo to exam day - a clear, structured path.
           </p>
           <div className="steps-intro__btns">
-            <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
+            <button onClick={onAdmissionClick} className="btn btn--primary btn--lg">
               Book Free Demo <FiArrowUpRight />
             </button>
             <a href="tel:+919221105658" className="btn btn--outline btn--lg">
@@ -73,7 +73,7 @@ export default function EasySteps({ onAdmissionClick }) {
           font-size: var(--fs-h2);
           margin-bottom: 1.25rem;
         }
-        .steps-intro__title em { color: var(--blue); }
+        .steps-intro__title em { color: var(--accent); }
         .steps-intro__desc {
           font-size: var(--fs-body);
           color: var(--text-muted);
@@ -96,10 +96,10 @@ export default function EasySteps({ onAdmissionClick }) {
           transition: transform 0.4s var(--ease);
         }
         .step-card:hover { transform: translateY(-4px); }
-        .step-card--blue   { background: var(--tint-blue); }
-        .step-card--sky    { background: var(--tint-sky); }
-        .step-card--indigo { background: var(--tint-indigo); }
-        .step-card--slate  { background: var(--tint-slate); }
+        .step-card--warm   { background: var(--tint-warm); }
+        .step-card--mint   { background: var(--tint-mint); }
+        .step-card--amber  { background: var(--tint-amber); }
+        .step-card--sage   { background: var(--tint-sage); }
         .step-card__num {
           display: block;
           font-family: var(--font-display);
@@ -109,10 +109,10 @@ export default function EasySteps({ onAdmissionClick }) {
           line-height: 1;
           margin-bottom: 0.9rem;
         }
-        .step-card--blue   .step-card__num { color: var(--tint-blue-ink); }
-        .step-card--sky    .step-card__num { color: var(--tint-sky-ink); }
-        .step-card--indigo .step-card__num { color: var(--tint-indigo-ink); }
-        .step-card--slate  .step-card__num { color: var(--tint-slate-ink); }
+        .step-card--warm   .step-card__num { color: var(--tint-warm-ink); }
+        .step-card--mint   .step-card__num { color: var(--tint-mint-ink); }
+        .step-card--amber  .step-card__num { color: var(--tint-amber-ink); }
+        .step-card--sage   .step-card__num { color: var(--tint-sage-ink); }
         .step-card__title {
           font-size: 1.15rem;
           font-weight: 700;

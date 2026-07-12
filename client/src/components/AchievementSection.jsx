@@ -11,37 +11,30 @@ const toppers = [
     name: 'Anam Patni',
     score: '88.40%',
     board: 'SSC',
-    medium: 'English Medium',
+    school: '1st in Citizen English School',
     year: '2025-26',
     image: '/SSC EM Results 2025-26/Anam Patni 88.40.jpeg',
     rank: 1
   },
   {
-    name: 'Sayyed Mohd Mehdi',
-    score: '83.20%',
+    name: 'Sayed Nuzail Abbas',
+    score: '86.80%',
     board: 'SSC',
-    medium: 'English Medium',
+    school: 'Shri Gita Vidyalay',
     year: '2025-26',
-    image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg',
+    image: '/SSC EM Results 2025-26/Sayed Nuzail Abbas 86.80.jpeg',
+    objectPosition: '50% 20%',
     rank: 2
   },
   {
-    name: 'Khan Nasreen',
-    score: '83.00%',
+    name: 'Sayyed Mohd Mehdi',
+    score: '83.20%',
     board: 'SSC',
-    medium: 'English Medium',
+    school: 'Jafri English School',
     year: '2025-26',
-    image: '/SSC EM Results 2025-26/Khan Nasreen 83.00.jpeg',
+    image: '/SSC EM Results 2025-26/Sayyed Mohd Mehdi 83.20.jpeg',
     rank: 3
-  },
-  {
-    name: 'Shaikh Arshin',
-    score: '81.00%',
-    board: 'SSC',
-    medium: 'English Medium',
-    year: '2025-26',
-    image: '/SSC EM Results 2025-26/Shaikh Arshin 81.00.jpeg'
-  },
+  }
 ]
 
 /* ── Animated counter hook ── */
@@ -98,7 +91,9 @@ function TopperCard({ topper, index }) {
       whileHover={{ y: -6 }}
     >
       <div className="rs-topper__avatar-wrap">
-        <img src={topper.image} alt={topper.name} className="rs-topper__avatar" loading="lazy" />
+        <div className="rs-topper__avatar-inner">
+          <img src={topper.image} alt={topper.name} className="rs-topper__avatar" style={{ objectPosition: topper.objectPosition || 'top' }} loading="lazy" />
+        </div>
         
         {rank && (
           <div className="rs-topper__medallion" style={{ background: rank.bg }}>
@@ -112,7 +107,6 @@ function TopperCard({ topper, index }) {
         <h3 className="rs-topper__name">{topper.name}</h3>
         
         <div className="rs-topper__score">
-          <FiAward className="rs-topper__score-icon" />
           {topper.score}
         </div>
         
@@ -122,7 +116,7 @@ function TopperCard({ topper, index }) {
           <span>{topper.year}</span>
         </div>
         
-        <div className="rs-topper__medium">{topper.medium}</div>
+        <div className="rs-topper__school">{topper.school}</div>
       </div>
     </motion.div>
   )
@@ -202,7 +196,7 @@ export default function AchievementSection() {
 
       <style>{`
         /* ═══════════════════════════════════════
-           RESULTS SECTION — Light Blue Theme
+           RESULTS SECTION — Warm Teal & Orange Theme
            ═══════════════════════════════════════ */
 
         .rs-sec {
@@ -222,7 +216,7 @@ export default function AchievementSection() {
         }
         .rs-glow--1 {
           width: 420px; height: 420px;
-          background: var(--blue-glow);
+          background: var(--primary-glow);
           top: -120px; right: -120px;
         }
 
@@ -248,7 +242,7 @@ export default function AchievementSection() {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.22em;
-          color: var(--gold);
+          color: var(--accent);
           margin-bottom: 1.5rem;
         }
         .rs-eyebrow svg { font-size: 0.85rem; }
@@ -261,7 +255,7 @@ export default function AchievementSection() {
           white-space: nowrap;
         }
         .rs-title em {
-          color: var(--gold-dark);
+          color: var(--accent);
           font-style: normal;
           font-weight: inherit;
         }
@@ -327,7 +321,7 @@ export default function AchievementSection() {
           margin-bottom: 1.5rem;
           padding-left: 0.25rem;
         }
-        .rs-toppers-label__icon { color: var(--gold); font-size: 0.9rem; }
+        .rs-toppers-label__icon { color: var(--primary); font-size: 0.9rem; }
 
         /* Toppers: horizontal swipeable on phone by default */
         .rs-toppers-grid {
@@ -357,14 +351,14 @@ export default function AchievementSection() {
           align-items: center;
           text-align: center;
           border: 1px solid var(--border);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+          box-shadow: none;
           transition: all 0.4s var(--ease);
           cursor: default;
         }
         .rs-topper:hover {
           transform: translateY(-6px);
-          border-color: rgba(26,86,219,0.3); /* Brand blue border on hover */
-          box-shadow: 0 15px 40px rgba(26,86,219,0.08);
+          border-color: rgba(0,132,108,0.3); /* Brand teal border on hover */
+          box-shadow: none;
         }
 
         .rs-topper__avatar-wrap {
@@ -375,13 +369,17 @@ export default function AchievementSection() {
           margin-bottom: 1.5rem;
           border-radius: 50%;
           border: 4px solid var(--white);
-          box-shadow: 0 0 0 2px var(--gold), 0 15px 30px rgba(0,0,0,0.1);
-          overflow: hidden;
+          box-shadow: 0 0 0 2px var(--accent);
           transition: transform 0.5s var(--ease), box-shadow 0.3s var(--ease);
         }
+        .rs-topper__avatar-inner {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          overflow: hidden;
+        }
         .rs-topper:hover .rs-topper__avatar-wrap {
-          transform: scale(1.05);
-          box-shadow: 0 0 0 2px var(--blue), 0 15px 30px rgba(26,86,219,0.15);
+          box-shadow: 0 0 0 2px var(--accent-light);
         }
         .rs-topper__avatar {
           width: 100%;
@@ -410,7 +408,7 @@ export default function AchievementSection() {
           font-weight: 800;
           line-height: 1.1;
           border: 3px solid var(--white);
-          box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+          box-shadow: none;
           z-index: 2;
         }
         .rs-topper__medallion svg { font-size: 0.8rem; margin-bottom: -2px; }
@@ -437,11 +435,11 @@ export default function AchievementSection() {
           font-family: var(--font-display);
           font-size: 2.2rem;
           font-weight: 800;
-          color: var(--gold-dark);
+          color: var(--primary);
           margin-bottom: 1.2rem;
           line-height: 1;
         }
-        .rs-topper__score-icon { font-size: 1.6rem; color: var(--gold); }
+        .rs-topper__score-icon { font-size: 1.6rem; color: var(--primary); }
 
         .rs-topper__meta {
           display: flex;
@@ -454,15 +452,19 @@ export default function AchievementSection() {
         }
         .rs-topper__dot { font-size: 0.4rem; }
 
-        .rs-topper__medium {
+        .rs-topper__school {
           padding: 0.4rem 0.85rem;
-          background: var(--blue-soft);
-          color: var(--blue-dark);
+          background: var(--accent-soft);
+          color: var(--accent-dark);
           border-radius: var(--radius-pill);
           font-size: 0.72rem;
           font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
+          text-transform: none;
+          letter-spacing: 0.02em;
+          white-space: nowrap;
+          max-width: 100%;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         /* ── CTA ── */
@@ -479,7 +481,7 @@ export default function AchievementSection() {
           font-size: 0.88rem;
           font-weight: 600;
           color: var(--white);
-          background: var(--blue);
+          background: var(--primary);
           padding: 1rem 2.5rem;
           border-radius: var(--radius-pill);
           text-decoration: none;
@@ -487,7 +489,7 @@ export default function AchievementSection() {
           letter-spacing: 0.02em;
         }
         .rs-cta__btn:hover {
-          background: var(--blue-dark);
+          background: var(--primary-dark);
           transform: translateY(-2px);
         }
         .rs-cta__btn-icon { font-size: 0.9rem; }
@@ -572,8 +574,8 @@ export default function AchievementSection() {
           .rs-title { white-space: nowrap; }
           .rs-toppers-label { justify-content: flex-start; width: auto; }
           .rs-topper:hover {
-            border-color: rgba(26,86,219,0.3);
-            box-shadow: 0 15px 40px rgba(26,86,219,0.08);
+            border-color: rgba(0,132,108,0.3);
+            box-shadow: none;
           }
         }
       `}</style>

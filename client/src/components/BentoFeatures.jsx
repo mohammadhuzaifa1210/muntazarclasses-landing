@@ -4,10 +4,10 @@ import { FaCheck, FaTrophy, FaLanguage, FaChalkboardTeacher } from 'react-icons/
 
 const checklist = [
   'Dedicated Hindi & Urdu Batches',
-  'M.Sc. & Ph.D. Expert Faculty',
+  'Expert Faculty',
   'AC Study Halls & Archives',
   'Daily One-on-One Doubt Sessions',
-  'Smart Classrooms with Projectors',
+  'Smart Classrooms with Smart Boards',
   'Weekly Tests & Progress Analytics'
 ]
 
@@ -34,22 +34,12 @@ export default function BentoFeatures() {
           >
             <img
               className="why-media__main"
-              src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80"
-              alt="Muntazar Classes teaching session"
+              src="/bento grid photo 1.png"
+              alt="Muntazar Classes Smart Classroom"
               loading="lazy"
             />
-            <img
-              className="why-media__sub"
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=700&q=80"
-              alt="Students studying together"
-              loading="lazy"
-            />
-            <div className="why-media__badge">
-              <span className="why-media__badge-val">200+</span>
-              <span className="why-media__badge-lbl">Top Board Scorers</span>
-            </div>
           </motion.div>
-
+ 
           {/* Content */}
           <motion.div
             className="why-content"
@@ -66,19 +56,30 @@ export default function BentoFeatures() {
               We build exam-ready scholars through structure, strong infrastructure and relentless support.
             </p>
             <ul className="why-checklist">
-              {checklist.map((item, i) => (
-                <motion.li
-                  key={item}
-                  className="why-check"
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06, duration: 0.5 }}
-                >
-                  <span className="why-check__icon"><FaCheck /></span>
-                  {item}
-                </motion.li>
-              ))}
+              {checklist.map((item, i) => {
+                const isSmartBoard = item.includes('Smart Boards');
+                return (
+                  <motion.li
+                    key={item}
+                    className={`why-check ${isSmartBoard ? 'why-check--special' : ''}`}
+                    initial={{ opacity: 0, y: 12 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.06, duration: 0.5 }}
+                  >
+                    <span className={`why-check__icon ${isSmartBoard ? 'why-check__icon--special' : ''}`}>
+                      <FaCheck />
+                    </span>
+                    {isSmartBoard ? (
+                      <span className="why-check__text-special">
+                        {item} <span className="why-check__badge">Interactive Learning</span>
+                      </span>
+                    ) : (
+                      item
+                    )}
+                  </motion.li>
+                );
+              })}
             </ul>
           </motion.div>
         </div>
@@ -117,13 +118,13 @@ export default function BentoFeatures() {
         }
 
         /* Collage */
-        .why-media { position: relative; padding-bottom: 2rem; max-width: 520px; margin: 0 auto; }
+        .why-media { position: relative; max-width: 520px; margin: 0 auto; }
         .why-media__main {
           width: 100%;
           aspect-ratio: 4 / 3.2;
           object-fit: cover;
           border-radius: var(--radius-lg);
-          box-shadow: var(--shadow-md);
+          box-shadow: none;
         }
         .why-media__sub {
           position: absolute;
@@ -133,16 +134,16 @@ export default function BentoFeatures() {
           object-fit: cover;
           border-radius: var(--radius);
           border: 5px solid var(--white);
-          box-shadow: var(--shadow-md);
+          box-shadow: none;
         }
         .why-media__badge {
           position: absolute;
           top: 1.25rem; left: -14px;
-          background: var(--blue);
+          background: var(--primary);
           color: var(--text-white);
           padding: 0.85rem 1.15rem;
           border-radius: var(--radius);
-          box-shadow: var(--shadow-md);
+          box-shadow: none;
           text-align: center;
         }
         .why-media__badge-val {
@@ -165,7 +166,7 @@ export default function BentoFeatures() {
           font-size: var(--fs-h2);
           margin-bottom: 1rem;
         }
-        .why-content__title em { color: var(--blue); }
+        .why-content__title em { color: var(--accent); }
         .why-content__desc {
           font-size: var(--fs-body);
           color: var(--text-muted);
@@ -190,8 +191,8 @@ export default function BentoFeatures() {
           flex-shrink: 0;
           width: 22px; height: 22px;
           border-radius: 50%;
-          background: var(--blue-soft);
-          color: var(--blue);
+          background: var(--primary-soft);
+          color: var(--primary);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -203,10 +204,10 @@ export default function BentoFeatures() {
         .why-banner {
           display: grid;
           grid-template-columns: 1fr;
-          background: var(--blue-deep);
+          background: var(--primary-deep);
           border-radius: var(--radius-lg);
           overflow: hidden;
-          box-shadow: var(--shadow-md);
+          box-shadow: none;
         }
         .why-banner__col {
           display: flex;
@@ -221,7 +222,7 @@ export default function BentoFeatures() {
           width: 44px; height: 44px;
           border-radius: 12px;
           background: rgba(255,255,255,0.08);
-          color: var(--blue-light);
+          color: var(--primary-light);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -261,6 +262,32 @@ export default function BentoFeatures() {
         /* ── ≥992: full section rhythm ── */
         @media (min-width: 992px) {
           .why-sec { padding: var(--gap-5xl) 0 var(--gap-4xl); }
+        }
+
+        .why-check--special {
+          color: var(--accent-dark);
+        }
+        .why-check__icon--special {
+          background: var(--accent-soft);
+          color: var(--accent);
+        }
+        .why-check__text-special {
+          font-weight: 700;
+          display: inline-flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+        .why-check__badge {
+          font-size: 0.62rem;
+          font-weight: 700;
+          padding: 0.15rem 0.5rem;
+          background: var(--accent-soft);
+          color: var(--accent-dark);
+          border: 1px solid var(--accent-glow);
+          border-radius: var(--radius-pill);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
         }
       `}</style>
     </section>

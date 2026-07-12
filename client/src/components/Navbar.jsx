@@ -49,7 +49,7 @@ export default function Navbar({ onAdmissionClick }) {
             <a href="tel:+919221105658" className="nav__phone">
               <FaPhoneAlt /> <span>+91 92211 05658</span>
             </a>
-            <button onClick={() => onAdmissionClick ? onAdmissionClick() : (window.location.href = '/#contact')} className="btn btn--blue btn--sm">
+            <button onClick={() => onAdmissionClick ? onAdmissionClick() : (window.location.href = '/#contact')} className="btn btn--primary btn--sm">
               Enrol Now
             </button>
           </div>
@@ -139,7 +139,7 @@ export default function Navbar({ onAdmissionClick }) {
           font-family: var(--font-display);
           font-size: 0.42rem;
           font-weight: 600;
-          color: var(--blue);
+          color: var(--primary);
           letter-spacing: 0.22em;
           line-height: 1;
           margin-top: 3px;
@@ -161,13 +161,13 @@ export default function Navbar({ onAdmissionClick }) {
           align-items: center;
           min-height: 44px;
         }
-        .nav__link:hover { color: var(--blue); }
+        .nav__link:hover { color: var(--primary); }
         .nav__link::after {
           content: '';
           position: absolute;
           bottom: -4px; left: 0;
           width: 0; height: 2px;
-          background: var(--blue);
+          background: var(--primary);
           transition: width 0.3s var(--ease);
           border-radius: 1px;
         }
@@ -187,8 +187,8 @@ export default function Navbar({ onAdmissionClick }) {
           min-height: 44px;
           transition: color 0.3s ease;
         }
-        .nav__phone svg { color: var(--blue); font-size: 0.7rem; }
-        .nav__phone:hover { color: var(--blue); }
+        .nav__phone svg { color: var(--primary); font-size: 0.7rem; }
+        .nav__phone:hover { color: var(--primary); }
         .nav__hamburger {
           background: none;
           border: none;
@@ -244,7 +244,7 @@ export default function Navbar({ onAdmissionClick }) {
           border-bottom: 1px solid var(--border);
           transition: color 0.2s ease;
         }
-        .nav__mobile-link:hover { color: var(--blue); }
+        .nav__mobile-link:hover { color: var(--primary); }
         .nav__mobile-actions {
           display: flex;
           flex-direction: column;

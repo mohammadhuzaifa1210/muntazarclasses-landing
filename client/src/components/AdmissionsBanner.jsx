@@ -27,7 +27,7 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
               Muntazar difference before you decide.
             </p>
             <div className="ab-btns">
-              <button onClick={onAdmissionClick} className="btn btn--blue btn--lg">
+              <button onClick={onAdmissionClick} className="btn btn--primary btn--lg">
                 Book Free Demo <FiArrowUpRight />
               </button>
               <a
@@ -51,11 +51,11 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
         .ab-card {
           position: relative;
           overflow: hidden;
-          background: #eef2ff;
-          border: 1px solid rgba(26,86,219,0.12);
+          background: #fef8f4;
+          border: 1px solid rgba(0,132,108,0.12);
           border-radius: var(--radius-lg);
           padding: 2.25rem 1.25rem;
-          box-shadow: var(--shadow-sm);
+          box-shadow: none;
           text-align: center;
         }
         .ab-blob {
@@ -66,12 +66,12 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
         }
         .ab-blob--a {
           width: 260px; height: 260px;
-          background: rgba(59,130,246,0.22);
+          background: rgba(0,132,108,0.18);
           top: -80px; left: -60px;
         }
         .ab-blob--b {
           width: 240px; height: 240px;
-          background: rgba(26,86,219,0.16);
+          background: rgba(243,112,33,0.12);
           bottom: -90px; right: -50px;
         }
         .ab-content { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
@@ -84,9 +84,9 @@ export default function AdmissionsBanner({ onAdmissionClick }) {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 0.14em;
-          color: var(--blue);
+          color: var(--primary);
           background: rgba(255,255,255,0.7);
-          border: 1px solid rgba(26,86,219,0.15);
+          border: 1px solid rgba(0,132,108,0.15);
           padding: 0.45rem 0.95rem;
           border-radius: var(--radius-pill);
           margin-bottom: 1.25rem;
