@@ -102,7 +102,7 @@ export default function Reviews() {
               </div>
               <p className="rev-card__text">{r.quote}</p>
               <div className="rev-card__author">
-                <img src={r.avatar} alt={r.name} className="rev-card__avatar" loading="lazy" />
+                <span className="rev-card__avatar">{r.name.charAt(0)}</span>
                 <div>
                   <span className="rev-card__name">{r.name}</span>
                   <span className="rev-card__role">{r.role}</span>
@@ -227,8 +227,16 @@ export default function Reviews() {
         .rev-card__avatar {
           width: 46px; height: 46px;
           border-radius: 50%;
-          object-fit: cover;
           flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: var(--primary);
+          color: var(--text-white);
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 1.15rem;
+          text-transform: uppercase;
         }
         .rev-card__name {
           display: block;

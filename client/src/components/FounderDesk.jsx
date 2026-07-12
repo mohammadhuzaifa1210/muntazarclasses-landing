@@ -15,15 +15,30 @@ export default function FounderDesk() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="founder-img-wrapper">
-              {/* Arbitrary background shape */}
               <div className="founder-bg-shape"></div>
-              {/* Founder Photo */}
               <img 
-                src="/founder.png" 
+                src="/Farman Sir.png" 
                 alt="Professor Farman Raza Syed" 
                 className="founder-img" 
                 loading="lazy" 
               />
+              
+              {/* Empty Decorative Circle */}
+              <div className="founder-circle founder-circle--left"></div>
+
+              {/* Experience Circle */}
+              <div className="founder-circle founder-circle--right">
+                <span className="founder-circle-number">35+</span>
+                <span className="founder-circle-text">Years of<br/>Experience</span>
+              </div>
+            </div>
+            
+            {/* Additional Details Below Photo */}
+            <div className="founder-details">
+              <h4 className="founder-details-name">Prof. Farman Raza Syed</h4>
+              <p className="founder-details-degrees">M.Sc. (Mathematics)</p>
+              <div className="founder-details-divider"></div>
+              <p className="founder-details-role">Founder & Director, Muntazar Classes</p>
             </div>
           </motion.div>
 
@@ -65,7 +80,8 @@ export default function FounderDesk() {
         .founder-sec {
           padding: var(--gap-4xl) 0;
           background: var(--white);
-          overflow: hidden;
+          /* Removed 'overflow: hidden' which was forcefully clipping the left and bottom edges 
+             of the organic blob (.founder-bg-shape) and its wrapper when near viewport bounds. */
           position: relative;
         }
 
@@ -78,34 +94,33 @@ export default function FounderDesk() {
 
         .founder-media {
           display: flex;
+          flex-direction: column;
+          align-items: center;
           justify-content: center;
           position: relative;
         }
 
         .founder-img-wrapper {
           position: relative;
-          max-width: 360px;
+          max-width: 420px;
           width: 100%;
           aspect-ratio: 3 / 4;
           display: flex;
           align-items: flex-end;
           justify-content: center;
+          margin-top: -2rem;
+          overflow: visible; /* Ensure the blob renders completely on all sides */
         }
 
         .founder-bg-shape {
           position: absolute;
           bottom: 0;
+          left: 0;
           width: 100%;
           height: 75%;
           background: linear-gradient(135deg, rgba(0, 132, 108, 0.15), rgba(0, 132, 108, 0.4));
           border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
           z-index: 1;
-          transition: all 0.5s ease;
-        }
-        
-        .founder-media:hover .founder-bg-shape {
-          border-radius: 60% 40% 30% 70% / 50% 40% 60% 50%;
-          transform: scale(1.02);
         }
 
         .founder-img {
@@ -114,12 +129,60 @@ export default function FounderDesk() {
           width: 90%;
           height: auto;
           object-fit: contain;
-          filter: drop-shadow(0 15px 25px rgba(0,0,0,0.1));
+          -webkit-mask-image: 
+            linear-gradient(to top, transparent 5%, black 25%),
+            linear-gradient(to right, transparent 5%, black 20%),
+            linear-gradient(to left, transparent 5%, black 20%);
+          -webkit-mask-composite: source-in;
+          mask-image: 
+            linear-gradient(to top, transparent 5%, black 25%),
+            linear-gradient(to right, transparent 5%, black 20%),
+            linear-gradient(to left, transparent 5%, black 20%);
+          mask-composite: intersect;
         }
 
         .founder-content {
           max-width: 600px;
           margin: 0 auto;
+        }
+
+        .founder-details {
+          margin-top: 1.5rem;
+          text-align: center;
+          width: 100%;
+          max-width: 360px;
+          z-index: 5;
+        }
+        
+        .founder-details-name {
+          font-family: var(--font-display);
+          font-weight: 700;
+          font-size: 1.25rem;
+          color: var(--text-dark);
+          margin-bottom: 0.25rem;
+        }
+
+        .founder-details-degrees {
+          font-size: 0.95rem;
+          color: var(--primary);
+          font-weight: 600;
+        }
+
+        .founder-details-divider {
+          width: 40px;
+          height: 3px;
+          border-radius: 2px;
+          background: var(--primary-light);
+          margin: 0.75rem auto;
+          opacity: 0.5;
+        }
+
+        .founder-details-role {
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-weight: 500;
         }
 
         .founder-text {
@@ -136,9 +199,52 @@ export default function FounderDesk() {
           font-weight: 600;
         }
 
+        .founder-circle {
+          position: absolute;
+          border-radius: 50%;
+          background: var(--primary);
+          color: var(--white);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          box-shadow: 0 10px 25px rgba(0, 132, 108, 0.4);
+          z-index: 4;
+        }
+
+        .founder-circle--left {
+          width: 45px;
+          height: 45px;
+          bottom: 30px;
+          left: 10px;
+        }
+
+        .founder-circle--right {
+          width: 120px;
+          height: 120px;
+          bottom: 10px;
+          right: 5px;
+        }
+
+        .founder-circle-number {
+          font-family: var(--font-display);
+          font-weight: 800;
+          font-size: 2rem;
+          line-height: 1;
+        }
+
+        .founder-circle-text {
+          font-size: 0.7rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-top: 0.35rem;
+        }
+
         @media (min-width: 768px) {
           .founder-img-wrapper {
-            max-width: 420px;
+            max-width: 460px;
           }
         }
 
@@ -146,9 +252,15 @@ export default function FounderDesk() {
           .founder-grid {
             grid-template-columns: 0.8fr 1.2fr;
             gap: 5rem;
+            align-items: flex-start;
+          }
+          .founder-img-wrapper {
+            max-width: 600px;
+            margin-top: -4rem; /* Shift even higher */
           }
           .founder-content {
             margin: 0;
+            padding-top: 2rem; /* Push text down a bit */
           }
           .founder-text {
             font-size: 1.125rem;

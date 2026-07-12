@@ -156,9 +156,9 @@ export default function AchievementSection() {
 
           {/* ── Stat counters ── */}
           <div className="rs-stats">
-            <StatCounter value={500} suffix="+" label="Students Taught" delay={0.2} isInView={isInView} />
+            <StatCounter value={3000} suffix="+" label="Students Taught" delay={0.2} isInView={isInView} />
             <StatCounter value={95} suffix="%" label="Pass Rate" delay={0.35} isInView={isInView} />
-            <StatCounter value={50} suffix="+" label="Board Toppers" delay={0.5} isInView={isInView} />
+            <StatCounter value={200} suffix="+" label="Board Toppers" delay={0.5} isInView={isInView} />
           </div>
         </div>
 
