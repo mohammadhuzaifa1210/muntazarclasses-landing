@@ -4,39 +4,46 @@ import { FaStar, FaQuoteRight } from 'react-icons/fa'
 
 const reviews = [
   {
-    quote: 'My daughter went from struggling in maths to scoring 96% in HSC. The daily doubt sessions and personal mentor made all the difference.',
-    name: 'Rukhsana Shaikh',
-    role: 'Parent of HSC Science Student',
-    rating: 5,
-    avatar: 'https://i.pravatar.cc/120?img=45'
+    quote: "Amazing classes!! The teachers and staff are so sweet 🤍 Come if you want to study and laugh at the same time. It is no less than a Comedy show (knowledgeable) Highly recommended!",
+    name: "Falak Sayyed",
+    role: "Google Local Guide",
+    rating: 5
   },
   {
-    quote: 'The Hindi medium batch was a blessing. Finally a coaching class in Govandi that teaches in the language I actually understand.',
-    name: 'Aman Gupta',
-    role: 'SSC Board - 92%',
-    rating: 5,
-    avatar: 'https://i.pravatar.cc/120?img=12'
+    quote: "Muntazar Classes is the one stop solution for all the students who quest for the good quality learning and professional faculty. You just need to take the admission and they will guide you towards the right path.",
+    name: "Sayyed Saim Mehdi",
+    role: "Student",
+    rating: 5
   },
   {
-    quote: 'Professors here are genuinely experienced, not part-timers. Weekly tests kept me on track and the analytics showed exactly where to improve.',
-    name: 'Faizan Ansari',
-    role: 'TY B.Com - University Topper',
-    rating: 5,
-    avatar: 'https://i.pravatar.cc/120?img=33'
+    quote: "I took coaching for my 10th board exam from muntazar classes...and scored 86% in my board exam...and now continuing my study from the 'muntazar classes'. I trust muntazar classes and you too can 👍",
+    name: "Mahi Shaikh",
+    role: "SSC Board - 86%",
+    rating: 5
   },
   {
-    quote: 'AC classrooms, silent study halls and monthly parent meetings - everything is organised. Worth every rupee for my son\'s 11th & 12th.',
-    name: 'Nusrat Parveen',
-    role: 'Parent of HSC Commerce Student',
-    rating: 5,
-    avatar: 'https://i.pravatar.cc/120?img=27'
+    quote: "Best coaching institute in govandi slum . You will not get any better classes then this . I don't want to tell about this, their record will itself tell you about their success .",
+    name: "Sahil Abbas Sayyed",
+    role: "Student",
+    rating: 5
   },
   {
-    quote: 'I joined as a drop-year student and the morning batch schedule was perfect. Cleared my exams with a strong score. Highly recommend.',
-    name: 'Sana Khan',
-    role: 'HSC Repeater - 88%',
-    rating: 5,
-    avatar: 'https://i.pravatar.cc/120?img=24'
+    quote: "Hello everyone! I'd like to share my amazing experience at Muntazar Classes. The teachers here are incredibly supportive and make learning enjoyable. They explain concepts clearly and always encourage us to ask questions.",
+    name: "Batco Roadlines",
+    role: "Student",
+    rating: 5
+  },
+  {
+    quote: "My name is khan sidra i had joined muntazar classes in 10th and i got 81%👍, now i am in 11th and i am still studying into muntazar classes🤲",
+    name: "Sadiqa Anam Khan",
+    role: "Student",
+    rating: 5
+  },
+  {
+    quote: "I learn lots of thing and lots of knowledge about 10th class this is the best classes for everyone and I approve you want successfully life so joined the muntazar classes best for science/commerce.",
+    name: "Khan Anas",
+    role: "Student",
+    rating: 5
   }
 ]
 
