@@ -119,7 +119,6 @@ export default function Reviews() {
                 <span className="rev-card__avatar">{r.name.charAt(0)}</span>
                 <div>
                   <span className="rev-card__name">{r.name}</span>
-                  <span className="rev-card__role">{r.role}</span>
                 </div>
               </div>
             </div>
@@ -228,6 +227,8 @@ export default function Reviews() {
 
         .rev-card {
           position: relative;
+          display: flex;
+          flex-direction: column;
           flex: 0 0 86vw;
           scroll-snap-align: center;
           background: var(--gray-50);
@@ -264,6 +265,7 @@ export default function Reviews() {
           gap: 0.85rem;
           padding-top: var(--gap-md);
           border-top: 1px solid var(--border);
+          margin-top: auto;
         }
         .rev-card__avatar {
           width: 46px; height: 46px;
