@@ -70,9 +70,14 @@ export default function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; {year} Muntazar Classes. All rights reserved.</p>
-          <div className="footer-developed">
-            Developed by <a href="https://www.chdigitalsolutions.in/" target="_blank" rel="noopener noreferrer" className="developed-link">CH Digital Solutions</a>
+          <div className="footer-service-area">
+            <span className="footer-service-label">Serving students from:</span> Govandi West, Govandi East, Baiganwadi, Deonar, Chembur, Mankhurd, Trombay, Shivaji Nagar & surrounding areas in Mumbai.
+          </div>
+          <div className="footer-bottom-row">
+            <p>&copy; {year} Muntazar Classes. All rights reserved.</p>
+            <div className="footer-developed">
+              Developed by <a href="https://www.chdigitalsolutions.in/" target="_blank" rel="noopener noreferrer" className="developed-link">CH Digital Solutions</a>
+            </div>
           </div>
         </div>
       </div>
@@ -187,9 +192,23 @@ export default function Footer() {
           padding-top: var(--gap-xl);
           display: flex;
           flex-direction: column;
-          align-items: flex-start;
-          gap: 1rem;
+          gap: 1.25rem;
           font-size: 0.8rem;
+        }
+        .footer-service-area {
+          font-size: 0.78rem;
+          line-height: 1.7;
+          color: rgba(255,255,255,0.4);
+        }
+        .footer-service-label {
+          font-weight: 600;
+          color: rgba(255,255,255,0.6);
+        }
+        .footer-bottom-row {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.75rem;
         }
         .footer-developed {
           color: rgba(255,255,255,0.4);
@@ -204,7 +223,7 @@ export default function Footer() {
 
         @media (min-width: 768px) {
           .footer-grid { grid-template-columns: 1.5fr 1fr; gap: 3rem; }
-          .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+          .footer-bottom-row { flex-direction: row; justify-content: space-between; align-items: center; }
         }
         @media (min-width: 992px) {
           .footer { padding: var(--gap-4xl) 0 var(--gap-xl); }

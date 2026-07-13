@@ -1,0 +1,17 @@
+{
+  "name": "Muntazar Classes — Hindi Medium Coaching in Govandi",
+  "short_name": "Muntazar Classes",
+  "description": "Govandi's top coaching institute since 2008. Hindi, Urdu & English medium batches for SSC, HSC & Degree.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#00846c",
+  "background_color": "#ffffff",
+  "lang": "en-IN",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

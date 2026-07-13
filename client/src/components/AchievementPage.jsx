@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { FiArrowLeft, FiAward, FiChevronDown, FiChevronUp, FiArrowUp, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import { LuGraduationCap } from 'react-icons/lu'
 import Navbar from './Navbar'
@@ -208,6 +209,11 @@ export default function AchievementPage() {
     <>
       <Navbar />
       <main className="ap-page">
+        <Helmet>
+          <title>Student Results & Achievements | 200+ Board Toppers | Muntazar Classes Govandi</title>
+          <meta name="description" content="See the results of Muntazar Classes Govandi students — 200+ SSC & HSC board toppers, 95% pass rate. Our Hindi, Urdu & English medium coaching produces consistent results since 2008." />
+          <link rel="canonical" href="https://muntazarclasses.in/achievements" />
+        </Helmet>
         {/* ── Header & Filters ── */}
         <section className="ap-header wrap">
           <Link to="/#achievements" className="ap-back"><FiArrowLeft /> Back to Home</Link>

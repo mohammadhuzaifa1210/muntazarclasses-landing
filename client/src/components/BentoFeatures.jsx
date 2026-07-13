@@ -35,7 +35,7 @@ export default function BentoFeatures() {
             <img
               className="why-media__main"
               src="/bento grid photo 1.png"
-              alt="Muntazar Classes Smart Classroom"
+              alt="Smart classroom at Muntazar Classes - Hindi medium coaching institute in Govandi Mumbai"
               loading="lazy"
             />
           </motion.div>
@@ -50,7 +50,7 @@ export default function BentoFeatures() {
           >
             <span className="eyebrow">Why Muntazar Classes</span>
             <h2 className="why-content__title">
-              Where Discipline Meets <em className="accent-serif">Excellence</em>
+              Govandi's Best Coaching <em className="accent-serif">Institute</em>
             </h2>
             <p className="why-content__desc">
               We build exam-ready scholars through structure, strong infrastructure and relentless support.

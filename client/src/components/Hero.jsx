@@ -57,11 +57,11 @@ export default function Hero({ onAdmissionClick }) {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <h1 className="hero__title">
-              Educating the <span className="hero__accent">Next Generation</span> of Thinkers
+              Best <span className="hero__accent">Hindi Medium Coaching Classes</span> in Govandi, Mumbai
             </h1>
 
             <p className="hero__desc">
-              Trusted coaching in Hindi, Urdu &amp; English - from 7th standard to degree.
+              Trusted coaching in Hindi, Urdu &amp; English medium — SSC, HSC &amp; Degree preparation since 2008. 200+ toppers, 35 students per batch.
             </p>
 
             <div className="hero__btns">
@@ -93,7 +93,7 @@ export default function Hero({ onAdmissionClick }) {
                 >
                   <img src={photos[idx]} alt="" className="hero__photo-bg" />
                   <div className="hero__photo-overlay" />
-                  <img src={photos[idx]} alt="Muntazar Classes students learning" className="hero__photo-fg" loading="eager" />
+                  <img src={photos[idx]} alt="Students learning at Muntazar Classes - Hindi medium coaching institute in Govandi Mumbai" className="hero__photo-fg" loading="eager" />
                 </motion.div>
               </AnimatePresence>
               

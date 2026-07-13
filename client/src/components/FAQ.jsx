@@ -3,6 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 const faqs = [
   {
+    q: 'Where is Muntazar Classes located in Govandi?',
+    a: 'Muntazar Classes is located at 1st & 2nd Floor, Rikshaw Stand, Plot No 33/K/1,2, Near Baiganwadi, Above City Bakery, Govandi West, Mumbai – 400043. We are easily accessible from Govandi East, Deonar, Chembur, Mankhurd and surrounding areas.'
+  },
+  {
+    q: 'Does Muntazar Classes offer Hindi medium coaching in Govandi?',
+    a: 'Yes, Muntazar Classes is one of the few coaching institutes in Govandi offering dedicated Hindi medium batches alongside Urdu and English medium. Our Hindi medium coaching covers SSC (7th to 10th), HSC (11th & 12th) and Degree programs (B.Com, BAF, BMS).'
+  },
+  {
     q: 'What are the fees, and can I pay in instalments?',
     a: 'Fees vary by program - our counsellors will share the complete fee card during consultation. We offer flexible monthly instalment plans.'
   },
@@ -12,7 +20,7 @@ const faqs = [
   },
   {
     q: 'What are the daily batch timings?',
-    a: 'Our regular weekday batches run 4:00 PM to 8:30 PM, perfect for students attending junior college in the morning. We also run dedicated morning batches for drop-year/repeater students.'
+    a: 'Our regular weekday batches run 3:00 PM to 9:30 PM. Sunday batches run from 10:00 AM to 7:00 PM. We also run dedicated batches for drop-year/repeater students.'
   },
   {
     q: 'How do you track individual student progress?',

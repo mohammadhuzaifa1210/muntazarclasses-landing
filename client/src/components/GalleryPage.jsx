@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { FiArrowLeft, FiChevronDown, FiChevronLeft, FiChevronRight, FiChevronUp, FiX } from 'react-icons/fi'
 import galleryData from '../data/galleryData.generated'
 import Navbar from './Navbar'
@@ -81,6 +82,11 @@ export default function GalleryPage() {
     <>
       <Navbar />
       <main className="gp-page">
+        <Helmet>
+          <title>Photo Gallery | Muntazar Classes Govandi — Classrooms, Events & Student Life</title>
+          <meta name="description" content="Explore photos from Muntazar Classes Govandi — classrooms, felicitation ceremonies, student events, picnics and campus life. See our coaching institute in action." />
+          <link rel="canonical" href="https://muntazarclasses.in/gallery" />
+        </Helmet>
         <section className="gp-header wrap">
           <Link to="/#gallery" className="gp-back"><FiArrowLeft /> Back to Home</Link>
           <div className="gp-header__title-row"><h1>Photo Gallery</h1></div>

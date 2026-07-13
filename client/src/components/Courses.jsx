@@ -77,7 +77,7 @@ export default function Courses({ onEnquiryClick }) {
           <div className="courses-header__left">
             <span className="eyebrow">Academic Programs</span>
             <h2 className="courses-header__title">
-              Choose Your <em className="accent-serif">Path</em>
+              Our Academic <em className="accent-serif">Programs</em>
             </h2>
           </div>
 

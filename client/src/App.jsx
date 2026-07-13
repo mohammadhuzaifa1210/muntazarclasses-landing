@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ProgramChips from './components/ProgramChips'
@@ -27,20 +28,25 @@ function LandingPage({ handleAdmissionClick, handleEnquiryClick, handleEnquirySu
 
   return (
     <>
+      <Helmet>
+        <link rel="canonical" href="https://muntazarclasses.in/" />
+      </Helmet>
       <Navbar onAdmissionClick={handleAdmissionClick} />
-      <Hero onAdmissionClick={handleAdmissionClick} />
-      <ProgramChips />
-      <FounderDesk />
-      <EasySteps onAdmissionClick={handleAdmissionClick} />
-      <BentoFeatures />
-      <Courses onEnquiryClick={handleEnquiryClick} />
-      <AchievementSection />
-      <GallerySection onViewAll={() => navigate('/gallery')} />
-      <AdmissionsBanner onAdmissionClick={handleAdmissionClick} />
-      <FAQ />
-      <Reviews />
-      <Alumni />
-      <Contact onEnquirySubmit={handleEnquirySubmit} />
+      <main>
+        <Hero onAdmissionClick={handleAdmissionClick} />
+        <ProgramChips />
+        <FounderDesk />
+        <EasySteps onAdmissionClick={handleAdmissionClick} />
+        <BentoFeatures />
+        <Courses onEnquiryClick={handleEnquiryClick} />
+        <AchievementSection />
+        <GallerySection onViewAll={() => navigate('/gallery')} />
+        <AdmissionsBanner onAdmissionClick={handleAdmissionClick} />
+        <FAQ />
+        <Reviews />
+        <Alumni />
+        <Contact onEnquirySubmit={handleEnquirySubmit} />
+      </main>
       <Footer />
     </>
   )

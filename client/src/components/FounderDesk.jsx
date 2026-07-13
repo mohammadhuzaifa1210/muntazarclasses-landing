@@ -18,7 +18,7 @@ export default function FounderDesk() {
               <div className="founder-bg-shape"></div>
               <img 
                 src="/Farman Sir.png" 
-                alt="Professor Farman Raza Syed" 
+                alt="Prof. Farman Raza Syed - Founder of Muntazar Classes, Hindi medium coaching institute in Govandi Mumbai" 
                 className="founder-img" 
                 loading="lazy" 
               />
@@ -80,9 +80,11 @@ export default function FounderDesk() {
         .founder-sec {
           padding: var(--gap-4xl) 0;
           background: var(--white);
-          /* Removed 'overflow: hidden' which was forcefully clipping the left and bottom edges 
-             of the organic blob (.founder-bg-shape) and its wrapper when near viewport bounds. */
           position: relative;
+          /* Use overflow-x: clip to prevent horizontal scrolling on mobile from the
+             blob and decorative circles, without creating a new scroll container
+             (which overflow: hidden does and can break sticky/layout). */
+          overflow-x: clip;
         }
 
         .founder-grid {

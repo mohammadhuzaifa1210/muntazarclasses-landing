@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { FiArrowLeft, FiArrowRight, FiArrowUpRight } from 'react-icons/fi'
 import {
   FaBook, FaFlask, FaChartLine, FaUniversity, FaCheck,
@@ -157,6 +158,11 @@ export default function ProgramsPage() {
       <Navbar />
 
       <main className="pp">
+        <Helmet>
+          <title>Academic Programs | SSC, HSC & Degree Coaching in Hindi, Urdu & English Medium | Muntazar Classes Govandi</title>
+          <meta name="description" content="Explore coaching programs at Muntazar Classes Govandi — School Section (7th-10th SSC), College Section (11th-12th HSC Science & Commerce), and Degree (B.Com, BAF, BMS). Hindi, Urdu & English medium batches available." />
+          <link rel="canonical" href="https://muntazarclasses.in/programs" />
+        </Helmet>
         <div className="wrap pp-top">
           <Link to="/#courses" className="back-link"><FiArrowLeft /> Back to Home</Link>
           
