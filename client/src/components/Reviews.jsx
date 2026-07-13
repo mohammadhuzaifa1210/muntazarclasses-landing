@@ -89,6 +89,13 @@ export default function Reviews() {
             <h2 className="rev-title">
               What Parents &amp; Students <em className="accent-serif">Say</em>
             </h2>
+            <div className="rev-summary">
+              <span className="rev-summary__score">4.9</span>
+              <div className="rev-summary__stars">
+                <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+              </div>
+              <span className="rev-summary__count">Based on 71 Google Reviews</span>
+            </div>
           </div>
           <div className="rev-nav">
             <button className="rev-arrow" onClick={prev} disabled={active === 0} aria-label="Previous reviews">
@@ -147,8 +154,35 @@ export default function Reviews() {
         .rev-title {
           font-size: var(--fs-h2);
           line-height: 1.15;
+          margin-bottom: var(--gap-md);
         }
         .rev-title em { color: var(--accent); }
+        
+        /* ─── Rating Summary ─── */
+        .rev-summary {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          margin-top: 0.5rem;
+          flex-wrap: wrap;
+        }
+        .rev-summary__score {
+          font-family: var(--font-display);
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: var(--text-dark);
+        }
+        .rev-summary__stars {
+          display: flex;
+          gap: 0.15rem;
+          color: var(--amber);
+          font-size: 1.1rem;
+        }
+        .rev-summary__count {
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          font-weight: 500;
+        }
 
         /* Nav arrows are hidden on phone — swipe is the primary affordance. */
         .rev-nav { display: none; gap: var(--gap-sm); }
