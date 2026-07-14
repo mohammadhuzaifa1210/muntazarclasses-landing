@@ -30,7 +30,7 @@ export default function Footer() {
           
           <div className="footer-brand-col">
             <a href="#home" className="footer-logo">
-              <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="footer-logo__img" />
+              <img src="/logo-white.svg" alt="Muntazar Classes Logo" className="footer-logo__img" />
               <div className="footer-logo-text">
                 <span className="footer-logo-name">MUNTAZAR</span>
                 <span className="footer-logo-sub">Classes</span>
@@ -110,27 +110,26 @@ export default function Footer() {
           margin-bottom: 1rem;
         }
         .footer-logo__img {
-          height: 48px;
+          height: 60px;
           width: auto;
           object-fit: contain;
-          filter: brightness(0) invert(1);
         }
         .footer-logo-text { 
           display: flex; 
           flex-direction: column; 
-          margin-left: -0.5rem;
+          margin-left: 0;
         }
         .footer-logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.9rem;
+          font-size: 1.1rem;
           color: var(--text-white);
           letter-spacing: 0.05em;
           line-height: 1;
         }
         .footer-logo-sub {
           font-family: var(--font-display);
-          font-size: 0.5rem;
+          font-size: 0.6rem;
           font-weight: 600;
           color: var(--primary-light);
           letter-spacing: 0.22em;

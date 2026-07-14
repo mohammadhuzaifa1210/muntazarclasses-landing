@@ -30,7 +30,7 @@ export default function Navbar({ onAdmissionClick }) {
       <nav className={`nav ${scrolled ? 'nav--solid' : ''}`}>
         <div className="wrap nav__row">
           <a href="/" className="nav__brand">
-            <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
+            <img src="/logo-main.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
             <div className="nav__logo-text">
               <span className="nav__logo-name">MUNTAZAR</span>
               <span className="nav__logo-sub">Classes</span>
@@ -64,7 +64,7 @@ export default function Navbar({ onAdmissionClick }) {
         <div className="nav__mobile">
           <div className="nav__mobile-header">
             <a href="/" className="nav__brand" onClick={() => setOpen(false)}>
-              <img src="/final-logo.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
+              <img src="/logo-main.svg" alt="Muntazar Classes Logo" className="nav__logo-img" />
               <div className="nav__logo-text">
                 <span className="nav__logo-name">MUNTAZAR</span>
                 <span className="nav__logo-sub">Classes</span>
@@ -109,19 +109,16 @@ export default function Navbar({ onAdmissionClick }) {
         .nav__brand {
           display: flex;
           align-items: center;
-          gap: 0.2rem;
+          gap: 0;
           text-decoration: none;
           z-index: 1001;
-          transform: scale(1.1);
+          transform: scale(1.05);
           transform-origin: left center;
         }
         .nav__logo-img {
-          height: 38px;
+          height: 52px;
           width: auto;
           object-fit: contain;
-          transform: scale(1.7);
-          margin-left: 0.2rem;
-          margin-right: 0.2rem;
         }
         .nav__logo-text { 
           display: flex; 
@@ -130,14 +127,14 @@ export default function Navbar({ onAdmissionClick }) {
         .nav__logo-name {
           font-family: var(--font-display);
           font-weight: 800;
-          font-size: 0.78rem;
+          font-size: 0.9rem;
           color: var(--text-dark);
           letter-spacing: 0.05em;
           line-height: 1;
         }
         .nav__logo-sub {
           font-family: var(--font-display);
-          font-size: 0.42rem;
+          font-size: 0.48rem;
           font-weight: 600;
           color: var(--primary);
           letter-spacing: 0.22em;
@@ -256,13 +253,13 @@ export default function Navbar({ onAdmissionClick }) {
 
         /* ─── sm large phones ─── */
         @media (min-width: 480px) {
-          .nav__brand { transform: scale(1.15); }
-          .nav__logo-img { height: 42px; }
+          .nav__brand { transform: scale(1.1); }
+          .nav__logo-img { height: 56px; }
         }
         /* ─── md tablets (desktop) ─── */
         @media (min-width: 768px) {
-          .nav__brand { transform: scale(1.15); }
-          .nav__logo-img { height: 44px; }
+          .nav__brand { transform: scale(1.1); }
+          .nav__logo-img { height: 60px; }
         }
       `}</style>
     </>
