@@ -7,7 +7,7 @@ export default function FounderDesk() {
       <div className="wrap">
         <div className="founder-grid">
           {/* Left Side */}
-          <motion.div 
+          <motion.div
             className="founder-media"
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -16,23 +16,23 @@ export default function FounderDesk() {
           >
             <div className="founder-img-wrapper">
               <div className="founder-bg-shape"></div>
-              <img 
-                src="/Farman Sir.png" 
-                alt="Prof. Farman Raza Syed - Founder of Muntazar Classes, Hindi medium coaching institute in Govandi Mumbai" 
-                className="founder-img" 
-                loading="lazy" 
+              <img
+                src="/Farman Sir.png"
+                alt="Prof. Farman Raza Syed - Founder of Muntazar Classes, Hindi medium coaching institute in Govandi Mumbai"
+                className="founder-img"
+                loading="lazy"
               />
-              
+
               {/* Empty Decorative Circle */}
               <div className="founder-circle founder-circle--left"></div>
 
               {/* Experience Circle */}
               <div className="founder-circle founder-circle--right">
-                <span className="founder-circle-number">35+</span>
-                <span className="founder-circle-text">Years of<br/>Experience</span>
+                <span className="founder-circle-number">20+</span>
+                <span className="founder-circle-text">Years of<br />Experience</span>
               </div>
             </div>
-            
+
             {/* Additional Details Below Photo */}
             <div className="founder-details">
               <h4 className="founder-details-name">Prof. Farman Raza Syed</h4>
@@ -43,7 +43,7 @@ export default function FounderDesk() {
           </motion.div>
 
           {/* Right Side */}
-          <motion.div 
+          <motion.div
             className="founder-content"
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -54,7 +54,7 @@ export default function FounderDesk() {
             <h2 className="section-head__title" style={{ textAlign: 'left', marginBottom: '1.5rem', marginTop: '0.5rem' }}>
               Professor <span className="accent-serif">Farman Raza Syed</span>
             </h2>
-            
+
             <div className="founder-text">
               <p>
                 It&apos;s <strong>MUNTAZAR CLASSES</strong> founded in the year 2008 in the slums of Govandi.
